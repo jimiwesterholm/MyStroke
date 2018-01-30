@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8dp">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
+
+    <Button
+        android:id="@+id/buttonExercise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:onClick="buttonPress"
+        android:text="@string/exerciseBut" />
+
+    <Button
+        android:id="@+id/buttonImagery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonExercise"
+        android:onClick="buttonPress"
+        android:text="@string/imageryBut" />
+
+    <Button
+        android:id="@+id/buttonTracker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/centreView"
+        android:layout_below="@+id/buttonImagery"
+        android:onClick="buttonPress"
+        android:text="@string/trackerBut" />
+
+    <Button
+        android:id="@+id/buttonAssessment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buttonImagery"
+        android:layout_toRightOf="@+id/buttonTracker"
+        android:onClick="buttonPress"
+        android:text="@string/assessBut" />
+
+    <View
+        android:id="@+id/centreView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true" />
+
+    <Button
+        android:id="@+id/buttonProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/centreView"
+        android:layout_below="@+id/buttonTracker"
+        android:layout_toLeftOf="@id/buttonProfile"
+        android:onClick="buttonPress"
+        android:text="@string/profileBut" />
+
+    <Button
+        android:id="@+id/buttonHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buttonAssessment"
+        android:layout_toRightOf="@+id/buttonProfile"
+        android:onClick="buttonPress"
+        android:text="@string/helpBut" />
+    </RelativeLayout>
+</RelativeLayout>

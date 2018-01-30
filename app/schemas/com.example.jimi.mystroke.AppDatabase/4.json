@@ -1,0 +1,218 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "8903f97d104290f1ec64ed240ef3e55d",
+    "entities": [
+      {
+        "tableName": "User",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`iduser` INTEGER NOT NULL, `username` TEXT, `password` TEXT, `salt` TEXT, `email` TEXT, `patient` INTEGER NOT NULL, `therapist` INTEGER NOT NULL, `firstName` TEXT, `lastName` TEXT, PRIMARY KEY(`iduser`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "iduser",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "salt",
+            "columnName": "salt",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "patient",
+            "columnName": "patient",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "therapist",
+            "columnName": "therapist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "firstName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "lastName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "iduser"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "patient",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idpatient` INTEGER NOT NULL, `user_iduser` INTEGER NOT NULL, `therapist_idtherapist` INTEGER NOT NULL, PRIMARY KEY(`idpatient`), FOREIGN KEY(`user_iduser`) REFERENCES `User`(`iduser`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`therapist_idtherapist`) REFERENCES `therapist`(`idtherapist`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "pid",
+            "columnName": "idpatient",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userID",
+            "columnName": "user_iduser",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "therapist",
+            "columnName": "therapist_idtherapist",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idpatient"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_iduser"
+            ],
+            "referencedColumns": [
+              "iduser"
+            ]
+          },
+          {
+            "table": "therapist",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "therapist_idtherapist"
+            ],
+            "referencedColumns": [
+              "idtherapist"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "therapist",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idtherapist` INTEGER NOT NULL, `user_iduser` INTEGER NOT NULL, `position` TEXT, PRIMARY KEY(`idtherapist`), FOREIGN KEY(`user_iduser`) REFERENCES `User`(`iduser`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "tid",
+            "columnName": "idtherapist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userID",
+            "columnName": "user_iduser",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idtherapist"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_iduser"
+            ],
+            "referencedColumns": [
+              "iduser"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "exercise",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idexercise` INTEGER NOT NULL, `verboseDescription` TEXT, `section` TEXT, `name` TEXT, PRIMARY KEY(`idexercise`))",
+        "fields": [
+          {
+            "fieldPath": "eid",
+            "columnName": "idexercise",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "verboseDescription",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "section",
+            "columnName": "section",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idexercise"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"8903f97d104290f1ec64ed240ef3e55d\")"
+    ]
+  }
+}

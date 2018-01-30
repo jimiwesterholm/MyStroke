@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">MyStroke</string>
+    <string name="db_api_url">http://localhost/api.php</string>
+    <!-- <string name="title_activity_login">Sign in</string> -->
+
+    <!-- Strings related to login -->
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_username">This username is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Strings for App Bar -->
+    <string name="back">Back</string>
+    <string name="log_out">Sign Out</string>
+
+    <!-- Menu item strings -->
+    <string name="exerciseBut">Exercises</string>
+    <string name="imageryBut">Imageries</string>
+    <string name="trackerBut">Tracker</string>
+    <string name="assessBut">Assessment</string>
+    <string name="profileBut">Profile</string>
+    <string name="helpBut">Help</string>
+    <string name="descriptionBut">Description</string>
+    <string name="recordBut">Record Performance</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="name_first">First Name</string>
+    <string name="name_second">Second Name</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="edit">Edit</string>
+    <string name="email">Email</string>
+
+    <!-- Strings for Dialogues -->
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>
