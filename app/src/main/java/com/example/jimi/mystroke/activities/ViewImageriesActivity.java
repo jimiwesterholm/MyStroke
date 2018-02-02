@@ -1,8 +1,8 @@
 package com.example.jimi.mystroke.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -10,13 +10,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Exercise;
+import com.example.jimi.mystroke.models.Imagery;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetExercisesBySectionTask;
+import com.example.jimi.mystroke.tasks.GetImageriesTask;
 import com.example.jimi.mystroke.tasks.GetSectionsTask;
 
 import java.util.List;
@@ -25,10 +26,11 @@ import java.util.concurrent.Future;
 
 import static android.content.ContentValues.TAG;
 
-public class ViewExercisesActivity extends AppCompatActivity implements AsyncResponse {
+public class ViewImageriesActivity extends AppCompatActivity implements AsyncResponse {
     private Toolbar toolbar;
 
     //TODO: Convert from arrayadapter/listview to recyclerview?
+    //TODO: Obviously make everything imageries
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GetSectionsTask gst = new GetSectionsTask(getApplicationContext(), this);
@@ -37,15 +39,13 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView title = (TextView) findViewById(R.id.titleText);
-        title.setText(R.string.exerciseBut);
 
         //TODO: Check for alerts, indicate where
     }
 
     @Override
     protected void onResume() {
-        GetSectionsTask gst = new GetSectionsTask(getApplicationContext(), this);
+        GetImageriesTask gst = new GetImageriesTask(getApplicationContext(), this);
         super.onResume();
 
         //TODO: Convert to use recyclerview insttead of listview
@@ -111,6 +111,11 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
 
     @Override
     public void respond(Object... objects) {
-        itemsToListView((List<String>) objects[0], mMessageClickedHandler);
+        List<String> list = null;
+        List<Imagery> imageries = (List<Imagery>) objects[0];
+        for(Imagery imagery : imageries) {
+            list.add(imagery.getName());
+        }
+        itemsToListView(list, mMessageClickedHandler);
     }
 }
