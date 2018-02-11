@@ -3,6 +3,7 @@ package com.example.jimi.mystroke.daos; /**
  */
 import android.arch.persistence.room.*;
 
+import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.Patient;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface PatientDao {
 
     @Delete
     void delete(Patient patient);
+
+    @Query("SELECT * FROM patient WHERE created > :created")
+    List<Patient> loadChanged(long created);
 }

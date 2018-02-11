@@ -4,8 +4,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.example.jimi.mystroke.DatabaseObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

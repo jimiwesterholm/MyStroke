@@ -1,4 +1,4 @@
-package com.example.jimi.mystroke;
+package com.example.jimi.mystroke.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;

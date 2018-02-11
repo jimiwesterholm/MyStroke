@@ -3,7 +3,7 @@ package com.example.jimi.mystroke.tasks;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.jimi.mystroke.DatabaseObject;
+import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.JSONtoSQLite;
 
@@ -28,12 +28,12 @@ import static android.content.ContentValues.TAG;
 public class SendRecordsTask implements Callable {
     private Context context;
     private String className;
-    List<DatabaseObject> records;
+    List<? extends DatabaseObject> records;
 
-    public List<DatabaseObject> getRecords() {
+    public List<? extends DatabaseObject> getRecords() {
         return records;
     }
-    public void setRecords(List<DatabaseObject> records) {
+    public void setRecords(List<? extends DatabaseObject> records) {
         this.records = records;
     }
     public String getClassName() {
@@ -66,8 +66,9 @@ public class SendRecordsTask implements Callable {
 
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(con.getOutputStream());
             outputStreamWriter.write(recordsToString(records));
-            //convert records to json, then call toString()
+            outputStreamWriter.close();
 
+            /* Get server output
             InputStream is = new BufferedInputStream(con.getInputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line =  br.readLine();
@@ -75,7 +76,7 @@ public class SendRecordsTask implements Callable {
             while (line != null) {
                 fullText += line + "\n";
                 line = br.readLine();
-            }
+            }*/
         } catch (Exception exception) {
             Log.e(TAG, exception.getMessage());
         } finally {
@@ -95,7 +96,7 @@ public class SendRecordsTask implements Callable {
         return null;
     }
 
-    public String recordsToString(List<DatabaseObject> records) throws JSONException {
+    public String recordsToString(List<? extends DatabaseObject> records) throws JSONException {
         String result = null;
         for (DatabaseObject record : records) {
             result.concat(record.toJSON().toString());

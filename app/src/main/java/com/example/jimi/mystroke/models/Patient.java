@@ -3,12 +3,8 @@ package com.example.jimi.mystroke.models; /**
  */
 import android.arch.persistence.room.*;
 
-import com.example.jimi.mystroke.DatabaseObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Date;
 
 @Entity(tableName = "patient",
         foreignKeys = {

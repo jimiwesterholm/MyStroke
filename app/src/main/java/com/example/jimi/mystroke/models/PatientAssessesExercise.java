@@ -3,16 +3,11 @@ package com.example.jimi.mystroke.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-
-import com.example.jimi.mystroke.DatabaseObject;
-import com.example.jimi.mystroke.PersistenceTypeConverters;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
-import java.util.Calendar;
 
 /**
  * Created by jimi on 28/12/2017.

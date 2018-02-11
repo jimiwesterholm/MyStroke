@@ -35,7 +35,7 @@ import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.User;
 import com.example.jimi.mystroke.daos.UserDao;
-import com.example.jimi.mystroke.tasks.SynchDatabaseTask;
+import com.example.jimi.mystroke.tasks.SyncDatabaseTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -293,7 +293,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             if (intent != null) {
-                new SynchDatabaseTask().run();
+                new SyncDatabaseTask().run();
                 startActivity(intent);
                 return true;
             } else {

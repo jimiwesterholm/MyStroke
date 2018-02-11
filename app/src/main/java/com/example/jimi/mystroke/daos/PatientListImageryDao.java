@@ -26,4 +26,7 @@ public interface PatientListImageryDao {
 
     @Delete
     void delete(PatientListImagery patientListImagery);
+
+    @Query("SELECT * FROM patient_list_imagery WHERE created > :created")
+    List<PatientListImagery> loadChanged(long created);
 }

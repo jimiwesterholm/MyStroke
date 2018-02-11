@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.Exercise;
 
 import java.util.List;
@@ -35,4 +36,7 @@ public interface ExerciseDao {
 
     @Delete
     void delete(Exercise exercise);
+
+    @Query("SELECT * FROM exercise WHERE created > :created")
+    List<Exercise> loadChanged(long created);
 }

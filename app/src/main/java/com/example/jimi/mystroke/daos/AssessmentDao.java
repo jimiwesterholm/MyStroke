@@ -6,6 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import com.example.jimi.mystroke.models.Assessment;
+import com.example.jimi.mystroke.models.DatabaseObject;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ public interface AssessmentDao {
 
     @Query("SELECT * FROM assessment WHERE idassessment IN (:assessmentIds)")
     List<Assessment> loadAllByIds(int[] assessmentIds);
+
+    @Query("SELECT * FROM assessment WHERE created > (:created)")
+    List<Assessment> loadChanged(long created);
 
     @Insert
     void insertAll(Assessment... assessments);

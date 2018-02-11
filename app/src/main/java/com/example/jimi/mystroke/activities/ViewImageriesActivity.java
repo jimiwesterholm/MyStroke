@@ -33,7 +33,8 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
     //TODO: Obviously make everything imageries
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GetSectionsTask gst = new GetSectionsTask(getApplicationContext(), this);
+        GetImageriesTask git = new GetImageriesTask(getApplicationContext(), this);
+        git.execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
@@ -45,59 +46,28 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
 
     @Override
     protected void onResume() {
-        GetImageriesTask gst = new GetImageriesTask(getApplicationContext(), this);
+        GetImageriesTask git = new GetImageriesTask(getApplicationContext(), this);
+        git.execute();
         super.onResume();
 
-        //TODO: Convert to use recyclerview insttead of listview
+        //TODO: Convert to use recyclerview instead of listview
         /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.sample_list_element_view, sections.toArray(new String[0]));
         ListView listView = (ListView) findViewById(R.id.exercises);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(mMessageClickedHandler);*/
     }
 
-    private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
-        public void onItemClick(AdapterView parent, View v, int position, long id)
-        {
-            String section = (String) parent.getAdapter().getItem(position);
-
-            if(section.equals("Imageries")) {
-
-            } else {
-
-            }
-
-            //TODO: convert to AsyncTask
-            GetExercisesBySectionTask gest = new GetExercisesBySectionTask(AppDatabase.getDatabase(getApplicationContext()), section);
-            Future<List<Exercise>> future = Executors.newSingleThreadExecutor().submit(gest);
-            ListView listView = (ListView) findViewById(R.id.exercises);
-            List<Exercise> exercises = null;
-            try {
-                do {
-                    exercises = future.get();
-                } while (!future.isDone());
-            } catch (Exception ex) {
-                Log.e(TAG, ex.getMessage());
-            }
-            //TODO: asynctask with loading bar, NOT that^ shite
-            //https://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
-
-            ArrayAdapter<Exercise> adapter = new ArrayAdapter<Exercise>(getApplicationContext(), R.layout.sample_list_element_view, exercises.toArray(new Exercise[0]));
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(exerciseClickedHandler);
-        }
-    };
-
-    private AdapterView.OnItemClickListener exerciseClickedHandler = new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemClickListener imageryClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
-            Exercise clicked = (Exercise) parent.getAdapter().getItem(position);
-            Intent intent = new Intent(getBaseContext(), ExerciseActivity.class);
-            intent.putExtra("EXTRA_EXERCISE_ID", clicked.getEid());
+            Imagery clicked = (Imagery) parent.getAdapter().getItem(position);
+            Intent intent = new Intent(getBaseContext(), ImageryActivity.class);
+            intent.putExtra("EXTRA_IMAGERY_ID", clicked.getImageryID());
             startActivity(intent);
         }
     };
 
-    private void itemsToListView(List<String> items, AdapterView.OnItemClickListener listener) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.sample_list_element_view, items.toArray(new String[0]));
+    private void itemsToListView(List<Imagery> items, AdapterView.OnItemClickListener listener) {
+        ArrayAdapter<Imagery> adapter = new ArrayAdapter<Imagery>(this, R.layout.sample_list_element_view, items);
         ListView listView = (ListView) findViewById(R.id.exercises);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
@@ -111,11 +81,6 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
 
     @Override
     public void respond(Object... objects) {
-        List<String> list = null;
-        List<Imagery> imageries = (List<Imagery>) objects[0];
-        for(Imagery imagery : imageries) {
-            list.add(imagery.getName());
-        }
-        itemsToListView(list, mMessageClickedHandler);
+        itemsToListView((List<Imagery>) objects[0], imageryClickedHandler);
     }
 }

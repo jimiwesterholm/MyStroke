@@ -4,14 +4,10 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.example.jimi.mystroke.DatabaseObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Created by jimi on 27/12/2017.

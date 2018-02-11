@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.tasks.FetchRecordsTask;
 import com.example.jimi.mystroke.R;
-import com.example.jimi.mystroke.tasks.SynchDatabaseTask;
+import com.example.jimi.mystroke.tasks.SyncDatabaseTask;
 
 import static android.content.ContentValues.TAG;
 
@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         frtUser.setContext(context);
         Future<String> future = Executors.newSingleThreadExecutor().submit(frtUser);
         String temp = null;
+        SyncDatabaseTask syncDatabaseTask = new SyncDatabaseTask();
+        syncDatabaseTask.setContext(getApplicationContext());
+        syncDatabaseTask.run();
         TextView text = (TextView) findViewById(R.id.text);
         try {
             text.setText("Loading");

@@ -20,4 +20,7 @@ public interface TherapistDao {
 
     @Delete
     void delete(Therapist therapist);
+
+    @Query("SELECT * FROM therapist WHERE created > :created")
+    List<Therapist> loadChanged(long created);
 }

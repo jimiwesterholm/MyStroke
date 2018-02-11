@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.Imagery;
 
 import java.util.List;
@@ -26,4 +27,7 @@ public interface ImageryDao {
 
     @Delete
     void delete(Imagery imagery);
+
+    @Query("SELECT * FROM imagery WHERE created > :created")
+    List<Imagery> loadChanged(long created);
 }
