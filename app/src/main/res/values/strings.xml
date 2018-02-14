@@ -42,4 +42,5 @@
     <string name="confirm">Confirm</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="title_activity_chat">Chat</string>
 </resources>

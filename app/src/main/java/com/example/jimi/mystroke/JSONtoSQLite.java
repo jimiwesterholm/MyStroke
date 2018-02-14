@@ -58,7 +58,7 @@ public class JSONtoSQLite {
                     results.add((T) new Exercise((int) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (int) record.get(4)));
                     break;
                 case "assessment":
-                    results.add ((T) new Assessment((int) record.get(0), (double) record.get(1), (double) record.get(2), (String) record.get(3)));
+                    results.add ((T) new Assessment((int) record.get(0), (int) record.get(1), (int) record.get(2), (String) record.get(3)));
                     break;
                 case "comment":
                     results.add((T) new Comment((int) record.get(0) , (Date) record.get(1), (Time) record.get(2), (String) record.get(3), (int) record.get(4), (int) record.get(5)));

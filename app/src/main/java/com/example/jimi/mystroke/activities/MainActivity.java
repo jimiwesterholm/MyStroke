@@ -36,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
         frtUser.setContext(context);
         Future<String> future = Executors.newSingleThreadExecutor().submit(frtUser);
         String temp = null;
-        SyncDatabaseTask syncDatabaseTask = new SyncDatabaseTask();
-        syncDatabaseTask.setContext(getApplicationContext());
-        syncDatabaseTask.run();
+
         TextView text = (TextView) findViewById(R.id.text);
         try {
             text.setText("Loading");

@@ -293,7 +293,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             if (intent != null) {
-                new SyncDatabaseTask().run();
+                new SyncDatabaseTask(getApplicationContext()).run();
                 startActivity(intent);
                 return true;
             } else {

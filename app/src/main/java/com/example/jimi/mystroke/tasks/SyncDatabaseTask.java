@@ -2,6 +2,7 @@ package com.example.jimi.mystroke.tasks;
 
 import android.content.Context;
 
+import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.models.User;
@@ -16,11 +17,15 @@ public class SyncDatabaseTask implements Runnable {
     private String[] classNames = {"assessment", "exercise", "imagery", "user", "therapist", "patient", "patient_assessess_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
     private Context context;
 
+    public SyncDatabaseTask(Context context) {
+        this.context = context;
+    }
+
     @Override
     public void run() {
         User loggedInUser = Globals.getInstance().getUser();
-        User user = findUser(loggedInUser.getUid());
-        if(user == null || user.getPassword() != loggedInUser.getPassword() || user.getSalt() != loggedInUser.getSalt()) {
+        User user = findUser(loggedInUser.getUsername());
+        if(user == null || !user.getPassword().equals(loggedInUser.getPassword()) || !user.getSalt().equals(loggedInUser.getSalt())) {
             //TODO: Consider additional security measures? - esp. server side authentication
             return;
         }
@@ -46,7 +51,7 @@ public class SyncDatabaseTask implements Runnable {
         this.context = context;
     }
 
-    private User findUser(int id) {
-        return null;
+    private User findUser(String username) {
+        return AppDatabase.getDatabase(context).userDao().findByUsername(username);
     }
 }

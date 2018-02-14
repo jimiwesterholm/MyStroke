@@ -19,6 +19,9 @@ public interface CommentDao {
     @Query("SELECT * FROM comment")
     List<Comment> getAll();
 
+    @Query("SELECT * FROM comment ORDER BY created")
+    List<Comment> getAllOrdered();
+
     @Query("SELECT * FROM comment WHERE idcomment IN (:commentIds)")
     List<Comment> loadAllByIds(int[] commentIds);
 

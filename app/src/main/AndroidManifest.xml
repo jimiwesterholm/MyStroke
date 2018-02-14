@@ -31,7 +31,11 @@
         <activity android:name=".activities.AssessmentActivity" />
         <activity android:name=".activities.ProfileActivity" />
         <activity android:name=".activities.HelpActivity" />
-        <activity android:name=".activities.ViewExercisesActivity"></activity>
+        <activity android:name=".activities.ViewExercisesActivity" />
+        <activity
+            android:name=".Activity_Chat"
+            android:label="@string/title_activity__chat"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
