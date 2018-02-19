@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 6,
-    "identityHash": "446ccf542ae853fb39cd9505ec6d50d5",
+    "version": 7,
+    "identityHash": "ca56382351a7acb9be913df5aebabf93",
     "entities": [
       {
         "tableName": "User",
@@ -203,7 +203,7 @@
       },
       {
         "tableName": "exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idexercise` INTEGER NOT NULL, `verboseDescription` TEXT, `section` TEXT, `assessment_idassessment` INTEGER NOT NULL, `name` TEXT, `created` INTEGER NOT NULL, PRIMARY KEY(`idexercise`), FOREIGN KEY(`assessment_idassessment`) REFERENCES `Assessment`(`idassessment`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idexercise` INTEGER NOT NULL, `verboseDescription` TEXT, `section` TEXT, `assessment_idassessment` INTEGER NOT NULL, `name` TEXT, `created` INTEGER NOT NULL, `viewed` INTEGER NOT NULL, PRIMARY KEY(`idexercise`), FOREIGN KEY(`assessment_idassessment`) REFERENCES `Assessment`(`idassessment`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "eid",
@@ -238,6 +238,12 @@
           {
             "fieldPath": "created",
             "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "viewed",
+            "columnName": "viewed",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -617,7 +623,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"446ccf542ae853fb39cd9505ec6d50d5\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ca56382351a7acb9be913df5aebabf93\")"
     ]
   }
 }

@@ -7,7 +7,9 @@ import android.provider.ContactsContract;
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.daos.ExerciseDao;
 import com.example.jimi.mystroke.models.Exercise;
+import com.example.jimi.mystroke.models.ExerciseSection;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -15,7 +17,7 @@ import java.util.concurrent.Callable;
  * Created by jimi on 17/12/2017.
 **/
 
-public class GetSectionsTask extends AsyncTask<Void, Void, List<String>> {
+public class GetSectionsTask extends AsyncTask<Void, Void, List<ExerciseSection>> {
     AppDatabase aDb;
     AsyncResponse asyncResponse;
     List<String> results;
@@ -26,12 +28,17 @@ public class GetSectionsTask extends AsyncTask<Void, Void, List<String>> {
     }
 
     @Override
-    protected List<String> doInBackground(Void...foo) {
+    protected List<ExerciseSection> doInBackground(Void...foo) {
         ExerciseDao exerciseDao = aDb.exerciseDao();
-        return exerciseDao.getSections();
+        List<String> sectionNames = exerciseDao.getSections();
+        List<ExerciseSection> sections = new ArrayList<ExerciseSection>();
+        for (String sectionName : sectionNames) {
+            sections.add(new ExerciseSection(exerciseDao.getBySectionAndViewed(sectionName, false).size(), sectionName));
+        }
+        return sections;
     }
 
-    protected void onPostExecute(List<String> results) {
+    protected void onPostExecute(List<ExerciseSection> results) {
         asyncResponse.respond(results);
     }
 }

@@ -33,8 +33,7 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
     //TODO: Obviously make everything imageries
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GetImageriesTask git = new GetImageriesTask(getApplicationContext(), this);
-        git.execute();
+        new GetImageriesTask(getApplicationContext(), this).execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 

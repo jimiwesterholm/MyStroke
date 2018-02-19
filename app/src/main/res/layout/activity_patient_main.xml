@@ -29,14 +29,14 @@
         android:text="@string/exerciseBut" />
 
     <Button
-        android:id="@+id/buttonImagery"
+        android:id="@+id/buttonChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/buttonExercise"
         android:onClick="buttonPress"
-        android:text="@string/imageryBut" />
+        android:text="@string/chatBut" />
 
     <Button
         android:id="@+id/buttonTracker"
@@ -45,9 +45,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/centreView"
-        android:layout_below="@+id/buttonImagery"
+        android:layout_below="@+id/buttonChat"
         android:onClick="buttonPress"
-        android:text="@string/trackerBut" />
+        android:text="@string/trackerBut"
+        android:layout_alignEnd="@+id/centreView" />
 
     <Button
         android:id="@+id/buttonAssessment"
@@ -55,10 +56,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/buttonImagery"
+        android:layout_below="@+id/buttonChat"
         android:layout_toRightOf="@+id/buttonTracker"
         android:onClick="buttonPress"
-        android:text="@string/assessBut" />
+        android:text="@string/assessBut"
+        android:layout_toEndOf="@+id/buttonTracker" />
 
     <View
         android:id="@+id/centreView"
@@ -76,7 +78,9 @@
         android:layout_below="@+id/buttonTracker"
         android:layout_toLeftOf="@id/buttonProfile"
         android:onClick="buttonPress"
-        android:text="@string/profileBut" />
+        android:text="@string/profileBut"
+        android:layout_toStartOf="@id/buttonProfile"
+        android:layout_alignEnd="@+id/centreView" />
 
     <Button
         android:id="@+id/buttonHelp"
@@ -87,6 +91,7 @@
         android:layout_below="@+id/buttonAssessment"
         android:layout_toRightOf="@+id/buttonProfile"
         android:onClick="buttonPress"
-        android:text="@string/helpBut" />
+        android:text="@string/helpBut"
+        android:layout_toEndOf="@+id/buttonProfile" />
     </RelativeLayout>
 </RelativeLayout>

@@ -33,8 +33,8 @@
         <activity android:name=".activities.HelpActivity" />
         <activity android:name=".activities.ViewExercisesActivity" />
         <activity
-            android:name=".Activity_Chat"
-            android:label="@string/title_activity__chat"
+            android:name=".activities.ChatActivity"
+            android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme"></activity>
     </application>
 

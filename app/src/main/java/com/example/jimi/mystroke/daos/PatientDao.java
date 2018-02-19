@@ -16,7 +16,7 @@ public interface PatientDao {
     @Query("SELECT * FROM patient WHERE idpatient IN (:patientIds)")
     List<Patient> loadAllByIds(int[] patientIds);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Patient... patients);
 
     @Delete

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Exercise;
+import com.example.jimi.mystroke.models.ExerciseSection;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetExercisesBySectionTask;
 import com.example.jimi.mystroke.tasks.GetSectionsTask;
@@ -25,13 +26,13 @@ import java.util.concurrent.Future;
 
 import static android.content.ContentValues.TAG;
 
-public class ViewExercisesActivity extends AppCompatActivity implements AsyncResponse {
+public class ViewExerciseSectionsActivity extends AppCompatActivity implements AsyncResponse {
     private Toolbar toolbar;
 
     //TODO: Convert from arrayadapter/listview to recyclerview?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetExercisesBySectionTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION")).execute();
+        new GetSectionsTask(getApplicationContext(), this).execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
@@ -45,7 +46,7 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
 
     @Override
     protected void onResume() {
-        new GetExercisesBySectionTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION")).execute();
+        GetSectionsTask gst = new GetSectionsTask(getApplicationContext(), this);
         super.onResume();
 
         //TODO: Convert to use recyclerview insttead of listview
@@ -58,18 +59,23 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
-            Exercise selected = (Exercise) parent.getAdapter().getItem(position);
-            Intent intent = new Intent(getBaseContext(), ExerciseActivity.class);
-            intent.putExtra("EXTRA_EXERCISE_ID", selected.getEid());
+            String section = (String) parent.getAdapter().getItem(position);
+            Intent intent;
+            if(section.equals("Imageries")) {
+                intent = new Intent(getApplicationContext(), ViewImageriesActivity.class);
+            } else {
+                intent = new Intent(getApplicationContext(), ViewExercisesActivity.class);
+                intent.putExtra("EXTRA_SECTION", section);
+            }
             startActivity(intent);
         }
     };
 
-    private void itemsToListView(List<String> items, AdapterView.OnItemClickListener listener) {
-        ArrayAdapter<Exercise> adapter = new ArrayAdapter<Exercise>(this, R.layout.sample_list_element_view, items.toArray(new Exercise[0]));
+    private void itemsToListView(List<ExerciseSection> items, AdapterView.OnItemClickListener listener) {
+        ArrayAdapter<ExerciseSection> adapter = new ArrayAdapter<ExerciseSection>(this, R.layout.sample_list_element_view, items.toArray(new ExerciseSection[0]));
         ListView listView = (ListView) findViewById(R.id.exercises);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(mMessageClickedHandler);
+        listView.setOnItemClickListener(listener);
     }
 
     @Override
@@ -80,6 +86,6 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
 
     @Override
     public void respond(Object... objects) {
-        itemsToListView((List<String>) objects[0], mMessageClickedHandler);
+        itemsToListView((List<ExerciseSection>) objects[0], mMessageClickedHandler);
     }
 }

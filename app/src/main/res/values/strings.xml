@@ -23,6 +23,7 @@
     <!-- Menu item strings -->
     <string name="exerciseBut">Exercises</string>
     <string name="imageryBut">Imageries</string>
+    <string name="chatBut">Messages</string>
     <string name="trackerBut">Tracker</string>
     <string name="assessBut">Assessment</string>
     <string name="profileBut">Profile</string>
@@ -42,5 +43,7 @@
     <string name="confirm">Confirm</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="send">Send</string>
     <string name="title_activity_chat">Chat</string>
+    <string name="message_edit_text_hint">Click to write</string>
 </resources>

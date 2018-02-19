@@ -3,6 +3,7 @@ package com.example.jimi.mystroke.daos;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.example.jimi.mystroke.models.Assessment;
@@ -24,7 +25,7 @@ public interface AssessmentDao {
     @Query("SELECT * FROM assessment WHERE created > (:created)")
     List<Assessment> loadChanged(long created);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Assessment... assessments);
 
     @Delete

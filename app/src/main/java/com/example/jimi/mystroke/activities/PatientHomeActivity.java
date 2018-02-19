@@ -35,8 +35,8 @@ public class PatientHomeActivity extends AppCompatActivity {
             case (R.id.buttonExercise):
                 intent = new Intent(getApplicationContext(), ViewExercisesActivity.class);
                 break;
-            case (R.id.buttonImagery):
-                intent = new Intent(getApplicationContext(), ImageryActivity.class);
+            case (R.id.buttonChat):
+                intent = new Intent(getApplicationContext(), ChatActivity.class);
                 break;
             case (R.id.buttonTracker):
                 intent = new Intent(getApplicationContext(), TrackerActivity.class);

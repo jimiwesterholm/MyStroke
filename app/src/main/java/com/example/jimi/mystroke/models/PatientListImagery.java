@@ -71,7 +71,7 @@ public class PatientListImagery implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idpatient_list_imagery", listImageryID);
+        //jsonObject.put("idpatient_list_imagery", listImageryID);
         jsonObject.put("idpatient", pID);
         jsonObject.put("idimagery", iID);
         return jsonObject;

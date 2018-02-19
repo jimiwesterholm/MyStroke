@@ -90,7 +90,7 @@ public class Patient implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idpatient", pid);
+        //jsonObject.put("idpatient", pid);
         jsonObject.put("user_iduser", userID);
         jsonObject.put("therapist_idtherapist", therapist);
         jsonObject.put("active", active);

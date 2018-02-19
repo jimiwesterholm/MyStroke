@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 public class SyncDatabaseTask implements Runnable {
-    private String[] classNames = {"assessment", "exercise", "imagery", "user", "therapist", "patient", "patient_assessess_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
+    private String[] classNames = {"assessment", "exercise", "imagery", "user", "therapist", "patient", "patient_assesses_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
     private Context context;
 
     public SyncDatabaseTask(Context context) {

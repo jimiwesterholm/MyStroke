@@ -48,6 +48,11 @@ public class RecordsToAppDatabase extends AsyncTask<Object, Integer, Boolean> {
         this.context = context;
     }
 
+    public RecordsToAppDatabase(String className, Context context) {
+        this.className = className;
+        this.context = context;
+    }
+
     @Override
     protected Boolean doInBackground(Object[] objects) {
         if (className == null || context == null) return false;

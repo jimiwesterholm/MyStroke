@@ -72,7 +72,7 @@ public class PatientListExercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("patient_list_exerciseid", listExerciseID);
+        //jsonObject.put("patient_list_exerciseid", listExerciseID);
         jsonObject.put("patient_id", pID);
         jsonObject.put("exercise_id", eID);
         return jsonObject;

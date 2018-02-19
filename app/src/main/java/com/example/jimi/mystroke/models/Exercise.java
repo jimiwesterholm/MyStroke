@@ -41,9 +41,12 @@ public class Exercise implements DatabaseObject {
     @ColumnInfo(name = "name")
     private String name;
 
-    //Used to determine which objects have been changed since the last sync the application
+    //Used to determine which objects have been changed since the last sync of the application
     @ColumnInfo
     private long created;
+
+    @ColumnInfo
+    private boolean viewed;
 
     public Exercise(int eid, String description, String section, String name, int aid) {
         this.eid = eid;
@@ -52,6 +55,7 @@ public class Exercise implements DatabaseObject {
         this.name = name;
         this.aid = aid;
         created  = new Date().getTime();
+        viewed = false;
     }
 
     public long getCreated() {
@@ -90,7 +94,12 @@ public class Exercise implements DatabaseObject {
     public void setName(String name) {
         this.name = name;
     }
-
+    public boolean isViewed() {
+        return viewed;
+    }
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+    }
 
     @Override
     public String toString() {
@@ -100,7 +109,7 @@ public class Exercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idexercise", eid);
+        //jsonObject.put("idexercise", eid);
         jsonObject.put("verbose_description", description);
         jsonObject.put("section", section);
         jsonObject.put("name", name);

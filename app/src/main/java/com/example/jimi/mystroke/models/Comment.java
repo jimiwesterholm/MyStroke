@@ -25,6 +25,8 @@ public class Comment implements DatabaseObject {
 
     private String text;
 
+    private int sentByPatient;
+
     private java.sql.Date date;
 
     private Time time;
@@ -35,7 +37,7 @@ public class Comment implements DatabaseObject {
     private long created;
 
 
-    public Comment(int cid, java.sql.Date date, Time time, String text, int patientId, int exerciseId) {
+    public Comment(int cid, java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
         this.cid = cid;
         this.time = time;
         this.date = date;
@@ -44,6 +46,7 @@ public class Comment implements DatabaseObject {
         this.text = text;
         created = System.currentTimeMillis();
         timestamp = date.getTime() + time.getTime();
+        this.sentByPatient = sentByPatient;
     }
 
     public long getCreated() {
@@ -94,16 +97,23 @@ public class Comment implements DatabaseObject {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+    public int getSentByPatient() {
+        return sentByPatient;
+    }
+    public void setSentByPatient(int sentByPatient) {
+        this.sentByPatient = sentByPatient;
+    }
 
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idcomment", cid);
+        //jsonObject.put("idcomment", cid);
         jsonObject.put("date", date);
         jsonObject.put("time", time);
         jsonObject.put("text", text);
         jsonObject.put("patient_idpatient", patientId);
         jsonObject.put("exercise_idexercise", exerciseId);
+        jsonObject.put("sent_by_patient", sentByPatient);
         return jsonObject;
     }
 }

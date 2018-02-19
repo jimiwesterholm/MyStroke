@@ -26,7 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         editFields[0] = findViewById(R.id.textUserEdit);
@@ -97,9 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
         user.setLastName(editFields[2].getText().toString());
         user.setEmail(editFields[3].getText().toString());
 
-        RecordsToAppDatabase recordsToAppDatabase = new RecordsToAppDatabase();
-        recordsToAppDatabase.setClassName("user");
-        recordsToAppDatabase.setContext(getApplicationContext());
+        RecordsToAppDatabase recordsToAppDatabase = new RecordsToAppDatabase("user", getApplicationContext());
         recordsToAppDatabase.execute(user);
 
         cancelButtonOnClick(editButton);
