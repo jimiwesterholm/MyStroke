@@ -25,6 +25,9 @@ public interface CommentDao {
     @Query("SELECT * FROM comment WHERE idcomment IN (:commentIds)")
     List<Comment> loadAllByIds(int[] commentIds);
 
+    @Query("SELECT MAX(idcomment) FROM comment")
+    int loadMaxId();
+
     @Insert
     void insertAll(Comment... comments);
 

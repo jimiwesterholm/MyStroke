@@ -131,6 +131,11 @@ public class User implements DatabaseObject {
     }
 
     @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName();
+    }
+
+    @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         //jsonObject.put("iduser", uid);

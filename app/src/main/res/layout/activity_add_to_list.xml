@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jimi.mystroke.activities.AddToListActivity">
+
+    <Spinner
+        android:id="@+id/choosePatientSpinner"
+        android:layout_width="304dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/choosePatientText"
+        app:layout_constraintTop_toBottomOf="@+id/choosePatientText" />
+
+    <Spinner
+        android:id="@+id/chooseSectionSpinner"
+        android:layout_width="304dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/chooseSectionText"
+        app:layout_constraintTop_toBottomOf="@+id/chooseSectionText" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/choosePatientText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/choose_patient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/chooseSectionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/choose_section"
+        app:layout_constraintStart_toStartOf="@+id/choosePatientSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/choosePatientSpinner" />
+
+    <TextView
+        android:id="@+id/chooseItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/choose_item"
+        app:layout_constraintStart_toStartOf="@+id/chooseSectionSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/chooseSectionSpinner" />
+
+    <Spinner
+        android:id="@+id/chooseItemSpinner"
+        android:layout_width="304dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/chooseItemText"
+        app:layout_constraintTop_toBottomOf="@+id/chooseItemText" />
+</android.support.constraint.ConstraintLayout>

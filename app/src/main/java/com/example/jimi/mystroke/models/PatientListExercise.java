@@ -34,12 +34,15 @@ public class PatientListExercise implements DatabaseObject {
 
     private int eID;
 
+    private String message;
+
     private long created;
 
-    public PatientListExercise(int listExerciseID, int pID, int eID) {
+    public PatientListExercise(int listExerciseID, int pID, int eID, String message) {
         this.listExerciseID = listExerciseID;
         this.pID = pID;
         this.eID = eID;
+        this.message = message;
         created = System.currentTimeMillis();
     }
 
@@ -67,7 +70,12 @@ public class PatientListExercise implements DatabaseObject {
     public void setCreated(long created) {
         this.created = created;
     }
-
+    public String getMessage() {
+        return message;
+    }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     @Override
     public JSONObject toJSON() throws JSONException {

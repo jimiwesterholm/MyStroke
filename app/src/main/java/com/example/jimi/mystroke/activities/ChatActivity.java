@@ -27,6 +27,8 @@ import com.example.jimi.mystroke.CommentAdapter;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Comment;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
+import com.example.jimi.mystroke.tasks.GetCommentsTask;
+import com.example.jimi.mystroke.tasks.GetMaxCommentIdTask;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabase;
 
 import java.lang.reflect.Array;
@@ -38,10 +40,12 @@ import java.util.List;
 public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     private EditText messageText;
     private Button messageButton;
+    private CommentAdapter adapter;
+    private List<Comment> messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetCommentsTask(getApplicationContext()).execute();
+        new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
@@ -55,8 +59,18 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         messageText = (EditText) findViewById(R.id.messageText);
     }
 
-    private void sendButtonOnClick() {
-        new RecordsToAppDatabase("comment", getApplicationContext()).execute(new Comment[]{new Comment(1, new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), 1, 1, 1)});
+    public void sendButtonOnClick(View view) {
+        if(!messageText.getText().toString().equals(null)) {
+            new GetMaxCommentIdTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
+        }
+    }
+
+    public void addComment(int id) {
+        Comment comment = new Comment(id+1, new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), 1, 1, 1);
+        new RecordsToAppDatabase("comment", getApplicationContext()).execute(new Comment[]{comment});
+        messages.add(comment);
+        messageText.getText().clear();
+        adapter.notifyDataSetChanged();
     }
 
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
@@ -66,7 +80,8 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     };
 
     private void itemsToListView(List<Comment> items, AdapterView.OnItemClickListener listener) {
-        CommentAdapter adapter = new CommentAdapter(this, items);
+        messages = items;
+        adapter = new CommentAdapter(this, messages);
         ListView listView = (ListView) findViewById(R.id.messages);
         listView.setAdapter(adapter);
         //listView.setOnItemClickListener(listener);
@@ -79,23 +94,15 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     }
 
     @Override
-    public void respond(Object... objects) {
-        itemsToListView((List<Comment>) objects[0], mMessageClickedHandler);
-    }
-
-
-    private class GetCommentsTask extends AsyncTask<Void, Void, List<Comment>> {
-        private Context context;
-        private AppDatabase appDatabase;
-
-        public GetCommentsTask(Context context) {
-            this.context = context;
-            appDatabase = AppDatabase.getDatabase(context);
-        }
-
-        @Override
-        protected List<Comment> doInBackground(Void... voids) {
-            return appDatabase.commentDao().getAllOrdered();
+    public void respond(int var, Object... objects) {
+        switch (var) {
+            case GetCommentsTask.var:
+                itemsToListView((List<Comment>) objects[0], mMessageClickedHandler);
+                break;
+            case GetMaxCommentIdTask.var:
+                addComment((Integer) objects[0]);
+                break;
         }
     }
+
 }

@@ -44,6 +44,10 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="send">Send</string>
+    <string name="add">Add</string>
     <string name="title_activity_chat">Chat</string>
     <string name="message_edit_text_hint">Click to write</string>
+    <string name="choose_patient">Choose a patient</string>
+    <string name="choose_item">Choose an item</string>
+    <string name="choose_section">Choose a category</string>
 </resources>

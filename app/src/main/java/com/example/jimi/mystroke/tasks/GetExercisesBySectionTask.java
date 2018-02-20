@@ -14,9 +14,10 @@ import java.util.concurrent.Callable;
  */
 
 public class GetExercisesBySectionTask extends AsyncTask<Void, Void, List<Exercise>> {
-    AppDatabase aDb;
-    AsyncResponse asyncResponse;
-    String section;
+    private AppDatabase aDb;
+    private AsyncResponse asyncResponse;
+    private String section;
+    public static final int var = 5;
 
     public GetExercisesBySectionTask(AppDatabase aDb, AsyncResponse asyncResponse, String section) {
         this.aDb = aDb;
@@ -30,4 +31,8 @@ public class GetExercisesBySectionTask extends AsyncTask<Void, Void, List<Exerci
         return exerciseDao.getBySection(section);
     }
 
+    @Override
+    protected void onPostExecute(List<Exercise> exercises) {
+        asyncResponse.respond(var, exercises);
+    }
 }

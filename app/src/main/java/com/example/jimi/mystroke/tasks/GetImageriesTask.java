@@ -16,6 +16,7 @@ import java.util.List;
 public class GetImageriesTask extends AsyncTask<Void, Void, List<Imagery>>{
     AppDatabase appDatabase;
     AsyncResponse asyncResponse;
+    public static final int var = 3;
 
     public GetImageriesTask(Context applicationContext, AsyncResponse asyncResponse) {
         appDatabase = AppDatabase.getDatabase(applicationContext);
@@ -29,6 +30,6 @@ public class GetImageriesTask extends AsyncTask<Void, Void, List<Imagery>>{
 
     @Override
     protected void onPostExecute(List<Imagery> result) {
-        asyncResponse.respond(result);
+        asyncResponse.respond(var, result);
     }
 }

@@ -23,6 +23,9 @@ public interface PatientListExerciseDao {
     @Query("SELECT * FROM patient_list_exercise WHERE listExerciseID IN (:patientListExerciseIds)")
     List<PatientListExercise> loadAllByIds(int[] patientListExerciseIds);
 
+    @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID")
+    List<PatientListExercise> loadAllByPatientID(int pID);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(PatientListExercise... patientListExercises);
 

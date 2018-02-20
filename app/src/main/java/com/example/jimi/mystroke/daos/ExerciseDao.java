@@ -32,6 +32,12 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIds)")
     List<Exercise> loadAllByIds(int[] exerciseIds);
 
+    @Query("SELECT * FROM exercise WHERE idexercise NOT IN (:exerciseIds)")
+    List<Exercise> loadAllButIds(int[] exerciseIds);
+
+    @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIds) AND section =:section")
+    List<Exercise> loadAllByIdsFromSection(int[] exerciseIds, String section);
+
     @Query("SELECT * FROM exercise WHERE idexercise = :exerciseId LIMIT 1")
     Exercise loadById(int exerciseId);
 

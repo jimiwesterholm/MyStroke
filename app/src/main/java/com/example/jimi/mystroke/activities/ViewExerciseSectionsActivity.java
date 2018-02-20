@@ -59,13 +59,13 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
-            String section = (String) parent.getAdapter().getItem(position);
+            ExerciseSection section = (ExerciseSection) parent.getAdapter().getItem(position);
             Intent intent;
-            if(section.equals("Imageries")) {
+            if(section.getName().equals("Imageries")) {
                 intent = new Intent(getApplicationContext(), ViewImageriesActivity.class);
             } else {
                 intent = new Intent(getApplicationContext(), ViewExercisesActivity.class);
-                intent.putExtra("EXTRA_SECTION", section);
+                intent.putExtra("EXTRA_SECTION", section.getName());
             }
             startActivity(intent);
         }
@@ -85,7 +85,7 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     }
 
     @Override
-    public void respond(Object... objects) {
+    public void respond(int var, Object... objects) {
         itemsToListView((List<ExerciseSection>) objects[0], mMessageClickedHandler);
     }
 }

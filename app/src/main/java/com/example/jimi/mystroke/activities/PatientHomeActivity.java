@@ -33,7 +33,7 @@ public class PatientHomeActivity extends AppCompatActivity {
         Intent intent = null;
         switch (view.getId()) {
             case (R.id.buttonExercise):
-                intent = new Intent(getApplicationContext(), ViewExercisesActivity.class);
+                intent = new Intent(getApplicationContext(), ViewExerciseSectionsActivity.class);
                 break;
             case (R.id.buttonChat):
                 intent = new Intent(getApplicationContext(), ChatActivity.class);

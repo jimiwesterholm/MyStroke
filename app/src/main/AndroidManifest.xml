@@ -35,7 +35,8 @@
         <activity
             android:name=".activities.ChatActivity"
             android:label="@string/title_activity_chat"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.AddToListActivity"></activity>
     </application>
 
 </manifest>

@@ -79,7 +79,7 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
     }
 
     @Override
-    public void respond(Object... objects) {
+    public void respond(int var, Object... objects) {
         itemsToListView((List<Imagery>) objects[0], imageryClickedHandler);
     }
 }

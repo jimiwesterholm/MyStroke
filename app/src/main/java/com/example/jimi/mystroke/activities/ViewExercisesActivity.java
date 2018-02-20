@@ -65,7 +65,7 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
         }
     };
 
-    private void itemsToListView(List<String> items, AdapterView.OnItemClickListener listener) {
+    private void itemsToListView(List<Exercise> items, AdapterView.OnItemClickListener listener) {
         ArrayAdapter<Exercise> adapter = new ArrayAdapter<Exercise>(this, R.layout.sample_list_element_view, items.toArray(new Exercise[0]));
         ListView listView = (ListView) findViewById(R.id.exercises);
         listView.setAdapter(adapter);
@@ -79,7 +79,7 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
     }
 
     @Override
-    public void respond(Object... objects) {
-        itemsToListView((List<String>) objects[0], mMessageClickedHandler);
+    public void respond(int var, Object... objects) {
+        itemsToListView((List<Exercise>) objects[0], mMessageClickedHandler);
     }
 }

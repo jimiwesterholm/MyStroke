@@ -12,6 +12,7 @@ import java.sql.Time;
 /**
  * Created by jimi on 28/12/2017.
  */
+//TODO PATIENTS DON'T DO THIS, THERAPISTS DO
 @Entity(tableName = "patient_assessment",
         foreignKeys = {
                 @ForeignKey(
