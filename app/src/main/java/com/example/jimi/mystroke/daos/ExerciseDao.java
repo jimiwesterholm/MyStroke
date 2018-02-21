@@ -23,6 +23,9 @@ public interface ExerciseDao {
     @Query("SELECT DISTINCT section FROM exercise")
     List<String> getSections();
 
+    @Query("SELECT DISTINCT section FROM exercise WHERE idexercise IN (:ids)")
+    List<String> getSectionsOfIds(int[] ids);
+
     @Query("SELECT * FROM exercise WHERE section = :section AND viewed =:viewed")
     List<Exercise> getBySectionAndViewed(String section, boolean viewed);
 

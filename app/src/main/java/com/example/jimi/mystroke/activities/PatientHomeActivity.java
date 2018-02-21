@@ -48,7 +48,8 @@ public class PatientHomeActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), ProfileActivity.class);
                 break;
             case (R.id.buttonHelp):
-                intent = new Intent(getApplicationContext(), HelpActivity.class);
+                //intent = new Intent(getApplicationContext(), HelpActivity.class);
+                intent = new Intent(getApplicationContext(), AddToListActivity.class);
                 break;
             default:
                 return;

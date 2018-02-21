@@ -76,7 +76,7 @@ public class JSONtoSQLite {
                     results.add((T) new PatientAssessesExercise((int) record.get(0), (int) record.get(1), (int) record.get(2), (double) record.get(3), (Date) record.get(4), (Time) record.get(5)));
                     break;
                 case "patient_list_exercise":
-                    results.add((T) new PatientListExercise((int) record.get(0), (int) record.get(1), (int) record.get(2)));
+                    results.add((T) new PatientListExercise((int) record.get(0), (int) record.get(1), (int) record.get(2), (String) record.get(3)));
                     break;
                 case "patient_list_imagery":
                     results.add((T) new PatientListImagery((int) record.get(0), (int) record.get(1), (int) record.get(2)));

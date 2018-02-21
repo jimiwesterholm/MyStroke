@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 7,
-    "identityHash": "ca56382351a7acb9be913df5aebabf93",
+    "identityHash": "12a817e63a5effe040cd5b1af8b86d9c",
     "entities": [
       {
         "tableName": "User",
@@ -415,7 +415,7 @@
       },
       {
         "tableName": "patient_list_exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`listExerciseID` INTEGER NOT NULL, `pID` INTEGER NOT NULL, `eID` INTEGER NOT NULL, `created` INTEGER NOT NULL, PRIMARY KEY(`listExerciseID`), FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`eID`) REFERENCES `exercise`(`idexercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`listExerciseID` INTEGER NOT NULL, `pID` INTEGER NOT NULL, `eID` INTEGER NOT NULL, `message` TEXT, `created` INTEGER NOT NULL, PRIMARY KEY(`listExerciseID`), FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`eID`) REFERENCES `exercise`(`idexercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "listExerciseID",
@@ -434,6 +434,12 @@
             "columnName": "eID",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "created",
@@ -623,7 +629,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ca56382351a7acb9be913df5aebabf93\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"12a817e63a5effe040cd5b1af8b86d9c\")"
     ]
   }
 }
