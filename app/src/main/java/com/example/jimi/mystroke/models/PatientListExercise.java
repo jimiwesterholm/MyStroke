@@ -48,6 +48,14 @@ public class PatientListExercise implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    public PatientListExercise(int pID, int eID, String message) {
+        listExerciseID = 0;
+        this.pID = pID;
+        this.eID = eID;
+        this.message = message;
+        created = System.currentTimeMillis();
+    }
+
     public int getListExerciseID() {
         return listExerciseID;
     }

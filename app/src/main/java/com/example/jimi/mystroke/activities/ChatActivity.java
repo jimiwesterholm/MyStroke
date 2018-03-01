@@ -65,9 +65,10 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         }
     }
 
-    public void addComment(int id) {
-        Comment comment = new Comment(id+1, new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), 1, 1, 1);
-        new RecordsToAppDatabase("comment", getApplicationContext()).execute(new Comment[]{comment});
+    public void addComment() {
+        //TODO get actual values for patient id etc
+        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), 1, 1, 1);
+        new RecordsToAppDatabase("comment", AppDatabase.getDatabase(getApplicationContext())).execute(new Comment[]{comment});
         messages.add(comment);
         messageText.getText().clear();
         adapter.notifyDataSetChanged();

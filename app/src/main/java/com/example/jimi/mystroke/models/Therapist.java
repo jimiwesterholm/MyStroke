@@ -41,6 +41,14 @@ public class Therapist implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    public Therapist(int userID, String position, int active) {
+        tid = 0;
+        this.userID = userID;
+        this.position = position;
+        this.active = active;
+        created = System.currentTimeMillis();
+    }
+
     public long getCreated() {
         return created;
     }

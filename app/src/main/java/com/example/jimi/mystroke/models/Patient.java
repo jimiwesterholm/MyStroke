@@ -57,8 +57,25 @@ public class Patient implements DatabaseObject, AsyncResponse {
         created = System.currentTimeMillis();
     }
 
+    public Patient(int userID, int therapist, int active) {
+        pid = 0;
+        this.userID = userID;
+        this.therapist = therapist;
+        this.active = active;
+        created = System.currentTimeMillis();
+    }
+
     public Patient(int pid, int userID, int therapist, int active, User user) {
         this.pid = pid;
+        this.userID = userID;
+        this.therapist = therapist;
+        this.active = active;
+        created = System.currentTimeMillis();
+        this.user = user;
+    }
+
+    public Patient(int userID, int therapist, int active, User user) {
+        pid = 0;
         this.userID = userID;
         this.therapist = therapist;
         this.active = active;

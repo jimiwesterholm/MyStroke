@@ -60,6 +60,16 @@ public class Exercise implements DatabaseObject {
         viewed = false;
     }
 
+    public Exercise(String description, String section, String name, int aid) {
+        eid = 0;
+        this.description = description;
+        this.section = section;
+        this.name = name;
+        this.aid = aid;
+        created  = new Date().getTime();
+        viewed = false;
+    }
+
     public long getCreated() {
         return created;
     }

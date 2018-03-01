@@ -60,6 +60,17 @@ public class PatientAssessesExercise implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    public PatientAssessesExercise(int pID, int eID, double score, java.sql.Date date, Time time) {
+        patientAssessesExerciseID = 0;
+        this.pID = pID;
+        this.eID = eID;
+        this.score = score;
+        this.time = time;
+        this.date = date;
+        timestamp = date.getTime() + time.getTime();
+        created = System.currentTimeMillis();
+    }
+
     public int getPatientAssessesExerciseID() {
         return patientAssessesExerciseID;
     }

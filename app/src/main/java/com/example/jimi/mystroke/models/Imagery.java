@@ -26,6 +26,12 @@ public class Imagery implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    public Imagery(String name) {
+        imageryID = 0;
+        this.name = name;
+        created = System.currentTimeMillis();
+    }
+
     public int getImageryID() {
         return imageryID;
     }

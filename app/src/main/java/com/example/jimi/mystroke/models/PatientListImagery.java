@@ -45,6 +45,13 @@ public class PatientListImagery implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    public PatientListImagery(int pID, int iID) {
+        listImageryID = 0;
+        this.pID = pID;
+        this.iID = iID;
+        created = System.currentTimeMillis();
+    }
+
     public int getListImageryID() {
         return listImageryID;
     }

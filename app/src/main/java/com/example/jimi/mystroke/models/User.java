@@ -56,6 +56,19 @@ public class User implements DatabaseObject {
         created = new Date().getTime();
     }
 
+    public User(String username, String password, String salt, int therapist, int patient, String email, String firstName, String lastName) {
+        uid = 0;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.email = email;
+        this.therapist = therapist;
+        this.patient = patient;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        created = new Date().getTime();
+    }
+
     public long getCreated() {
         return created;
     }

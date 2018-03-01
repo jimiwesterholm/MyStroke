@@ -51,6 +51,18 @@ public class Comment implements DatabaseObject {
         this.sentByPatient = sentByPatient;
     }
 
+    public Comment(java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
+        cid = 0;
+        this.time = time;
+        this.date = date;
+        this.patientId = patientId;
+        this.exerciseId = exerciseId;
+        this.text = text;
+        created = System.currentTimeMillis();
+        timestamp = date.getTime() + time.getTime();
+        this.sentByPatient = sentByPatient;
+    }
+
     public long getCreated() {
             return created;
         }

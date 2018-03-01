@@ -131,6 +131,8 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
         Patient patient = (Patient) pSpinner.getSelectedItem();
         if(sSpinner.getSelectedItem().equals(getString(R.string.imageryBut))) {
             //TODO sort out private key sit. - store both sqlite and mysql keys, for new objects mysql key is null - can use to determine if they've been sent to db yet!
+            //ALSO when deleting, if global db id == 0, you're sorted, just delete from SQLite
+
             new RecordsToAppDatabase(getString(R.string.patient_list_imagery), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListImagery());
         } else {
             new RecordsToAppDatabase(getString(R.string.patient_list_exercise), )

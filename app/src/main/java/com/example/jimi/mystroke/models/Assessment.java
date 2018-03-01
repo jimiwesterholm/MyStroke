@@ -36,6 +36,14 @@ public class Assessment implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    public Assessment(int scoreMin, int scoreMax, String label) {
+        aid = 0;
+        this.scoreMin = scoreMin;
+        this.scoreMax = scoreMax;
+        this.label = label;
+        created = System.currentTimeMillis();
+    }
+
     public long getCreated() {
         return created;
     }
