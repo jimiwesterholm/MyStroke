@@ -20,7 +20,7 @@ public interface PatientAssessesExerciseDao {
     @Query("SELECT * FROM patient_assessment")
     List<PatientAssessesExercise> getAll();
 
-    @Query("SELECT * FROM patient_assessment WHERE patientAssessesExerciseID IN (:patientAssessesExerciseIds)")
+    @Query("SELECT * FROM patient_assessment WHERE id IN (:patientAssessesExerciseIds)")
     List<PatientAssessesExercise> loadAllByIds(int[] patientAssessesExerciseIds);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

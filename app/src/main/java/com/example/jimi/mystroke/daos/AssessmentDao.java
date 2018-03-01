@@ -19,7 +19,7 @@ public interface AssessmentDao {
     @Query("SELECT * FROM assessment")
     List<Assessment> getAll();
 
-    @Query("SELECT * FROM assessment WHERE idassessment IN (:assessmentIds)")
+    @Query("SELECT * FROM assessment WHERE id IN (:assessmentIds)")
     List<Assessment> loadAllByIds(int[] assessmentIds);
 
     @Query("SELECT * FROM assessment WHERE created > (:created)")

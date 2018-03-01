@@ -12,7 +12,7 @@ public interface TherapistDao {
     @Query("SELECT * FROM therapist")
     List<Therapist> getAll();
 
-    @Query("SELECT * FROM therapist WHERE idtherapist IN (:therapistIds)")
+    @Query("SELECT * FROM therapist WHERE id IN (:therapistIds)")
     List<Therapist> loadAllByIds(int[] therapistIds);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

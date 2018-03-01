@@ -15,7 +15,8 @@ import java.sql.Time;
 
 @Entity
 public class Comment implements DatabaseObject {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
+    private int id;
 
     @ColumnInfo(name = "idcomment")
     private int cid;

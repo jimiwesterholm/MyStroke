@@ -23,7 +23,7 @@ public interface ExerciseDao {
     @Query("SELECT DISTINCT section FROM exercise")
     List<String> getSections();
 
-    @Query("SELECT DISTINCT section FROM exercise WHERE idexercise IN (:ids)")
+    @Query("SELECT DISTINCT section FROM exercise WHERE id IN (:ids)")
     List<String> getSectionsOfIds(int[] ids);
 
     @Query("SELECT * FROM exercise WHERE section = :section AND viewed =:viewed")
@@ -32,16 +32,16 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise WHERE section = :section")
     List<Exercise> getBySection(String section);
 
-    @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIds)")
+    @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds)")
     List<Exercise> loadAllByIds(int[] exerciseIds);
 
-    @Query("SELECT * FROM exercise WHERE idexercise NOT IN (:exerciseIds)")
+    @Query("SELECT * FROM exercise WHERE id NOT IN (:exerciseIds)")
     List<Exercise> loadAllButIds(int[] exerciseIds);
 
-    @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIds) AND section =:section")
+    @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds) AND section =:section")
     List<Exercise> loadAllByIdsFromSection(int[] exerciseIds, String section);
 
-    @Query("SELECT * FROM exercise WHERE idexercise = :exerciseId LIMIT 1")
+    @Query("SELECT * FROM exercise WHERE id = :exerciseId LIMIT 1")
     Exercise loadById(int exerciseId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

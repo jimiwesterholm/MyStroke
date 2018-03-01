@@ -13,7 +13,7 @@ public interface PatientDao {
     @Query("SELECT * FROM patient")
     List<Patient> getAll();
 
-    @Query("SELECT * FROM patient WHERE idpatient IN (:patientIds)")
+    @Query("SELECT * FROM patient WHERE id IN (:patientIds)")
     List<Patient> loadAllByIds(int[] patientIds);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

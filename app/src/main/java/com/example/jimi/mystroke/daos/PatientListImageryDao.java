@@ -19,7 +19,7 @@ public interface PatientListImageryDao {
     @Query("SELECT * FROM patient_list_imagery")
     List<PatientListImagery> getAll();
 
-    @Query("SELECT * FROM patient_list_imagery WHERE listImageryID IN (:patientListImageryIds)")
+    @Query("SELECT * FROM patient_list_imagery WHERE id IN (:patientListImageryIds)")
     List<PatientListImagery> loadAllByIds(int[] patientListImageryIds);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -25,7 +25,9 @@ import java.util.Date;
 )
 public class Exercise implements DatabaseObject {
     //TODO: add video
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
+    private int id;
+
     @ColumnInfo(name = "idexercise")
     private int eid;
 

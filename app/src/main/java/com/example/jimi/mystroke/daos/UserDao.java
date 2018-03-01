@@ -13,10 +13,10 @@ public abstract class UserDao {
     @Query("SELECT * FROM user")
     public abstract List<User> getAll();
 
-    @Query("SELECT * FROM user WHERE iduser IN (:userIds)")
+    @Query("SELECT * FROM user WHERE id IN (:userIds)")
     public abstract List<User> loadAllByIds(int[] userIds);
 
-    @Query("SELECT * FROM user WHERE iduser = :iduser LIMIT 1")
+    @Query("SELECT * FROM user WHERE id = :iduser LIMIT 1")
     public abstract User findById(int iduser);
 
     @Query("SELECT * FROM user WHERE firstName LIKE :first AND "

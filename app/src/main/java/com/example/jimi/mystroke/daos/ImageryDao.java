@@ -20,7 +20,7 @@ public interface ImageryDao {
     @Query("SELECT * FROM imagery")
     List<Imagery> getAll();
 
-    @Query("SELECT * FROM imagery WHERE imageryID IN (:imageryIds)")
+    @Query("SELECT * FROM imagery WHERE id IN (:imageryIds)")
     List<Imagery> loadAllByIds(int[] imageryIds);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

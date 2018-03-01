@@ -27,7 +27,9 @@ import org.json.JSONObject;
         }
 )
 public class PatientListExercise implements DatabaseObject {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
+    private int id;
+
     private int listExerciseID;
 
     private int pID;

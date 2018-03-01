@@ -11,7 +11,9 @@ import org.json.JSONObject;
  */
 @Entity
 public class Imagery implements DatabaseObject {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
+    private int id;
+
     private int imageryID;
 
     private String name;

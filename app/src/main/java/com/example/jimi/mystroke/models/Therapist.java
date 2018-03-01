@@ -17,7 +17,9 @@ import org.json.JSONObject;
         }
 )
 public class Therapist implements DatabaseObject {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
+    private int id;
+
     @ColumnInfo(name = "idtherapist")
     private int tid;
 

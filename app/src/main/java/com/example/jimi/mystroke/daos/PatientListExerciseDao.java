@@ -20,7 +20,7 @@ public interface PatientListExerciseDao {
     @Query("SELECT * FROM patient_list_exercise")
     List<PatientListExercise> getAll();
 
-    @Query("SELECT * FROM patient_list_exercise WHERE listExerciseID IN (:patientListExerciseIds)")
+    @Query("SELECT * FROM patient_list_exercise WHERE id IN (:patientListExerciseIds)")
     List<PatientListExercise> loadAllByIds(int[] patientListExerciseIds);
 
     @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID")

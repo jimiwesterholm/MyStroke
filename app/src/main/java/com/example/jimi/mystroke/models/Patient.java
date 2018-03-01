@@ -29,7 +29,9 @@ import org.json.JSONObject;
 )
 
 public class Patient implements DatabaseObject, AsyncResponse {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
+    private int id;
+
     @ColumnInfo(name = "idpatient")
     private int pid;
 

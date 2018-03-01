@@ -10,7 +10,9 @@ import java.util.Date;
 
 @Entity
 public class User implements DatabaseObject {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
+    private int id;
+
     @ColumnInfo(name = "iduser")
     private int uid;
 
