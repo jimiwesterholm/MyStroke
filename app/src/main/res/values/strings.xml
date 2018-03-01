@@ -40,6 +40,7 @@
 
     <!-- Strings for Dialogues -->
     <string name="cancel">Cancel</string>
+    <string name="select">Select</string>
     <string name="confirm">Confirm</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -50,4 +51,17 @@
     <string name="choose_patient">Choose a patient</string>
     <string name="choose_item">Choose an item</string>
     <string name="choose_section">Choose a category</string>
+    <string name="add_instructions">Additional instructions</string>
+
+    <!-- Classnames -->
+    <string name="imagery">imagery</string>
+    <string name="assessment">assessment</string>
+    <string name="comment">comment</string>
+    <string name="exercise">exercise</string>
+    <string name="patient">patient</string>
+    <string name="patient_assesses_exercise">patient_list_exercise</string>
+    <string name="patient_list_exercise">patient_list_exercise</string>
+    <string name="patient_list_imagery">patient_list_imagery</string>
+    <string name="therapist">therapist</string>
+    <string name="user">user</string>
 </resources>

@@ -8,19 +8,25 @@
 
     <Spinner
         android:id="@+id/choosePatientSpinner"
-        android:layout_width="304dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/patientButton"
         app:layout_constraintStart_toStartOf="@+id/choosePatientText"
-        app:layout_constraintTop_toBottomOf="@+id/choosePatientText" />
+        app:layout_constraintTop_toBottomOf="@+id/choosePatientText"
+        android:layout_marginRight="8dp" />
 
     <Spinner
         android:id="@+id/chooseSectionSpinner"
-        android:layout_width="304dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/sectionButton"
         app:layout_constraintStart_toStartOf="@+id/chooseSectionText"
-        app:layout_constraintTop_toBottomOf="@+id/chooseSectionText" />
+        app:layout_constraintTop_toBottomOf="@+id/chooseSectionText"
+        android:layout_marginRight="8dp" />
 
     <Button
         android:id="@+id/addButton"
@@ -42,7 +48,8 @@
         android:layout_marginTop="8dp"
         android:text="@string/choose_patient"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/chooseSectionText"
@@ -64,9 +71,59 @@
 
     <Spinner
         android:id="@+id/chooseItemSpinner"
-        android:layout_width="304dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/itemButton"
         app:layout_constraintStart_toStartOf="@+id/chooseItemText"
-        app:layout_constraintTop_toBottomOf="@+id/chooseItemText" />
+        app:layout_constraintTop_toBottomOf="@+id/chooseItemText"
+        android:layout_marginRight="8dp" />
+
+    <Button
+        android:id="@+id/patientButton"
+        android:onClick="onPatientButtonClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/select"
+        app:layout_constraintBottom_toBottomOf="@+id/choosePatientSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/choosePatientSpinner"
+        android:layout_marginRight="8dp" />
+
+    <Button
+        android:id="@+id/sectionButton"
+        android:onClick="onSectionButtonClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/select"
+        app:layout_constraintBottom_toBottomOf="@+id/chooseSectionSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chooseSectionSpinner"
+        android:layout_marginRight="8dp" />
+
+    <Button
+        android:id="@+id/itemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:onClick="onItemButtonClicked"
+        android:text="@string/select"
+        app:layout_constraintBottom_toBottomOf="@+id/chooseItemSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chooseItemSpinner" />
+
+    <EditText
+        android:id="@+id/guideText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="@string/add_instructions"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/chooseItemSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/itemButton" />
 </android.support.constraint.ConstraintLayout>

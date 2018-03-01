@@ -28,7 +28,8 @@ import com.example.jimi.mystroke.models.User;
 import java.sql.Date;
 import java.sql.Time;
 
-@Database(entities = {User.class, Patient.class, Therapist.class, Exercise.class, Assessment.class, Comment.class, Imagery.class, PatientListExercise.class, PatientListImagery.class, PatientAssessesExercise.class}, version = 7)
+@Database(entities = {User.class, Patient.class, Therapist.class, Exercise.class, Assessment.class, Comment.class, Imagery.class, PatientListExercise.class, PatientListImagery.class, PatientAssessesExercise.class},
+        version = 8)
 @TypeConverters(PersistenceTypeConverters.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase APPDB;

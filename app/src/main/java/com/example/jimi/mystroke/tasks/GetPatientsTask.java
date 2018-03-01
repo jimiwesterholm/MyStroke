@@ -14,8 +14,8 @@ import java.util.List;
  */
 
 public class GetPatientsTask extends AsyncTask<Void, Void, List<Patient>>{
-    AppDatabase appDatabase;
-    AsyncResponse asyncResponse;
+    private AppDatabase appDatabase;
+    private AsyncResponse asyncResponse;
     public static final int var = 9;
 
     public GetPatientsTask(Context applicationContext, AsyncResponse asyncResponse) {
@@ -25,7 +25,11 @@ public class GetPatientsTask extends AsyncTask<Void, Void, List<Patient>>{
 
     @Override
     protected List<Patient> doInBackground(Void... voids) {
-        return appDatabase.patientDao().getAll();
+        List<Patient> patients = appDatabase.patientDao().getAll();
+        for (Patient patient : patients) {
+            patient.setUser(appDatabase.userDao().findById(patient.getPid()));
+        }
+        return patients;
     }
 
     @Override

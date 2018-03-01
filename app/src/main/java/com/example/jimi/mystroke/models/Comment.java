@@ -16,6 +16,7 @@ import java.sql.Time;
 @Entity
 public class Comment implements DatabaseObject {
     @PrimaryKey
+
     @ColumnInfo(name = "idcomment")
     private int cid;
 

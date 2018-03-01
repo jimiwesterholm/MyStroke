@@ -33,7 +33,7 @@ import java.util.Arrays;
 
 public class RecordsToAppDatabase extends AsyncTask<Object, Integer, Boolean> {
     private String className;
-    private Context context;
+    private AppDatabase aDb ;
 
     public String getClassName() {
         return className;
@@ -41,23 +41,14 @@ public class RecordsToAppDatabase extends AsyncTask<Object, Integer, Boolean> {
     public void setClassName(String className) {
         this.className = className;
     }
-    public Context getContext() {
-        return context;
-    }
-    public void setContext(Context context) {
-        this.context = context;
-    }
 
-    public RecordsToAppDatabase(String className, Context context) {
+    public RecordsToAppDatabase(String className, AppDatabase aDb) {
         this.className = className;
-        this.context = context;
+        this.aDb = aDb;
     }
 
     @Override
     protected Boolean doInBackground(Object[] objects) {
-        if (className == null || context == null) return false;
-
-        AppDatabase aDb = AppDatabase.getDatabase(context);
         switch (className) {
             case "user":
                 UserDao userDao = aDb.userDao();

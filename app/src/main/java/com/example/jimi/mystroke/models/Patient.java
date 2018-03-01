@@ -1,7 +1,12 @@
 package com.example.jimi.mystroke.models; /**
  * Created by jimi on 25/11/2017.
  */
+import android.app.Activity;
+import android.app.Application;
 import android.arch.persistence.room.*;
+
+import com.example.jimi.mystroke.tasks.AsyncResponse;
+import com.example.jimi.mystroke.tasks.GetUserTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +28,7 @@ import org.json.JSONObject;
         }
 )
 
-public class Patient implements DatabaseObject {
+public class Patient implements DatabaseObject, AsyncResponse {
     @PrimaryKey
     @ColumnInfo(name = "idpatient")
     private int pid;
@@ -39,12 +44,24 @@ public class Patient implements DatabaseObject {
     @ColumnInfo
     private long created;
 
+    @Ignore
+    private User user;
+
     public Patient(int pid, int userID, int therapist, int active) {
         this.pid = pid;
         this.userID = userID;
         this.therapist = therapist;
         this.active = active;
         created = System.currentTimeMillis();
+    }
+
+    public Patient(int pid, int userID, int therapist, int active, User user) {
+        this.pid = pid;
+        this.userID = userID;
+        this.therapist = therapist;
+        this.active = active;
+        created = System.currentTimeMillis();
+        this.user = user;
     }
 
     public long getCreated() {
@@ -87,6 +104,20 @@ public class Patient implements DatabaseObject {
         return active;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        if (user != null) return getUser().getFirstName() + " " + getUser().getLastName();
+        return "Error loading name";
+    }
+
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
@@ -97,4 +128,8 @@ public class Patient implements DatabaseObject {
         return jsonObject;
     }
 
+    @Override
+    public void respond(int var, Object... objects) {
+        setUser((User) objects[0]);
+    }
 }

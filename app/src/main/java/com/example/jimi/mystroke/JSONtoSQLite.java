@@ -51,6 +51,7 @@ public class JSONtoSQLite {
         for (int i = 0; i < records.length(); i++) {
             JSONArray record = records.getJSONArray(i);
             switch (className) {
+                //TODO Make these use the string resource
                 case "user":
                     results.add((T) new User((int) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (int) record.get(4), (int) record.get(5), (String) record.get(6), (String) record.get(7), (String) record.get(8)));
                     break;
@@ -87,9 +88,10 @@ public class JSONtoSQLite {
 
         AppDatabase aDb = AppDatabase.getDatabase(context);
         switch (className) {
+            //TODO Make these use the string resource
             case "user":
                 UserDao userDao = aDb.userDao();
-                userDao.insertAll(results.toArray(new User[records.length()]));
+                userDao.upsertAll(results.toArray(new User[records.length()]));
                 break;
             case "exercise":
                 ExerciseDao exerciseDao = aDb.exerciseDao();

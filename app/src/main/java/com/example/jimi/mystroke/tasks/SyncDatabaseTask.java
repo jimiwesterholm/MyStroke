@@ -14,6 +14,7 @@ import java.util.List;
  */
 
 public class SyncDatabaseTask implements Runnable {
+    //TODO Make these use the string resource
     private String[] classNames = {"assessment", "exercise", "imagery", "user", "therapist", "patient", "patient_assesses_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
     private Context context;
 
@@ -21,6 +22,7 @@ public class SyncDatabaseTask implements Runnable {
         this.context = context;
     }
 
+    //TODO make run intermittently!!!
     @Override
     public void run() {
         User loggedInUser = Globals.getInstance().getUser();

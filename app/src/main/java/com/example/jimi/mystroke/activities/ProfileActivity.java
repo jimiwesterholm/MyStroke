@@ -97,7 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
         user.setLastName(editFields[2].getText().toString());
         user.setEmail(editFields[3].getText().toString());
 
-        RecordsToAppDatabase recordsToAppDatabase = new RecordsToAppDatabase("user", getApplicationContext());
+        RecordsToAppDatabase recordsToAppDatabase = new RecordsToAppDatabase("user", AppDatabase.getDatabase(getApplicationContext()));
         recordsToAppDatabase.execute(user);
 
         cancelButtonOnClick(editButton);

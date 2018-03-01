@@ -12,7 +12,7 @@ public class Globals {
     private static final Globals ourInstance = new Globals();
     private User user;
     private long latestUpdate;
-    private final String dbUrl = "http://083d4254.ngrok.io/api.php/";
+    private final String dbUrl = "http://4c4e48f7.ngrok.io/api.php/";
 
     public static Globals getInstance() {
         return ourInstance;
