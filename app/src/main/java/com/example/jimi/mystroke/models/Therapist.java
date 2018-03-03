@@ -14,6 +14,12 @@ import org.json.JSONObject;
                         childColumns = "user_iduser",
                         onDelete = ForeignKey.CASCADE
                 )
+        },
+        indices = {
+                @Index(
+                        value = "idtherapist",
+                        unique = true
+                )
         }
 )
 public class Therapist implements DatabaseObject {
@@ -41,6 +47,7 @@ public class Therapist implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    @Ignore
     public Therapist(int userID, String position, int active) {
         tid = 0;
         this.userID = userID;
@@ -49,42 +56,39 @@ public class Therapist implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public long getCreated() {
         return created;
     }
-
     public void setCreated(long created) {
         this.created = created;
     }
-
     public int getTid() {
         return tid;
     }
-
     public void setTid(int tid) {
         this.tid = tid;
     }
-
     public int getUserID() {
         return userID;
     }
-
     public void setUserID(int userID) {
         this.userID = userID;
     }
-
     public String getPosition() {
         return position;
     }
-
     public void setPosition(String position) {
         this.position = position;
     }
-
     public int getActive() {
         return active;
     }
-
     public void setActive(int active) {
         this.active = active;
     }

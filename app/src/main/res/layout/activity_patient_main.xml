@@ -19,7 +19,7 @@
         android:layout_below="@+id/toolbar">
 
     <Button
-        android:id="@+id/buttonExercise"
+        android:id="@+id/buttonExercises"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -34,12 +34,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/buttonExercise"
+        android:layout_below="@+id/buttonExercises"
         android:onClick="buttonPress"
         android:text="@string/chatBut" />
 
     <Button
-        android:id="@+id/buttonTracker"
+        android:id="@+id/buttonPatient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -57,10 +57,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/buttonChat"
-        android:layout_toRightOf="@+id/buttonTracker"
+        android:layout_toRightOf="@+id/buttonPatient"
         android:onClick="buttonPress"
         android:text="@string/assessBut"
-        android:layout_toEndOf="@+id/buttonTracker" />
+        android:layout_toEndOf="@+id/buttonPatient" />
 
     <View
         android:id="@+id/centreView"
@@ -75,7 +75,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/centreView"
-        android:layout_below="@+id/buttonTracker"
+        android:layout_below="@+id/buttonPatient"
         android:layout_toLeftOf="@id/buttonProfile"
         android:onClick="buttonPress"
         android:text="@string/profileBut"

@@ -2,6 +2,8 @@ package com.example.jimi.mystroke.models;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import org.json.JSONException;
@@ -23,6 +25,12 @@ import org.json.JSONObject;
                         parentColumns = "idexercise",
                         childColumns = "eID",
                         onDelete = ForeignKey.NO_ACTION
+                )
+        },
+        indices = {
+                @Index(
+                        value = "listExerciseID",
+                        unique = true
                 )
         }
 )
@@ -48,6 +56,7 @@ public class PatientListExercise implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    @Ignore
     public PatientListExercise(int pID, int eID, String message) {
         listExerciseID = 0;
         this.pID = pID;
@@ -85,6 +94,12 @@ public class PatientListExercise implements DatabaseObject {
     }
     public void setMessage(String message) {
         this.message = message;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

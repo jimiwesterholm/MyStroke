@@ -26,6 +26,9 @@ public interface ExerciseDao {
     @Query("SELECT DISTINCT section FROM exercise WHERE id IN (:ids)")
     List<String> getSectionsOfIds(int[] ids);
 
+    @Query("SELECT DISTINCT section FROM exercise WHERE id NOT IN (:ids)")
+    List<String> getSectionsNotOfIds(int[] ids);
+
     @Query("SELECT * FROM exercise WHERE section = :section AND viewed =:viewed")
     List<Exercise> getBySectionAndViewed(String section, boolean viewed);
 
@@ -40,6 +43,9 @@ public interface ExerciseDao {
 
     @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds) AND section =:section")
     List<Exercise> loadAllByIdsFromSection(int[] exerciseIds, String section);
+
+    @Query("SELECT * FROM exercise WHERE id NOT IN (:exerciseIds) AND section =:section")
+    List<Exercise> loadAllButIdsFromSection(int[] exerciseIds, String section);
 
     @Query("SELECT * FROM exercise WHERE id = :exerciseId LIMIT 1")
     Exercise loadById(int exerciseId);

@@ -1,15 +1,11 @@
 package com.example.jimi.mystroke.activities;
 
-import android.app.ActionBar;
-import android.app.LoaderManager;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.jimi.mystroke.R;
 
@@ -32,13 +28,13 @@ public class PatientHomeActivity extends AppCompatActivity {
     public void buttonPress(View view) {
         Intent intent = null;
         switch (view.getId()) {
-            case (R.id.buttonExercise):
+            case (R.id.buttonExercises):
                 intent = new Intent(getApplicationContext(), ViewExerciseSectionsActivity.class);
                 break;
             case (R.id.buttonChat):
                 intent = new Intent(getApplicationContext(), ChatActivity.class);
                 break;
-            case (R.id.buttonTracker):
+            case (R.id.buttonPatient):
                 intent = new Intent(getApplicationContext(), TrackerActivity.class);
                 break;
             case (R.id.buttonAssessment):

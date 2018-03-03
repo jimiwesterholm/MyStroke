@@ -2,6 +2,8 @@ package com.example.jimi.mystroke.models;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import org.json.JSONException;
@@ -13,7 +15,7 @@ import java.sql.Time;
  * Created by jimi on 27/12/2017.
  */
 
-@Entity
+@Entity(indices = {@Index(value = "idcomment", unique = true)})
 public class Comment implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
     private int id;
@@ -51,6 +53,7 @@ public class Comment implements DatabaseObject {
         this.sentByPatient = sentByPatient;
     }
 
+    @Ignore
     public Comment(java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
         cid = 0;
         this.time = time;
@@ -63,6 +66,12 @@ public class Comment implements DatabaseObject {
         this.sentByPatient = sentByPatient;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public long getCreated() {
             return created;
         }

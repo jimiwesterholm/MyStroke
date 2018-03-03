@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"/>
 
     <RelativeLayout
-        android:id="@+id/exerciseSelection"
+        android:id="@+id/selection"
         android:layout_width="0dp"
         android:layout_height="418dp"
         android:layout_marginBottom="32dp"
@@ -46,7 +46,7 @@
                 android:textStyle="bold" />
 
             <ListView
-                android:id="@+id/exercises"
+                android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

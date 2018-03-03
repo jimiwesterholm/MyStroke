@@ -30,4 +30,7 @@ public interface PatientListImageryDao {
 
     @Query("SELECT * FROM patient_list_imagery WHERE created > :created")
     List<PatientListImagery> loadChanged(long created);
+
+    @Query("SELECT * FROM patient_list_imagery WHERE pID =:pID")
+    List<PatientListImagery> loadAllByPatientId(int pID);
 }

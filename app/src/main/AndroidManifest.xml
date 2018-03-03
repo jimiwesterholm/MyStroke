@@ -27,16 +27,34 @@
         <activity android:name=".activities.PatientHomeActivity" />
         <activity android:name=".activities.ExerciseActivity" />
         <activity android:name=".activities.ImageryActivity" />
+        <activity android:name=".activities.ViewImageriesActivity" />
         <activity android:name=".activities.TrackerActivity" />
         <activity android:name=".activities.AssessmentActivity" />
         <activity android:name=".activities.ProfileActivity" />
         <activity android:name=".activities.HelpActivity" />
         <activity android:name=".activities.ViewExercisesActivity" />
+        <activity android:name=".activities.ViewExerciseSectionsActivity" />
         <activity
             android:name=".activities.ChatActivity"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.AddToListActivity"></activity>
+        <activity android:name=".activities.AddToListActivity" />
+        <activity
+            android:name=".activities.AddExerciseActivity"
+            android:label="@string/title_activity_add_exercise"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ViewPatientsActivity"
+            android:label="@string/title_activity_view_patients"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.PatientActivity"
+            android:label="@string/title_activity_view_patient"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.TherapistHomeActivity"
+            android:label="@string/title_activity_therapist_home"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

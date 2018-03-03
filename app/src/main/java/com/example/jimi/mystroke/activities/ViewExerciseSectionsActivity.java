@@ -73,7 +73,7 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
 
     private void itemsToListView(List<ExerciseSection> items, AdapterView.OnItemClickListener listener) {
         ArrayAdapter<ExerciseSection> adapter = new ArrayAdapter<ExerciseSection>(this, R.layout.sample_list_element_view, items.toArray(new ExerciseSection[0]));
-        ListView listView = (ListView) findViewById(R.id.exercises);
+        ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
     }

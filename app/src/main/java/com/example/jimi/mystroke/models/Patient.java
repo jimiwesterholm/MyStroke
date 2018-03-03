@@ -25,6 +25,12 @@ import org.json.JSONObject;
                         childColumns = "therapist_idtherapist",
                         onDelete = ForeignKey.NO_ACTION
                 )
+        },
+        indices = {
+                @Index(
+                        value = "idpatient",
+                        unique = true
+                )
         }
 )
 
@@ -57,6 +63,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         created = System.currentTimeMillis();
     }
 
+    @Ignore
     public Patient(int userID, int therapist, int active) {
         pid = 0;
         this.userID = userID;
@@ -65,6 +72,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         created = System.currentTimeMillis();
     }
 
+    @Ignore
     public Patient(int pid, int userID, int therapist, int active, User user) {
         this.pid = pid;
         this.userID = userID;
@@ -74,6 +82,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         this.user = user;
     }
 
+    @Ignore
     public Patient(int userID, int therapist, int active, User user) {
         pid = 0;
         this.userID = userID;
@@ -86,49 +95,44 @@ public class Patient implements DatabaseObject, AsyncResponse {
     public long getCreated() {
         return created;
     }
-
     public void setCreated(long created) {
         this.created = created;
     }
-
     public int getPid() {
         return pid;
     }
-
     public void setPid(int pid) {
         this.pid = pid;
     }
-
     public int getUserID() {
         return userID;
     }
-
     public void setUserID(int userID) {
         this.userID = userID;
     }
-
     public int getTherapist() {
         return therapist;
     }
-
     public void setTherapist(int therapist) {
         this.therapist = therapist;
     }
-
     public void setActive(int active) {
         this.active = active;
     }
-
     public int getActive() {
         return active;
     }
-
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

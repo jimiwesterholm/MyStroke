@@ -1,6 +1,8 @@
 package com.example.jimi.mystroke.models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import org.json.JSONException;
@@ -9,7 +11,7 @@ import org.json.JSONObject;
 /**
  * Created by jimi on 30/12/2017.
  */
-@Entity
+@Entity(indices = {@Index(value = "imageryID", unique = true)})
 public class Imagery implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
     private int id;
@@ -26,12 +28,19 @@ public class Imagery implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
+    @Ignore
     public Imagery(String name) {
         imageryID = 0;
         this.name = name;
         created = System.currentTimeMillis();
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public int getImageryID() {
         return imageryID;
     }

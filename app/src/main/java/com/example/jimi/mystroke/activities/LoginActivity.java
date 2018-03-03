@@ -289,7 +289,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } else if (user.getPatient() == 1) {
                 intent = new Intent(context, PatientHomeActivity.class);
             } else if (user.getTherapist() == 1) {
-                intent = new Intent(context, LoginActivity.class);
+                intent = new Intent(context, TherapistHomeActivity.class);
             }
 
             if (intent != null) {

@@ -8,8 +8,8 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-@Entity
-public class User implements DatabaseObject {
+@Entity(indices = {@Index(value = "iduser", unique = true)})
+        public class User implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
     private int id;
 
@@ -56,6 +56,7 @@ public class User implements DatabaseObject {
         created = new Date().getTime();
     }
 
+    @Ignore
     public User(String username, String password, String salt, int therapist, int patient, String email, String firstName, String lastName) {
         uid = 0;
         this.username = username;
@@ -69,29 +70,21 @@ public class User implements DatabaseObject {
         created = new Date().getTime();
     }
 
+    //Getters and Setters
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public int getUid() {
+        return uid;
+    }
     public long getCreated() {
         return created;
     }
     public void setCreated(long created) {
         this.created = created;
-    }
-
-    //Used for getting values from JSON returned from the webservice - change if database changed, never let user call
-    /*public User(Object uid, Object username, Object password, Object salt, Object patient, Object therapist,  Object email, Object firstName, Object lastName) {
-        this.uid = (int) uid;
-        this.username = (String) username;
-        this.password = (String) password;
-        this.salt = (String) salt;
-        this.patient = (int) patient;
-        this.therapist = (int) therapist;
-        this.email = (String) email;
-        this.firstName = (String) firstName;
-        this.lastName = (String) lastName;
-    }*/
-
-    //Getters and Setters
-    public int getUid() {
-        return uid;
     }
     public void setUid(int uid) {
         this.uid = uid;

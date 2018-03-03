@@ -60,14 +60,14 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             Imagery clicked = (Imagery) parent.getAdapter().getItem(position);
             Intent intent = new Intent(getBaseContext(), ImageryActivity.class);
-            intent.putExtra("EXTRA_IMAGERY_ID", clicked.getImageryID());
+            intent.putExtra("EXTRA_IMAGERY_ID", clicked.getId());
             startActivity(intent);
         }
     };
 
     private void itemsToListView(List<Imagery> items, AdapterView.OnItemClickListener listener) {
         ArrayAdapter<Imagery> adapter = new ArrayAdapter<Imagery>(this, R.layout.sample_list_element_view, items);
-        ListView listView = (ListView) findViewById(R.id.exercises);
+        ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
     }

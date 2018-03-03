@@ -61,7 +61,8 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
 
     public void sendButtonOnClick(View view) {
         if(!messageText.getText().toString().equals(null)) {
-            new GetMaxCommentIdTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
+            //new GetMaxCommentIdTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
+            addComment();
         }
     }
 
@@ -100,9 +101,9 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
             case GetCommentsTask.var:
                 itemsToListView((List<Comment>) objects[0], mMessageClickedHandler);
                 break;
-            case GetMaxCommentIdTask.var:
+            /*case GetMaxCommentIdTask.var:
                 addComment((Integer) objects[0]);
-                break;
+                break;*/
         }
     }
 

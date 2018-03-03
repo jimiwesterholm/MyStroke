@@ -28,6 +28,7 @@
     <string name="assessBut">Assessment</string>
     <string name="profileBut">Profile</string>
     <string name="helpBut">Help</string>
+    <string name="patientBut">Patients</string>
     <string name="descriptionBut">Description</string>
     <string name="recordBut">Record Performance</string>
     <string name="username">Username</string>
@@ -64,4 +65,9 @@
     <string name="patient_list_imagery">patient_list_imagery</string>
     <string name="therapist">therapist</string>
     <string name="user">user</string>
+    <string name="title_activity_add_exercise">AddExerciseActivity</string>
+    <string name="title_activity_view_patients">ViewPatientsActivity</string>
+    <string name="patientTitle">Patient</string>
+    <string name="title_activity_view_patient">ViewPatientActivity</string>
+    <string name="title_activity_therapist_home">TherapistHomeActivity</string>
 </resources>

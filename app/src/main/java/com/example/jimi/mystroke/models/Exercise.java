@@ -3,6 +3,8 @@ package com.example.jimi.mystroke.models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import org.json.JSONException;
@@ -13,13 +15,18 @@ import java.util.Date;
 /**
  * Created by jimi on 13/12/2017.
  */
-@Entity(tableName = "exercise",
-        foreignKeys = {
+@Entity(foreignKeys = {
                 @ForeignKey(
                         entity = Assessment.class,
                         parentColumns = "idassessment",
                         childColumns = "assessment_idassessment",
                         onDelete = ForeignKey.NO_ACTION
+                )
+        },
+        indices = {
+                @Index(
+                        value = "idexercise",
+                        unique = true
                 )
         }
 )
@@ -60,6 +67,7 @@ public class Exercise implements DatabaseObject {
         viewed = false;
     }
 
+    @Ignore
     public Exercise(String description, String section, String name, int aid) {
         eid = 0;
         this.description = description;
@@ -70,6 +78,12 @@ public class Exercise implements DatabaseObject {
         viewed = false;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public long getCreated() {
         return created;
     }
