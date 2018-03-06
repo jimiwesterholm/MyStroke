@@ -57,6 +57,16 @@ public class PatientAssessesExercise implements DatabaseObject {
 
     private long created;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public PatientAssessesExercise(int patientAssessesExerciseID, int pID, int eID, double score, java.sql.Date date, Time time) {
         this.patientAssessesExerciseID = patientAssessesExerciseID;
         this.pID = pID;

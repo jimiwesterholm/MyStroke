@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -19,5 +19,14 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="SwitchListTheme">
+        <!-- Active thumb color & Active track color(30% transparency) -->
+        <item name="colorControlActivated">@color/lightBlue</item>
+        <!-- Inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <!-- Inactive track color(30% transparency) -->
+        <item name="android:colorForeground">@color/white</item>
+    </style>
 
 </resources>

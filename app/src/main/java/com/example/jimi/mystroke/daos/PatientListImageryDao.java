@@ -16,10 +16,10 @@ import java.util.List;
 
 @Dao
 public interface PatientListImageryDao {
-    @Query("SELECT * FROM patient_list_imagery")
+    @Query("SELECT * FROM patient_list_imagery WHERE toDelete =:false")
     List<PatientListImagery> getAll();
 
-    @Query("SELECT * FROM patient_list_imagery WHERE id IN (:patientListImageryIds)")
+    @Query("SELECT * FROM patient_list_imagery WHERE id IN (:patientListImageryIds) AND toDelete =:false")
     List<PatientListImagery> loadAllByIds(int[] patientListImageryIds);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -28,9 +28,9 @@ public interface PatientListImageryDao {
     @Delete
     void delete(PatientListImagery patientListImagery);
 
-    @Query("SELECT * FROM patient_list_imagery WHERE created > :created")
+    @Query("SELECT * FROM patient_list_imagery WHERE created > :created AND toDelete =:false")
     List<PatientListImagery> loadChanged(long created);
 
-    @Query("SELECT * FROM patient_list_imagery WHERE pID =:pID")
+    @Query("SELECT * FROM patient_list_imagery WHERE pID =:pID AND toDelete =:false")
     List<PatientListImagery> loadAllByPatientId(int pID);
 }

@@ -46,6 +46,16 @@ public class PatientListImagery implements DatabaseObject {
 
     private long created;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public PatientListImagery(int listImageryID, int pID, int iID) {
         this.listImageryID = listImageryID;
         this.pID = pID;

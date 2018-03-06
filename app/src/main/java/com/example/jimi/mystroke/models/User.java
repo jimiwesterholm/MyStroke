@@ -43,6 +43,16 @@ import java.util.Date;
     @ColumnInfo
     private long created;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public User(int uid, String username, String password, String salt, int therapist, int patient, String email, String firstName, String lastName) {
         this.uid = uid;
         this.username = username;

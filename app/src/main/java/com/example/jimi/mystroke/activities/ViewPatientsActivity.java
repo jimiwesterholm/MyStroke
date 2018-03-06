@@ -22,7 +22,7 @@ public class ViewPatientsActivity extends AppCompatActivity implements AsyncResp
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetPatientsTask(getApplicationContext(), this);
+        new GetPatientsTask(getApplicationContext(), this).execute();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patients);

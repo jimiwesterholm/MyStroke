@@ -51,7 +51,6 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetPatientsTask(getApplicationContext(), this).execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_list);
 
@@ -60,6 +59,9 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
         patientSpinner = (Spinner) findViewById(R.id.choosePatientSpinner);
         sectionSpinner = (Spinner) findViewById(R.id.chooseSectionSpinner);
         itemSpinner = (Spinner) findViewById(R.id.chooseItemSpinner);
+
+        new GetPatientsTask(getApplicationContext(), this).execute();
+
         addButton = (Button) findViewById(R.id.addButton);
         patientButton = (Button) findViewById(R.id.patientButton);
         sectionButton = (Button) findViewById(R.id.sectionButton);
@@ -97,10 +99,10 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
                 itemsToListView(itemSpinner, new ArrayAdapter<Imagery>(this, R.layout.support_simple_spinner_dropdown_item, imageries.toArray(new Imagery[0])));
                 break;
             case GetPatientListExercisesTask.var:
-                List<PatientListExercise> patientListExercises = (List<PatientListExercise>) objects[0];
+                List<Exercise> patientListExercises = (List<Exercise>) objects[0];
                 int[] exerciseIDs = new int[patientListExercises.size()];
                 for (int i = 0; i < patientListExercises.size(); i++) {
-                    exerciseIDs[i] = patientListExercises.get(i).getEID();
+                    exerciseIDs[i] = patientListExercises.get(i).getId();
                 }
                 listExerciseIds = exerciseIDs;
                 new GetSectionsNotFromIdsTask(this, exerciseIDs, AppDatabase.getDatabase(getApplicationContext())).execute();
@@ -119,12 +121,20 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
             case GetPatientsTask.var:
                 List<Patient> patients = (List<Patient>) objects[0];
                 itemsToListView(patientSpinner, new ArrayAdapter<Patient>(this, R.layout.support_simple_spinner_dropdown_item, patients.toArray(new Patient[0])));
+                int pId = getIntent().getIntExtra("EXTRA_PATIENT_ID", -1);
+                if(pId != -1) {
+                    for (int i = 0; i < patients.size(); i++) {
+                        if(patients.get(i).getId() == pId) {
+                            patientSpinner.setSelection(i);
+                            break;
+                        }
+                    }
+
+                }
         }
     }
 
     public void onPatientButtonClicked(View view) {
-
-
         if (patientSpinner.isEnabled()) {
             Patient patient = (Patient) patientSpinner.getSelectedItem();
             new GetPatientListExercisesTask(this, patient.getId(), AppDatabase.getDatabase(getApplicationContext())).execute();

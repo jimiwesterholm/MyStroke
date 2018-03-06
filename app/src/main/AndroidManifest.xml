@@ -54,6 +54,18 @@
         <activity
             android:name=".activities.TherapistHomeActivity"
             android:label="@string/title_activity_therapist_home"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.PatientListActivity"
+            android:label="@string/title_activity_patient_list"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.EditListImageryActivity"
+            android:label="@string/title_activity_edit_list_imagery"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.EditListExerciseActivity"
+            android:label="@string/title_activity_edit_list_exercise"
             android:theme="@style/AppTheme"></activity>
     </application>
 

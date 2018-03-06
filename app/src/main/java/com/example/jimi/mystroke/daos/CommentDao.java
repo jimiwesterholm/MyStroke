@@ -16,17 +16,17 @@ import java.util.List;
 
 @Dao
 public interface CommentDao {
-    @Query("SELECT * FROM comment")
+    @Query("SELECT * FROM comment WHERE toDelete =:false")
     List<Comment> getAll();
 
-    @Query("SELECT * FROM comment ORDER BY created ASC")
+    @Query("SELECT * FROM comment WHERE toDelete =:false ORDER BY created ASC")
     List<Comment> getAllOrdered();
 
-    @Query("SELECT * FROM comment WHERE id IN (:commentIds)")
+    @Query("SELECT * FROM comment WHERE id IN (:commentIds) AND toDelete =:false")
     List<Comment> loadAllByIds(int[] commentIds);
 
     //TODO maybe not needed?
-    @Query("SELECT MAX(idcomment) FROM comment")
+    @Query("SELECT MAX(idcomment) FROM comment WHERE toDelete =:true")
     int loadMaxId();
 
     @Insert
@@ -35,6 +35,6 @@ public interface CommentDao {
     @Delete
     void delete(Comment comment);
 
-    @Query("SELECT * FROM comment WHERE created > :created")
+    @Query("SELECT * FROM comment WHERE created > :created AND toDelete =:false")
     List<Comment> loadChanged(long created);
 }

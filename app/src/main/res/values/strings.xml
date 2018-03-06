@@ -47,6 +47,7 @@
     <string name="no">No</string>
     <string name="send">Send</string>
     <string name="add">Add</string>
+    <string name="delete">Delete</string>
     <string name="title_activity_chat">Chat</string>
     <string name="message_edit_text_hint">Click to write</string>
     <string name="choose_patient">Choose a patient</string>
@@ -65,9 +66,20 @@
     <string name="patient_list_imagery">patient_list_imagery</string>
     <string name="therapist">therapist</string>
     <string name="user">user</string>
+
     <string name="title_activity_add_exercise">AddExerciseActivity</string>
     <string name="title_activity_view_patients">ViewPatientsActivity</string>
     <string name="patientTitle">Patient</string>
     <string name="title_activity_view_patient">ViewPatientActivity</string>
     <string name="title_activity_therapist_home">TherapistHomeActivity</string>
+    <string name="a_search_icon">A search icon</string>
+    <string name="search">Search</string>
+    <string name="add_new_item">Add new item</string>
+    <string name="title_activity_patient_list">PatientListActivity</string>
+    <string name="change_password">Change Password</string>
+    <string name="exercise_list">Exercise List</string>
+    <string name="imagery_list">Imagery List</string>
+    <string name="imageriesSwitch">Imageries </string>
+    <string name="title_activity_edit_list_imagery">EditListImageryActivity</string>
+    <string name="title_activity_edit_list_exercise">EditListExerciseActivity</string>
 </resources>

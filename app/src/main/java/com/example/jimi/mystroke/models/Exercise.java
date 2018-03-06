@@ -57,6 +57,16 @@ public class Exercise implements DatabaseObject {
     @ColumnInfo
     private boolean viewed;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public Exercise(int eid, String description, String section, String name, int aid) {
         this.eid = eid;
         this.description = description;

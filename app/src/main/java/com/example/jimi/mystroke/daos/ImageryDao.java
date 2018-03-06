@@ -17,10 +17,10 @@ import java.util.List;
 
 @Dao
 public interface ImageryDao {
-    @Query("SELECT * FROM imagery")
+    @Query("SELECT * FROM imagery WHERE toDelete =:false")
     List<Imagery> getAll();
 
-    @Query("SELECT * FROM imagery WHERE id IN (:imageryIds)")
+    @Query("SELECT * FROM imagery WHERE id IN (:imageryIds) AND toDelete =:false")
     List<Imagery> loadAllByIds(int[] imageryIds);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -29,6 +29,6 @@ public interface ImageryDao {
     @Delete
     void delete(Imagery imagery);
 
-    @Query("SELECT * FROM imagery WHERE created > :created")
+    @Query("SELECT * FROM imagery WHERE created > :created AND toDelete =:false")
     List<Imagery> loadChanged(long created);
 }

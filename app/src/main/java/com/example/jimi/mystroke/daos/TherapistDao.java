@@ -9,10 +9,10 @@ import java.util.List;
 
 @Dao
 public interface TherapistDao {
-    @Query("SELECT * FROM therapist")
+    @Query("SELECT * FROM therapist WHERE toDelete =:false")
     List<Therapist> getAll();
 
-    @Query("SELECT * FROM therapist WHERE id IN (:therapistIds)")
+    @Query("SELECT * FROM therapist WHERE id IN (:therapistIds) AND toDelete =:false")
     List<Therapist> loadAllByIds(int[] therapistIds);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,6 +21,6 @@ public interface TherapistDao {
     @Delete
     void delete(Therapist therapist);
 
-    @Query("SELECT * FROM therapist WHERE created > :created")
+    @Query("SELECT * FROM therapist WHERE created > :created AND toDelete =:false")
     List<Therapist> loadChanged(long created);
 }

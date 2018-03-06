@@ -40,6 +40,15 @@ public class Comment implements DatabaseObject {
     @ColumnInfo
     private long created;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
 
     public Comment(int cid, java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
         this.cid = cid;

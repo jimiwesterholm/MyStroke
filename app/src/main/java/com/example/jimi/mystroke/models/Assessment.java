@@ -30,6 +30,16 @@ public class Assessment implements DatabaseObject {
     @ColumnInfo
     private long created;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public Assessment(int aid, int scoreMin, int scoreMax, String label) {
         this.aid = aid;
         this.scoreMin = scoreMin;

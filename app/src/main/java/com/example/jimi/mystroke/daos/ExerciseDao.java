@@ -17,37 +17,37 @@ import java.util.List;
 @Dao
 public interface ExerciseDao {
     //TODO: Add patient id requirements for queries
-    @Query("SELECT * FROM exercise")
+    @Query("SELECT * FROM exercise WHERE toDelete =:false")
     List<Exercise> getAll();
 
-    @Query("SELECT DISTINCT section FROM exercise")
+    @Query("SELECT DISTINCT section FROM exercise WHERE toDelete =:false")
     List<String> getSections();
 
-    @Query("SELECT DISTINCT section FROM exercise WHERE id IN (:ids)")
+    @Query("SELECT DISTINCT section FROM exercise WHERE id IN (:ids) AND toDelete =:false")
     List<String> getSectionsOfIds(int[] ids);
 
-    @Query("SELECT DISTINCT section FROM exercise WHERE id NOT IN (:ids)")
+    @Query("SELECT DISTINCT section FROM exercise WHERE id NOT IN (:ids) AND toDelete =:false")
     List<String> getSectionsNotOfIds(int[] ids);
 
-    @Query("SELECT * FROM exercise WHERE section = :section AND viewed =:viewed")
+    @Query("SELECT * FROM exercise WHERE section = :section AND viewed =:viewed AND toDelete =:false")
     List<Exercise> getBySectionAndViewed(String section, boolean viewed);
 
-    @Query("SELECT * FROM exercise WHERE section = :section")
+    @Query("SELECT * FROM exercise WHERE section = :section AND toDelete =:false")
     List<Exercise> getBySection(String section);
 
-    @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds)")
+    @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds) AND toDelete =:false")
     List<Exercise> loadAllByIds(int[] exerciseIds);
 
-    @Query("SELECT * FROM exercise WHERE id NOT IN (:exerciseIds)")
+    @Query("SELECT * FROM exercise WHERE id NOT IN (:exerciseIds) AND toDelete =:false")
     List<Exercise> loadAllButIds(int[] exerciseIds);
 
-    @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds) AND section =:section")
+    @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds) AND section =:section AND toDelete =:false")
     List<Exercise> loadAllByIdsFromSection(int[] exerciseIds, String section);
 
-    @Query("SELECT * FROM exercise WHERE id NOT IN (:exerciseIds) AND section =:section")
+    @Query("SELECT * FROM exercise WHERE id NOT IN (:exerciseIds) AND section =:section AND toDelete =:false")
     List<Exercise> loadAllButIdsFromSection(int[] exerciseIds, String section);
 
-    @Query("SELECT * FROM exercise WHERE id = :exerciseId LIMIT 1")
+    @Query("SELECT * FROM exercise WHERE id = :exerciseId AND toDelete =:false LIMIT 1")
     Exercise loadById(int exerciseId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -56,6 +56,6 @@ public interface ExerciseDao {
     @Delete
     void delete(Exercise exercise);
 
-    @Query("SELECT * FROM exercise WHERE created > :created")
+    @Query("SELECT * FROM exercise WHERE created > :created AND toDelete =:false")
     List<Exercise> loadChanged(long created);
 }

@@ -22,6 +22,16 @@ public class Imagery implements DatabaseObject {
 
     private long created;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public Imagery(int imageryID, String name) {
         this.imageryID = imageryID;
         this.name = name;

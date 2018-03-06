@@ -55,6 +55,16 @@ public class Patient implements DatabaseObject, AsyncResponse {
     @Ignore
     private User user;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public Patient(int pid, int userID, int therapist, int active) {
         this.pid = pid;
         this.userID = userID;

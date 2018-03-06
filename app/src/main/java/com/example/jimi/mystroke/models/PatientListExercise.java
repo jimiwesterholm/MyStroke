@@ -48,6 +48,16 @@ public class PatientListExercise implements DatabaseObject {
 
     private long created;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public PatientListExercise(int listExerciseID, int pID, int eID, String message) {
         this.listExerciseID = listExerciseID;
         this.pID = pID;

@@ -39,6 +39,16 @@ public class Therapist implements DatabaseObject {
     @ColumnInfo
     private long created;
 
+    private boolean toDelete;
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
     public Therapist(int tid, int userID, String position, int active) {
         this.tid = tid;
         this.userID = userID;
