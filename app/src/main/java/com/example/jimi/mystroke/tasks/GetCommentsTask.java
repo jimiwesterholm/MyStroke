@@ -24,7 +24,7 @@ public class GetCommentsTask extends AsyncTask<Void, Void, List<Comment>> {
 
     @Override
     protected List<Comment> doInBackground(Void... voids) {
-        return appDatabase.commentDao().getAllOrdered();
+        return appDatabase.commentDao().getAllOrdered(false);
     }
 
     @Override

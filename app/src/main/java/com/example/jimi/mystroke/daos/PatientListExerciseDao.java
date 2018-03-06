@@ -17,14 +17,14 @@ import java.util.List;
 
 @Dao
 public interface PatientListExerciseDao {
-    @Query("SELECT * FROM patient_list_exercise WHERE toDelete =:false")
-    List<PatientListExercise> getAll();
+    @Query("SELECT * FROM patient_list_exercise WHERE toDelete =:toDelete")
+    List<PatientListExercise> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient_list_exercise WHERE id IN (:patientListExerciseIds) AND toDelete =:false")
-    List<PatientListExercise> loadAllByIds(int[] patientListExerciseIds);
+    @Query("SELECT * FROM patient_list_exercise WHERE id IN (:patientListExerciseIds) AND toDelete =:toDelete")
+    List<PatientListExercise> loadAllByIds(int[] patientListExerciseIds, boolean toDelete);
 
-    @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID AND toDelete =:false")
-    List<PatientListExercise> loadAllByPatientID(int pID);
+    @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID AND toDelete =:toDelete")
+    List<PatientListExercise> loadAllByPatientID(int pID, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(PatientListExercise... patientListExercises);
@@ -32,6 +32,6 @@ public interface PatientListExerciseDao {
     @Delete
     void delete(PatientListExercise patientListExercise);
 
-    @Query("SELECT * FROM patient_list_exercise WHERE created > :created AND toDelete =:false")
-    List<PatientListExercise> loadChanged(long created);
+    @Query("SELECT * FROM patient_list_exercise WHERE created > :created AND toDelete =:toDelete")
+    List<PatientListExercise> loadChanged(long created, boolean toDelete);
 }

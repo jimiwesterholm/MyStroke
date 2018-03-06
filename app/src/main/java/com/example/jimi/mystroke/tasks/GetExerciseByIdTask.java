@@ -23,7 +23,7 @@ public class GetExerciseByIdTask implements Callable {
     @Override
     public Exercise call() {
         ExerciseDao exerciseDao = aDb.exerciseDao();
-        return exerciseDao.loadById(id);
+        return exerciseDao.loadById(id, false);
     }
 
 }

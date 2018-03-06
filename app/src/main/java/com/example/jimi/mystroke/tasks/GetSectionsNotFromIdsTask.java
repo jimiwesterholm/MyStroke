@@ -25,7 +25,7 @@ public class GetSectionsNotFromIdsTask extends AsyncTask<Void, Void, List<String
 
     @Override
     protected List<String> doInBackground(Void...foo) {
-        return appDatabase.exerciseDao().getSectionsNotOfIds(exerciseIds);
+        return appDatabase.exerciseDao().getSectionsNotOfIds(exerciseIds, false);
     }
 
     @Override

@@ -17,11 +17,11 @@ import java.util.List;
 
 @Dao
 public interface PatientAssessesExerciseDao {
-    @Query("SELECT * FROM patient_assessment WHERE toDelete =:false")
-    List<PatientAssessesExercise> getAll();
+    @Query("SELECT * FROM patient_assessment WHERE toDelete =:toDelete")
+    List<PatientAssessesExercise> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient_assessment WHERE id IN (:patientAssessesExerciseIds) AND toDelete =:false")
-    List<PatientAssessesExercise> loadAllByIds(int[] patientAssessesExerciseIds);
+    @Query("SELECT * FROM patient_assessment WHERE id IN (:patientAssessesExerciseIds) AND toDelete =:toDelete")
+    List<PatientAssessesExercise> loadAllByIds(int[] patientAssessesExerciseIds, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(PatientAssessesExercise... patientAssessesExercises);
@@ -29,6 +29,6 @@ public interface PatientAssessesExerciseDao {
     @Delete
     void delete(PatientAssessesExercise patientAssessesExercise);
 
-    @Query("SELECT * FROM patient_assessment WHERE created > :created AND toDelete =:false")
-    List<PatientAssessesExercise> loadChanged(long created);
+    @Query("SELECT * FROM patient_assessment WHERE created > :created AND toDelete =:toDelete")
+    List<PatientAssessesExercise> loadChanged(long created, boolean toDelete);
 }

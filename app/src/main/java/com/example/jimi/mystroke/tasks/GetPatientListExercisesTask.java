@@ -26,12 +26,12 @@ public class GetPatientListExercisesTask extends AsyncTask<Void, Void, List<Exer
 
     @Override
     protected List<Exercise> doInBackground(Void...foo) {
-        List<PatientListExercise> patientListExercises  = appDatabase.patientListExerciseDao().loadAllByPatientID(pID);
+        List<PatientListExercise> patientListExercises  = appDatabase.patientListExerciseDao().loadAllByPatientID(pID, false);
         int[] exerciseIDs = new int[patientListExercises.size()];
         for (int i = 0; i < patientListExercises.size(); i++) {
             exerciseIDs[i] = patientListExercises.get(i).getId();
         }
-        return appDatabase.exerciseDao().loadAllByIds(exerciseIDs);
+        return appDatabase.exerciseDao().loadAllByIds(exerciseIDs, false);
     }
 
     @Override

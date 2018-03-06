@@ -28,7 +28,7 @@ public class GetExercisesBySectionTask extends AsyncTask<Void, Void, List<Exerci
     @Override
     public List<Exercise> doInBackground(Void...foo) {
         ExerciseDao exerciseDao = aDb.exerciseDao();
-        return exerciseDao.getBySection(section);
+        return exerciseDao.getBySection(section, false);
     }
 
     @Override

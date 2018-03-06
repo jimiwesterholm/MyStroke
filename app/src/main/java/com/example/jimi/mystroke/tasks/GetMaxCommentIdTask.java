@@ -24,7 +24,7 @@ public class GetMaxCommentIdTask extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Void... voids) {
-        return appDatabase.commentDao().loadMaxId();
+        return appDatabase.commentDao().loadMaxId(false);
     }
 
     @Override

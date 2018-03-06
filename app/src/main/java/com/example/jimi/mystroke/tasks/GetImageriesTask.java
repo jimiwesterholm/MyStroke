@@ -25,7 +25,7 @@ public class GetImageriesTask extends AsyncTask<Void, Void, List<Imagery>>{
 
     @Override
     protected List<Imagery> doInBackground(Void... voids) {
-        return appDatabase.imageryDao().getAll();
+        return appDatabase.imageryDao().getAll(false);
     }
 
     @Override

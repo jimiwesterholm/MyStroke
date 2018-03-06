@@ -27,7 +27,7 @@ public class GetSectionExercisesExceptTask extends AsyncTask<Void, Void, List<Ex
 
     @Override
     protected List<Exercise> doInBackground(Void... voids) {
-        return appDatabase.exerciseDao().loadAllButIdsFromSection(IDs, section);
+        return appDatabase.exerciseDao().loadAllButIdsFromSection(IDs, section, false);
     }
 
     @Override

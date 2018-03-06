@@ -34,25 +34,25 @@ public class GetChangedRecords {
         long latestUpdate = Globals.getInstance().getLatestUpdate();
         switch (className) {
             case "user":
-                return AppDatabase.getDatabase(context).userDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).userDao().loadChanged(latestUpdate, false);
             case "exercise":
-                return AppDatabase.getDatabase(context).exerciseDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).exerciseDao().loadChanged(latestUpdate, false);
             case "assessment":
                 return AppDatabase.getDatabase(context).assessmentDao().loadChanged(latestUpdate);
             case "comment":
-                return AppDatabase.getDatabase(context).commentDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).commentDao().loadChanged(latestUpdate, false);
             case "imagery":
-                return AppDatabase.getDatabase(context).imageryDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).imageryDao().loadChanged(latestUpdate, false);
             case "patient":
-                return AppDatabase.getDatabase(context).patientDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).patientDao().loadChanged(latestUpdate, false);
             case "therapist":
-                return AppDatabase.getDatabase(context).therapistDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).therapistDao().loadChanged(latestUpdate, false);
             case "patient_assessess_exercise":
-                return AppDatabase.getDatabase(context).patientAssessesExerciseDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).patientAssessesExerciseDao().loadChanged(latestUpdate, false);
             case "patient_list_exercise":
-                return AppDatabase.getDatabase(context).patientListExerciseDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).patientListExerciseDao().loadChanged(latestUpdate, false);
             case "patient_list_imagery":
-                return AppDatabase.getDatabase(context).patientListImageryDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).patientListImageryDao().loadChanged(latestUpdate, false);
         }
         return null;
     }

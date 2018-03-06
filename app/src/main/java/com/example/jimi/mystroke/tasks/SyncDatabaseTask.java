@@ -54,6 +54,6 @@ public class SyncDatabaseTask implements Runnable {
     }
 
     private User findUser(String username) {
-        return AppDatabase.getDatabase(context).userDao().findByUsername(username);
+        return AppDatabase.getDatabase(context).userDao().findByUsername(username, false);
     }
 }

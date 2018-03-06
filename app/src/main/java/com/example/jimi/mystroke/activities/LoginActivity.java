@@ -274,7 +274,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             AppDatabase aDb = AppDatabase.getDatabase(context);
             UserDao userDao = aDb.userDao();
-            User user = userDao.findByUsername(mUser);
+            User user = userDao.findByUsername(mUser, false);
             //TODO: check that works when username wrong
 
             //TODO: add salt

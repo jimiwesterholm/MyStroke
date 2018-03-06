@@ -26,7 +26,7 @@ public class GetUserTask extends AsyncTask<Void, Void, User>{
 
     @Override
     protected User doInBackground(Void... voids) {
-        return appDatabase.userDao().findById(id);
+        return appDatabase.userDao().findById(id, false);
     }
 
     @Override

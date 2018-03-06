@@ -10,24 +10,24 @@ import java.util.List;
 
 @Dao
 public abstract class UserDao {
-    @Query("SELECT * FROM user WHERE toDelete =:false")
-    public abstract List<User> getAll();
+    @Query("SELECT * FROM user WHERE toDelete =:toDelete")
+    public abstract List<User> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM user WHERE id IN (:userIds) AND toDelete =:false")
-    public abstract List<User> loadAllByIds(int[] userIds);
+    @Query("SELECT * FROM user WHERE id IN (:userIds) AND toDelete =:toDelete")
+    public abstract List<User> loadAllByIds(int[] userIds, boolean toDelete);
 
-    @Query("SELECT * FROM user WHERE id = :iduser AND toDelete =:false LIMIT 1")
-    public abstract User findById(int iduser);
+    @Query("SELECT * FROM user WHERE id = :iduser AND toDelete =:toDelete LIMIT 1")
+    public abstract User findById(int iduser, boolean toDelete);
 
     @Query("SELECT * FROM user WHERE firstName LIKE :first AND "
-            + "lastName LIKE :last AND toDelete =:false LIMIT 1")
-    public abstract User findByName(String first, String last);
+            + "lastName LIKE :last AND toDelete =:toDelete LIMIT 1")
+    public abstract User findByName(String first, String last, boolean toDelete);
 
-    @Query("SELECT * FROM user WHERE email = :email AND toDelete =:false LIMIT 1")
-    public abstract User findByEmail(String email);
+    @Query("SELECT * FROM user WHERE email = :email AND toDelete =:toDelete LIMIT 1")
+    public abstract User findByEmail(String email, boolean toDelete);
 
-    @Query("SELECT * FROM user WHERE username = :username AND toDelete =:false LIMIT 1")
-    public abstract User findByUsername(String username);
+    @Query("SELECT * FROM user WHERE username = :username AND toDelete =:toDelete LIMIT 1")
+    public abstract User findByUsername(String username, boolean toDelete);
 
     //https://stackoverflow.com/questions/45677230/android-room-persistence-library-upsert
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -42,8 +42,8 @@ public abstract class UserDao {
     @Delete
     public abstract void delete(User user);
 
-    @Query("SELECT * FROM user WHERE created > :created AND toDelete =:false")
-    public abstract List<User> loadChanged(long created);
+    @Query("SELECT * FROM user WHERE created > :created AND toDelete =:toDelete")
+    public abstract List<User> loadChanged(long created, boolean toDelete);
 
     public void upsert(User user) {
         if(insert(user) == -1) {

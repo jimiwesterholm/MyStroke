@@ -16,11 +16,11 @@ import java.util.List;
 
 @Dao
 public interface PatientListImageryDao {
-    @Query("SELECT * FROM patient_list_imagery WHERE toDelete =:false")
-    List<PatientListImagery> getAll();
+    @Query("SELECT * FROM patient_list_imagery WHERE toDelete =:toDelete")
+    List<PatientListImagery> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient_list_imagery WHERE id IN (:patientListImageryIds) AND toDelete =:false")
-    List<PatientListImagery> loadAllByIds(int[] patientListImageryIds);
+    @Query("SELECT * FROM patient_list_imagery WHERE id IN (:patientListImageryIds) AND toDelete =:toDelete")
+    List<PatientListImagery> loadAllByIds(int[] patientListImageryIds, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(PatientListImagery... patientListImageries);
@@ -28,9 +28,9 @@ public interface PatientListImageryDao {
     @Delete
     void delete(PatientListImagery patientListImagery);
 
-    @Query("SELECT * FROM patient_list_imagery WHERE created > :created AND toDelete =:false")
-    List<PatientListImagery> loadChanged(long created);
+    @Query("SELECT * FROM patient_list_imagery WHERE created > :created AND toDelete =:toDelete")
+    List<PatientListImagery> loadChanged(long created, boolean toDelete);
 
-    @Query("SELECT * FROM patient_list_imagery WHERE pID =:pID AND toDelete =:false")
-    List<PatientListImagery> loadAllByPatientId(int pID);
+    @Query("SELECT * FROM patient_list_imagery WHERE pID =:pID AND toDelete =:toDelete")
+    List<PatientListImagery> loadAllByPatientId(int pID, boolean toDelete);
 }

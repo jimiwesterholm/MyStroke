@@ -26,12 +26,12 @@ public class GetPatientListImageriesTask extends AsyncTask<Void, Void, List<Imag
 
     @Override
     protected List<Imagery> doInBackground(Void... voids) {
-        List<PatientListImagery> patientList = appDatabase.patientListImageryDao().loadAllByPatientId(pID);
+        List<PatientListImagery> patientList = appDatabase.patientListImageryDao().loadAllByPatientId(pID, false);
         int[] ids = new int[patientList.size()];
         for (int i = 0; i < patientList.size(); i++) {
             ids[i] = patientList.get(i).getIID();
         }
-        return appDatabase.imageryDao().loadAllByIds(ids);
+        return appDatabase.imageryDao().loadAllByIds(ids, false);
     }
 
      @Override

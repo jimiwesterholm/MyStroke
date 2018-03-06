@@ -25,9 +25,9 @@ public class GetPatientsTask extends AsyncTask<Void, Void, List<Patient>>{
 
     @Override
     protected List<Patient> doInBackground(Void... voids) {
-        List<Patient> patients = appDatabase.patientDao().getAll();
+        List<Patient> patients = appDatabase.patientDao().getAll(false);
         for (Patient patient : patients) {
-            patient.setUser(appDatabase.userDao().findById(patient.getPid()));
+            patient.setUser(appDatabase.userDao().findById(patient.getPid(), false));
         }
         return patients;
     }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 9,
-    "identityHash": "914167b74673bdca965895a89b6e8574",
+    "identityHash": "09e1f544e2cbd74176efb8932046228f",
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `iduser` INTEGER NOT NULL, `username` TEXT, `password` TEXT, `salt` TEXT, `email` TEXT, `patient` INTEGER NOT NULL, `therapist` INTEGER NOT NULL, `firstName` TEXT, `lastName` TEXT, `created` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `iduser` INTEGER NOT NULL, `username` TEXT, `password` TEXT, `salt` TEXT, `email` TEXT, `patient` INTEGER NOT NULL, `therapist` INTEGER NOT NULL, `firstName` TEXT, `lastName` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -73,6 +73,12 @@
             "columnName": "created",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -95,7 +101,7 @@
       },
       {
         "tableName": "patient",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idpatient` INTEGER NOT NULL, `user_iduser` INTEGER NOT NULL, `therapist_idtherapist` INTEGER NOT NULL, `active` INTEGER NOT NULL, `created` INTEGER NOT NULL, FOREIGN KEY(`user_iduser`) REFERENCES `User`(`iduser`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`therapist_idtherapist`) REFERENCES `therapist`(`idtherapist`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idpatient` INTEGER NOT NULL, `user_iduser` INTEGER NOT NULL, `therapist_idtherapist` INTEGER NOT NULL, `active` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, FOREIGN KEY(`user_iduser`) REFERENCES `User`(`iduser`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`therapist_idtherapist`) REFERENCES `therapist`(`idtherapist`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -130,6 +136,12 @@
           {
             "fieldPath": "created",
             "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -177,7 +189,7 @@
       },
       {
         "tableName": "therapist",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idtherapist` INTEGER NOT NULL, `user_iduser` INTEGER NOT NULL, `position` TEXT, `active` INTEGER NOT NULL, `created` INTEGER NOT NULL, FOREIGN KEY(`user_iduser`) REFERENCES `User`(`iduser`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idtherapist` INTEGER NOT NULL, `user_iduser` INTEGER NOT NULL, `position` TEXT, `active` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, FOREIGN KEY(`user_iduser`) REFERENCES `User`(`iduser`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -214,6 +226,12 @@
             "columnName": "created",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -248,7 +266,7 @@
       },
       {
         "tableName": "Exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idexercise` INTEGER NOT NULL, `verboseDescription` TEXT, `section` TEXT, `assessment_idassessment` INTEGER NOT NULL, `name` TEXT, `created` INTEGER NOT NULL, `viewed` INTEGER NOT NULL, FOREIGN KEY(`assessment_idassessment`) REFERENCES `Assessment`(`idassessment`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idexercise` INTEGER NOT NULL, `verboseDescription` TEXT, `section` TEXT, `assessment_idassessment` INTEGER NOT NULL, `name` TEXT, `created` INTEGER NOT NULL, `viewed` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, FOREIGN KEY(`assessment_idassessment`) REFERENCES `Assessment`(`idassessment`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -297,6 +315,12 @@
             "columnName": "viewed",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -331,7 +355,7 @@
       },
       {
         "tableName": "Assessment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idassessment` INTEGER NOT NULL, `scoreMin` INTEGER NOT NULL, `scoreMax` INTEGER NOT NULL, `label` TEXT, `created` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idassessment` INTEGER NOT NULL, `scoreMin` INTEGER NOT NULL, `scoreMax` INTEGER NOT NULL, `label` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -368,6 +392,12 @@
             "columnName": "created",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -390,7 +420,7 @@
       },
       {
         "tableName": "Comment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idcomment` INTEGER NOT NULL, `patientId` INTEGER NOT NULL, `exerciseId` INTEGER NOT NULL, `text` TEXT, `sentByPatient` INTEGER NOT NULL, `date` INTEGER, `time` INTEGER, `timestamp` INTEGER NOT NULL, `created` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idcomment` INTEGER NOT NULL, `patientId` INTEGER NOT NULL, `exerciseId` INTEGER NOT NULL, `text` TEXT, `sentByPatient` INTEGER NOT NULL, `date` INTEGER, `time` INTEGER, `timestamp` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -451,6 +481,12 @@
             "columnName": "created",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -473,7 +509,7 @@
       },
       {
         "tableName": "Imagery",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `imageryID` INTEGER NOT NULL, `name` TEXT, `created` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `imageryID` INTEGER NOT NULL, `name` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -498,6 +534,12 @@
             "columnName": "created",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -520,7 +562,7 @@
       },
       {
         "tableName": "patient_list_exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `listExerciseID` INTEGER NOT NULL, `pID` INTEGER NOT NULL, `eID` INTEGER NOT NULL, `message` TEXT, `created` INTEGER NOT NULL, FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`eID`) REFERENCES `Exercise`(`idexercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `listExerciseID` INTEGER NOT NULL, `pID` INTEGER NOT NULL, `eID` INTEGER NOT NULL, `message` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`eID`) REFERENCES `Exercise`(`idexercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -555,6 +597,12 @@
           {
             "fieldPath": "created",
             "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -602,7 +650,7 @@
       },
       {
         "tableName": "patient_list_imagery",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `listImageryID` INTEGER NOT NULL, `pID` INTEGER NOT NULL, `iID` INTEGER NOT NULL, `created` INTEGER NOT NULL, FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`iID`) REFERENCES `Imagery`(`imageryID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `listImageryID` INTEGER NOT NULL, `pID` INTEGER NOT NULL, `iID` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`iID`) REFERENCES `Imagery`(`imageryID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -631,6 +679,12 @@
           {
             "fieldPath": "created",
             "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -678,7 +732,7 @@
       },
       {
         "tableName": "patient_assessment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `patientAssessesExerciseID` INTEGER NOT NULL, `pID` INTEGER NOT NULL, `eID` INTEGER NOT NULL, `score` REAL NOT NULL, `date` INTEGER, `time` INTEGER, `timestamp` INTEGER NOT NULL, `created` INTEGER NOT NULL, FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`eID`) REFERENCES `Exercise`(`idexercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `patientAssessesExerciseID` INTEGER NOT NULL, `pID` INTEGER NOT NULL, `eID` INTEGER NOT NULL, `score` REAL NOT NULL, `date` INTEGER, `time` INTEGER, `timestamp` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`eID`) REFERENCES `Exercise`(`idexercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -733,6 +787,12 @@
             "columnName": "created",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -779,7 +839,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"914167b74673bdca965895a89b6e8574\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"09e1f544e2cbd74176efb8932046228f\")"
     ]
   }
 }
