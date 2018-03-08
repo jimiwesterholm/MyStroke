@@ -36,7 +36,7 @@ import org.json.JSONObject;
 )
 public class PatientListExercise implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int id;
+    private int SQLiteId;
 
     private int listExerciseID;
 
@@ -50,13 +50,9 @@ public class PatientListExercise implements DatabaseObject {
 
     private boolean toDelete;
 
-    public boolean isToDelete() {
-        return toDelete;
-    }
+    @Ignore
+    private Exercise exercise;
 
-    public void setToDelete(boolean toDelete) {
-        this.toDelete = toDelete;
-    }
 
     public PatientListExercise(int listExerciseID, int pID, int eID, String message) {
         this.listExerciseID = listExerciseID;
@@ -105,11 +101,23 @@ public class PatientListExercise implements DatabaseObject {
     public void setMessage(String message) {
         this.message = message;
     }
-    public int getId() {
-        return id;
+    public int getSQLiteId() {
+        return SQLiteId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setSQLiteId(int SQLiteId) {
+        this.SQLiteId = SQLiteId;
+    }
+    public Exercise getExercise() {
+        return exercise;
+    }
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
+    public boolean isToDelete() {
+        return toDelete;
+    }
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
     }
 
     @Override
@@ -119,5 +127,15 @@ public class PatientListExercise implements DatabaseObject {
         jsonObject.put("patient_id", pID);
         jsonObject.put("exercise_id", eID);
         return jsonObject;
+    }
+
+    @Override
+    public String toString() {
+        if(exercise != null) {
+            return exercise.toString();
+        } else {
+            //TODO why tho
+            return message;
+        }
     }
 }

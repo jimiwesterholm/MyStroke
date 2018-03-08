@@ -19,15 +19,15 @@ public interface CommentDao {
     @Query("SELECT * FROM comment WHERE toDelete =:toDelete")
     List<Comment> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM comment WHERE toDelete =:toDelete ORDER BY created ASC")
-    List<Comment> getAllOrdered(boolean toDelete);
+    @Query("SELECT * FROM comment WHERE patientId =:pId AND toDelete =:toDelete ORDER BY created ASC")
+    List<Comment> getByPatientOrdered(int pId, boolean toDelete);
 
-    @Query("SELECT * FROM comment WHERE id IN (:commentIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM comment WHERE SQLiteId IN (:commentIds) AND toDelete =:toDelete")
     List<Comment> loadAllByIds(int[] commentIds, boolean toDelete);
 
     //TODO maybe not needed?
-    @Query("SELECT MAX(idcomment) FROM comment WHERE toDelete =:toDelete")
-    int loadMaxId(boolean toDelete);
+    @Query("SELECT MAX(idcomment) FROM comment")
+    int loadMaxId();
 
     @Insert
     void insertAll(Comment... comments);
@@ -37,4 +37,7 @@ public interface CommentDao {
 
     @Query("SELECT * FROM comment WHERE created > :created AND toDelete =:toDelete")
     List<Comment> loadChanged(long created, boolean toDelete);
+
+    @Query("SELECT MAX(idcomment) FROM comment")
+    Integer loadMinId();
 }

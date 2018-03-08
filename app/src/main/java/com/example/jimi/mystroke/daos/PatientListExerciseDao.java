@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.PatientListExercise;
@@ -20,7 +21,7 @@ public interface PatientListExerciseDao {
     @Query("SELECT * FROM patient_list_exercise WHERE toDelete =:toDelete")
     List<PatientListExercise> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient_list_exercise WHERE id IN (:patientListExerciseIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM patient_list_exercise WHERE SQLiteId IN (:patientListExerciseIds) AND toDelete =:toDelete")
     List<PatientListExercise> loadAllByIds(int[] patientListExerciseIds, boolean toDelete);
 
     @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID AND toDelete =:toDelete")
@@ -34,4 +35,7 @@ public interface PatientListExerciseDao {
 
     @Query("SELECT * FROM patient_list_exercise WHERE created > :created AND toDelete =:toDelete")
     List<PatientListExercise> loadChanged(long created, boolean toDelete);
+
+    @Update
+    void update(PatientListExercise listExercise);
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity(indices = {@Index(value = "iduser", unique = true)})
         public class User implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int id;
+    private int SQLiteId;
 
     @ColumnInfo(name = "iduser")
     private int uid;
@@ -81,11 +81,11 @@ import java.util.Date;
     }
 
     //Getters and Setters
-    public int getId() {
-        return id;
+    public int getSQLiteId() {
+        return SQLiteId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setSQLiteId(int SQLiteId) {
+        this.SQLiteId = SQLiteId;
     }
     public int getUid() {
         return uid;

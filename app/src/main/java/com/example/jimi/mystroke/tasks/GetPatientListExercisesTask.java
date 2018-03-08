@@ -12,7 +12,7 @@ import java.util.List;
  * Created by jimi on 19/02/2018.
  */
 
-public class GetPatientListExercisesTask extends AsyncTask<Void, Void, List<Exercise>> {
+public class GetPatientListExercisesTask extends AsyncTask<Void, Void, List<PatientListExercise>> {
     private AsyncResponse asyncResponse;
     private int pID;
     private AppDatabase appDatabase;
@@ -25,17 +25,19 @@ public class GetPatientListExercisesTask extends AsyncTask<Void, Void, List<Exer
     }
 
     @Override
-    protected List<Exercise> doInBackground(Void...foo) {
+    protected List<PatientListExercise> doInBackground(Void...foo) {
         List<PatientListExercise> patientListExercises  = appDatabase.patientListExerciseDao().loadAllByPatientID(pID, false);
         int[] exerciseIDs = new int[patientListExercises.size()];
         for (int i = 0; i < patientListExercises.size(); i++) {
-            exerciseIDs[i] = patientListExercises.get(i).getId();
+            Exercise exercise = appDatabase.exerciseDao().loadByExerciseId(patientListExercises.get(i).getEID(), false);
+            patientListExercises.get(i).setExercise(exercise);
         }
-        return appDatabase.exerciseDao().loadAllByIds(exerciseIDs, false);
+
+        return patientListExercises;
     }
 
     @Override
-    protected void onPostExecute(List<Exercise> patientListExercises) {
+    protected void onPostExecute(List<PatientListExercise> patientListExercises) {
         asyncResponse.respond(var, patientListExercises);
     }
 }

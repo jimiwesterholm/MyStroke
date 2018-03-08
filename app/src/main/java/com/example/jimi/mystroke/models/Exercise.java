@@ -33,7 +33,7 @@ import java.util.Date;
 public class Exercise implements DatabaseObject {
     //TODO: add video
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int id;
+    private int SQLiteId;
 
     @ColumnInfo(name = "idexercise")
     private int eid;
@@ -88,11 +88,11 @@ public class Exercise implements DatabaseObject {
         viewed = false;
     }
 
-    public int getId() {
-        return id;
+    public int getSQLiteId() {
+        return SQLiteId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setSQLiteId(int SQLiteId) {
+        this.SQLiteId = SQLiteId;
     }
     public long getCreated() {
         return created;

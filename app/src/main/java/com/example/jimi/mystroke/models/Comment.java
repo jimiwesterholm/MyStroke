@@ -18,10 +18,10 @@ import java.sql.Time;
 @Entity(indices = {@Index(value = "idcomment", unique = true)})
 public class Comment implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int id;
+    private int SQLiteId;
 
     @ColumnInfo(name = "idcomment")
-    private int cid;
+    private Integer cid;
 
     private int patientId;
 
@@ -50,7 +50,7 @@ public class Comment implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Comment(int cid, java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
+    public Comment(Integer cid, java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
         this.cid = cid;
         this.time = time;
         this.date = date;
@@ -64,7 +64,7 @@ public class Comment implements DatabaseObject {
 
     @Ignore
     public Comment(java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
-        cid = 0;
+        cid = null;
         this.time = time;
         this.date = date;
         this.patientId = patientId;
@@ -75,11 +75,11 @@ public class Comment implements DatabaseObject {
         this.sentByPatient = sentByPatient;
     }
 
-    public int getId() {
-        return id;
+    public int getSQLiteId() {
+        return SQLiteId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setSQLiteId(int SQLiteId) {
+        this.SQLiteId = SQLiteId;
     }
     public long getCreated() {
             return created;
@@ -87,10 +87,10 @@ public class Comment implements DatabaseObject {
     public void setCreated(long created) {
             this.created = created;
         }
-    public int getCid() {
+    public Integer getCid() {
             return cid;
         }
-    public void setCid(int cid) {
+    public void setCid(Integer cid) {
             this.cid = cid;
     }
     public int getPatientId() {

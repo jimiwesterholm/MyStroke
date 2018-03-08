@@ -4,27 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.R;
-import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.models.Imagery;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
-import com.example.jimi.mystroke.tasks.GetExercisesBySectionTask;
 import com.example.jimi.mystroke.tasks.GetImageriesTask;
-import com.example.jimi.mystroke.tasks.GetSectionsTask;
 
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import static android.content.ContentValues.TAG;
 
 public class ViewImageriesActivity extends AppCompatActivity implements AsyncResponse {
     private Toolbar toolbar;
@@ -60,7 +51,7 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             Imagery clicked = (Imagery) parent.getAdapter().getItem(position);
             Intent intent = new Intent(getBaseContext(), ImageryActivity.class);
-            intent.putExtra("EXTRA_IMAGERY_ID", clicked.getId());
+            intent.putExtra("EXTRA_IMAGERY_ID", clicked.getSQLiteId());
             startActivity(intent);
         }
     };

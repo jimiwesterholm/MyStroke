@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/search"
         android:inputType="text"
-        android:text="@string/search"
         android:textColor="@color/white"
         tools:layout_editor_absoluteX="54dp"
         tools:layout_editor_absoluteY="0dp" />

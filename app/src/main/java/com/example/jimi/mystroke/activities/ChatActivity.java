@@ -24,11 +24,12 @@ import android.widget.TextView;
 
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.CommentAdapter;
+import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Comment;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetCommentsTask;
-import com.example.jimi.mystroke.tasks.GetMaxCommentIdTask;
+import com.example.jimi.mystroke.tasks.GetMinCommentIdTask;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabase;
 
 import java.lang.reflect.Array;
@@ -42,13 +43,20 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     private Button messageButton;
     private CommentAdapter adapter;
     private List<Comment> messages;
+    private int pId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        if (Globals.getInstance().isPatient() == 1) {
+            new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), Globals.getInstance().getUser().getPatient(), this).execute();
+        } else {
+            pId = getIntent().getIntExtra("EXTRA_PATIENT_ID", -1);
+            new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -61,14 +69,13 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
 
     public void sendButtonOnClick(View view) {
         if(!messageText.getText().toString().equals(null)) {
-            //new GetMaxCommentIdTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
-            addComment();
+            new GetMinCommentIdTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
         }
     }
 
-    public void addComment() {
+    public void addComment(int id) {
         //TODO get actual values for patient id etc
-        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), 1, 1, 1);
+        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getUser().getPatient(), 1, Globals.getInstance().isPatient());
         new RecordsToAppDatabase("comment", AppDatabase.getDatabase(getApplicationContext())).execute(new Comment[]{comment});
         messages.add(comment);
         messageText.getText().clear();
@@ -83,7 +90,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
 
     private void itemsToListView(List<Comment> items, AdapterView.OnItemClickListener listener) {
         messages = items;
-        adapter = new CommentAdapter(this, messages);
+        adapter = new CommentAdapter(this, messages, Globals.getInstance().isPatient());
         ListView listView = (ListView) findViewById(R.id.messages);
         listView.setAdapter(adapter);
         //listView.setOnItemClickListener(listener);
@@ -101,9 +108,12 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
             case GetCommentsTask.var:
                 itemsToListView((List<Comment>) objects[0], mMessageClickedHandler);
                 break;
-            /*case GetMaxCommentIdTask.var:
-                addComment((Integer) objects[0]);
-                break;*/
+            case GetMinCommentIdTask.var:
+                int id = (Integer) objects[0];
+                if(id > 0) id = 0;
+                id--;
+                addComment(id);
+                break;
         }
     }
 

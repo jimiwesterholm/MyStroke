@@ -1,12 +1,9 @@
 package com.example.jimi.mystroke.models; /**
  * Created by jimi on 25/11/2017.
  */
-import android.app.Activity;
-import android.app.Application;
 import android.arch.persistence.room.*;
 
 import com.example.jimi.mystroke.tasks.AsyncResponse;
-import com.example.jimi.mystroke.tasks.GetUserTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +33,7 @@ import org.json.JSONObject;
 
 public class Patient implements DatabaseObject, AsyncResponse {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int id;
+    private int SQLiteId;
 
     @ColumnInfo(name = "idpatient")
     private int pid;
@@ -138,11 +135,11 @@ public class Patient implements DatabaseObject, AsyncResponse {
     public void setUser(User user) {
         this.user = user;
     }
-    public int getId() {
-        return id;
+    public int getSQLiteId() {
+        return SQLiteId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setSQLiteId(int SQLiteId) {
+        this.SQLiteId = SQLiteId;
     }
 
     @Override

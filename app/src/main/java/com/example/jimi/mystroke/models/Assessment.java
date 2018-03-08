@@ -16,7 +16,7 @@ import org.json.JSONObject;
 @Entity(indices = {@Index(value = "idassessment", unique = true)})
 public class Assessment implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int id;
+    private int SQLiteId;
 
     @ColumnInfo(name = "idassessment")
     private int aid;
@@ -87,11 +87,11 @@ public class Assessment implements DatabaseObject {
     public void setLabel(String label) {
         this.label = label;
     }
-    public int getId() {
-        return id;
+    public int getSQLiteId() {
+        return SQLiteId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setSQLiteId(int SQLiteId) {
+        this.SQLiteId = SQLiteId;
     }
 
     @Override

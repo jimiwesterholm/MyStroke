@@ -12,23 +12,24 @@ import java.lang.ref.WeakReference;
  * Created by jimi on 19/02/2018.
  */
 
-public class GetMaxCommentIdTask extends AsyncTask<Void, Void, Integer> {
+public class GetMinCommentIdTask extends AsyncTask<Void, Void, Integer> {
     private AppDatabase appDatabase;
     private AsyncResponse asyncResponse;
     public static final int var = 4;
 
-    public GetMaxCommentIdTask(AppDatabase appDatabase, AsyncResponse asyncResponse) {
+    public GetMinCommentIdTask(AppDatabase appDatabase, AsyncResponse asyncResponse) {
         this.appDatabase = appDatabase;
         this.asyncResponse = asyncResponse;
     }
 
     @Override
     protected Integer doInBackground(Void... voids) {
-        return appDatabase.commentDao().loadMaxId(false);
+        return appDatabase.commentDao().loadMinId();
     }
 
     @Override
     protected void onPostExecute(Integer result) {
+        if (result==null) result = 0;
         asyncResponse.respond(var, result);
     }
 }

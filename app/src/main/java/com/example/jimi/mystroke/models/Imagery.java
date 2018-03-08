@@ -14,7 +14,7 @@ import org.json.JSONObject;
 @Entity(indices = {@Index(value = "imageryID", unique = true)})
 public class Imagery implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int id;
+    private int SQLiteId;
 
     private int imageryID;
 
@@ -45,11 +45,11 @@ public class Imagery implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
-    public int getId() {
-        return id;
+    public int getSQLiteId() {
+        return SQLiteId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setSQLiteId(int SQLiteId) {
+        this.SQLiteId = SQLiteId;
     }
     public int getImageryID() {
         return imageryID;

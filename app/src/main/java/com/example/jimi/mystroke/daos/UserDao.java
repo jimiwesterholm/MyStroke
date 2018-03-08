@@ -13,10 +13,10 @@ public abstract class UserDao {
     @Query("SELECT * FROM user WHERE toDelete =:toDelete")
     public abstract List<User> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM user WHERE id IN (:userIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM user WHERE SQLiteId IN (:userIds) AND toDelete =:toDelete")
     public abstract List<User> loadAllByIds(int[] userIds, boolean toDelete);
 
-    @Query("SELECT * FROM user WHERE id = :iduser AND toDelete =:toDelete LIMIT 1")
+    @Query("SELECT * FROM user WHERE SQLiteId = :iduser AND toDelete =:toDelete LIMIT 1")
     public abstract User findById(int iduser, boolean toDelete);
 
     @Query("SELECT * FROM user WHERE firstName LIKE :first AND "

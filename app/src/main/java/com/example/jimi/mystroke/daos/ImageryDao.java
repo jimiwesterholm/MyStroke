@@ -20,7 +20,7 @@ public interface ImageryDao {
     @Query("SELECT * FROM imagery WHERE toDelete =:toDelete")
     List<Imagery> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM imagery WHERE id IN (:imageryIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM imagery WHERE SQLiteId IN (:imageryIds) AND toDelete =:toDelete")
     List<Imagery> loadAllByIds(int[] imageryIds, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -31,4 +31,10 @@ public interface ImageryDao {
 
     @Query("SELECT * FROM imagery WHERE created > :created AND toDelete =:toDelete")
     List<Imagery> loadChanged(long created, boolean toDelete);
+
+    @Query("SELECT * FROM imagery WHERE imageryID IN (:imageryIds) AND toDelete =:toDelete")
+    List<Imagery> loadAllByImageryIds(int[] imageryIds, boolean toDelete);
+
+    @Query("SELECT * FROM imagery WHERE imageryID =:iId AND toDelete =:toDelete")
+    Imagery loadByImageryId(int iId, boolean toDelete);
 }

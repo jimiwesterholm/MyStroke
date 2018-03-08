@@ -15,16 +15,18 @@ import java.util.List;
 public class GetCommentsTask extends AsyncTask<Void, Void, List<Comment>> {
     private AppDatabase appDatabase;
     private AsyncResponse asyncResponse;
+    private int pId;
     public static final int var = 2;
 
-    public GetCommentsTask(AppDatabase appDatabase, AsyncResponse asyncResponse) {
+    public GetCommentsTask(AppDatabase appDatabase, int pId, AsyncResponse asyncResponse) {
         this.asyncResponse = asyncResponse;
         this.appDatabase = appDatabase;
+        this.pId = pId;
     }
 
     @Override
     protected List<Comment> doInBackground(Void... voids) {
-        return appDatabase.commentDao().getAllOrdered(false);
+        return appDatabase.commentDao().getByPatientOrdered(pId, false);
     }
 
     @Override

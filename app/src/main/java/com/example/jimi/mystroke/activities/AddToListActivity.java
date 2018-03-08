@@ -1,7 +1,5 @@
 package com.example.jimi.mystroke.activities;
 
-import android.os.AsyncTask;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,10 +23,8 @@ import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetPatientListImageriesTask;
 import com.example.jimi.mystroke.tasks.GetPatientsTask;
 import com.example.jimi.mystroke.tasks.GetSectionExercisesExceptTask;
-import com.example.jimi.mystroke.tasks.GetExercisesBySectionTask;
 import com.example.jimi.mystroke.tasks.GetImageriesTask;
 import com.example.jimi.mystroke.tasks.GetPatientListExercisesTask;
-import com.example.jimi.mystroke.tasks.GetSectionsFromIdsTask;
 import com.example.jimi.mystroke.tasks.GetSectionsNotFromIdsTask;
 import com.example.jimi.mystroke.tasks.GetSectionsTask;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabase;
@@ -91,18 +87,22 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
             case GetImageriesTask.var://TODO change so items on list not fetched
                 imageries = (List<Imagery>) objects[0];
                 Patient patient = (Patient) patientSpinner.getSelectedItem();
-                new GetPatientListImageriesTask(this, patient.getId(), AppDatabase.getDatabase(getApplicationContext())).execute();
+                new GetPatientListImageriesTask(this, patient.getPid(), AppDatabase.getDatabase(getApplicationContext())).execute();
                 break;
             case GetPatientListImageriesTask.var:
-                List<Imagery> patientImageries = (List<Imagery>) objects[0];
+                List<PatientListImagery> patientListImageries = (List<PatientListImagery>) objects[0];
+                List<Imagery> patientImageries = new ArrayList<Imagery>();
+                for (PatientListImagery patientListImagery : patientListImageries) {
+                    patientImageries.add(patientListImagery.getImagery());
+                }
                 imageries.removeAll(patientImageries);
                 itemsToListView(itemSpinner, new ArrayAdapter<Imagery>(this, R.layout.support_simple_spinner_dropdown_item, imageries.toArray(new Imagery[0])));
                 break;
             case GetPatientListExercisesTask.var:
-                List<Exercise> patientListExercises = (List<Exercise>) objects[0];
+                List<PatientListExercise> patientListExercises = (List<PatientListExercise>) objects[0];
                 int[] exerciseIDs = new int[patientListExercises.size()];
                 for (int i = 0; i < patientListExercises.size(); i++) {
-                    exerciseIDs[i] = patientListExercises.get(i).getId();
+                    exerciseIDs[i] = patientListExercises.get(i).getExercise().getSQLiteId();
                 }
                 listExerciseIds = exerciseIDs;
                 new GetSectionsNotFromIdsTask(this, exerciseIDs, AppDatabase.getDatabase(getApplicationContext())).execute();
@@ -124,12 +124,12 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
                 int pId = getIntent().getIntExtra("EXTRA_PATIENT_ID", -1);
                 if(pId != -1) {
                     for (int i = 0; i < patients.size(); i++) {
-                        if(patients.get(i).getId() == pId) {
+                        if(patients.get(i).getPid() == pId) {
                             patientSpinner.setSelection(i);
+                            onPatientButtonClicked((View) patientSpinner);
                             break;
                         }
                     }
-
                 }
         }
     }
@@ -137,7 +137,7 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
     public void onPatientButtonClicked(View view) {
         if (patientSpinner.isEnabled()) {
             Patient patient = (Patient) patientSpinner.getSelectedItem();
-            new GetPatientListExercisesTask(this, patient.getId(), AppDatabase.getDatabase(getApplicationContext())).execute();
+            new GetPatientListExercisesTask(this, patient.getPid(), AppDatabase.getDatabase(getApplicationContext())).execute();
             sectionSpinner.setVisibility(View.VISIBLE);
             sectionButton.setVisibility(View.VISIBLE);
             patientSpinner.setEnabled(false);

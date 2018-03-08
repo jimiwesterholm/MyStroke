@@ -20,7 +20,11 @@ import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.models.Imagery;
+import com.example.jimi.mystroke.models.PatientListExercise;
+import com.example.jimi.mystroke.models.PatientListImagery;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
+import com.example.jimi.mystroke.tasks.DeletePatientListExerciseTask;
+import com.example.jimi.mystroke.tasks.DeletePatientListImageryTask;
 import com.example.jimi.mystroke.tasks.GetPatientListExercisesTask;
 import com.example.jimi.mystroke.tasks.GetPatientListImageriesTask;
 
@@ -31,10 +35,12 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     private EditText search;
     private TextView title;
     private int pId;
-    private Exercise exercise;
-    private Imagery imagery;
+    private PatientListExercise exercise;
+    private PatientListImagery imagery;
     private boolean imageryOn;
     private Button switchButton;
+    private List<PatientListImagery> patientImageries;
+    private List<PatientListExercise> patientListExercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +49,13 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
         pId = getIntent().getExtras().getInt("EXTRA_PATIENT_ID");
         list = findViewById(R.id.list);
         new GetPatientListExercisesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
-
+        new GetPatientListImageriesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         search = findViewById(R.id.searchEditText);
         title = findViewById(R.id.titleText);
-
+        title.setText(R.string.exercise_list);
     }
 
     private void itemsToListView(ArrayAdapter adapter, AdapterView.OnItemClickListener listener) {
@@ -61,7 +67,7 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     private AdapterView.OnItemClickListener exerciseClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
-            exercise = (Exercise) parent.getAdapter().getItem(position);
+            exercise = (PatientListExercise) parent.getAdapter().getItem(position);
             //Change colour etc.
         }
     };
@@ -69,7 +75,7 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     private AdapterView.OnItemClickListener imageryClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
-            imagery = (Imagery) parent.getAdapter().getItem(position);
+            imagery = (PatientListImagery) parent.getAdapter().getItem(position);
             //Change colour etc.
         }
     };
@@ -78,25 +84,27 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     public void respond(int var, Object... objects) {
         switch(var) {
             case GetPatientListImageriesTask.var:
-                List<Imagery> patientImageries = (List<Imagery>) objects[0];
-                title.setText(R.string.imagery_list);
-                itemsToListView(new ArrayAdapter<Imagery>(this, R.layout.support_simple_spinner_dropdown_item, patientImageries.toArray(new Imagery[0])), imageryClickedHandler);
+                patientImageries = (List<PatientListImagery>) objects[0];
+                //title.setText(R.string.imagery_list);
+                //itemsToListView(new ArrayAdapter<Imagery>(this, R.layout.support_simple_spinner_dropdown_item, patientImageries.toArray(new Imagery[0])), imageryClickedHandler);
                 break;
             case GetPatientListExercisesTask.var:
-                List<Exercise> patientListExercises = (List<Exercise>) objects[0];
-                title.setText(R.string.exercise_list);
-                itemsToListView(new ArrayAdapter<Exercise>(this, R.layout.support_simple_spinner_dropdown_item, patientListExercises.toArray(new Exercise[0])), exerciseClickedHandler);
+                patientListExercises = (List<PatientListExercise>) objects[0];
+                //title.setText(R.string.exercise_list);
+                itemsToListView(new ArrayAdapter<PatientListExercise>(this, R.layout.support_simple_spinner_dropdown_item, patientListExercises.toArray(new PatientListExercise[0])), exerciseClickedHandler);
         }
     }
 
     public void onChangeListButtonClick(View view) {
         Button button = (Button) view;
         if(imageryOn) {
-            new GetPatientListExercisesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
+            title.setText(R.string.imagery_list);
+            itemsToListView(new ArrayAdapter<PatientListImagery>(this, R.layout.support_simple_spinner_dropdown_item, patientImageries.toArray(new PatientListImagery[0])), imageryClickedHandler);
             button.setText(R.string.exerciseBut);
             imageryOn = false;
         } else {
-            new GetPatientListImageriesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
+            title.setText(R.string.exercise_list);
+            itemsToListView(new ArrayAdapter<PatientListExercise>(this, R.layout.support_simple_spinner_dropdown_item, patientListExercises.toArray(new PatientListExercise[0])), exerciseClickedHandler);
             button.setText(R.string.imageryBut);
             imageryOn = true;
         }
@@ -114,14 +122,13 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
                 //TODO error message
                 return;
             }
-            //Delete
-
+            new DeletePatientListImageryTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(imagery);
         } else {
             if(exercise == null) {
                 //TODO error message
                 return;
             }
-            //Delete
+            new DeletePatientListExerciseTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
         }
     }
 

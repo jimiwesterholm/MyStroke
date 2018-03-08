@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 public class Globals {
     private static final Globals ourInstance = new Globals();
     private User user;
+    private int isPatient;
     private long latestUpdate;
     private final String dbUrl = "http://4c4e48f7.ngrok.io/api.php/";
 
@@ -19,6 +20,14 @@ public class Globals {
     }
 
     private Globals() {
+    }
+
+    public int isPatient() {
+        return isPatient;
+    }
+
+    public void setPatient(int patient) {
+        isPatient = patient;
     }
 
     public User getUser() {

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by jimi on 02/03/2018.
  */
 
-public class GetPatientListImageriesTask extends AsyncTask<Void, Void, List<Imagery>> {
+public class GetPatientListImageriesTask extends AsyncTask<Void, Void, List<PatientListImagery>> {
     private AsyncResponse asyncResponse;
     private int pID;
     private AppDatabase appDatabase;
@@ -25,17 +25,18 @@ public class GetPatientListImageriesTask extends AsyncTask<Void, Void, List<Imag
     }
 
     @Override
-    protected List<Imagery> doInBackground(Void... voids) {
+    protected List<PatientListImagery> doInBackground(Void... voids) {
         List<PatientListImagery> patientList = appDatabase.patientListImageryDao().loadAllByPatientId(pID, false);
         int[] ids = new int[patientList.size()];
         for (int i = 0; i < patientList.size(); i++) {
-            ids[i] = patientList.get(i).getIID();
+            Imagery imagery = appDatabase.imageryDao().loadByImageryId(patientList.get(i).getIID(), false);
+            patientList.get(i).setImagery(imagery);
         }
-        return appDatabase.imageryDao().loadAllByIds(ids, false);
+        return patientList;
     }
 
      @Override
-    protected void onPostExecute(List<Imagery> results) {
+    protected void onPostExecute(List<PatientListImagery> results) {
         asyncResponse.respond(var, results);
      }
 }

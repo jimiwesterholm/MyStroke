@@ -36,7 +36,7 @@ import org.json.JSONObject;
 )
 public class PatientListImagery implements DatabaseObject {
     @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int id;
+    private int SQLiteId;
 
     private int listImageryID;
 
@@ -48,13 +48,9 @@ public class PatientListImagery implements DatabaseObject {
 
     private boolean toDelete;
 
-    public boolean isToDelete() {
-        return toDelete;
-    }
+    @Ignore
+    private Imagery imagery;
 
-    public void setToDelete(boolean toDelete) {
-        this.toDelete = toDelete;
-    }
 
     public PatientListImagery(int listImageryID, int pID, int iID) {
         this.listImageryID = listImageryID;
@@ -71,11 +67,11 @@ public class PatientListImagery implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
-    public int getId() {
-        return id;
+    public int getSQLiteId() {
+        return SQLiteId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setSQLiteId(int SQLiteId) {
+        this.SQLiteId = SQLiteId;
     }
     public int getListImageryID() {
         return listImageryID;
@@ -101,6 +97,18 @@ public class PatientListImagery implements DatabaseObject {
     public void setCreated(long created) {
         this.created = created;
     }
+    public Imagery getImagery() {
+        return imagery;
+    }
+    public void setImagery(Imagery imagery) {
+        this.imagery = imagery;
+    }
+    public boolean isToDelete() {
+        return toDelete;
+    }
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
 
     @Override
     public JSONObject toJSON() throws JSONException {
@@ -109,5 +117,15 @@ public class PatientListImagery implements DatabaseObject {
         jsonObject.put("idpatient", pID);
         jsonObject.put("idimagery", iID);
         return jsonObject;
+    }
+
+    @Override
+    public String toString() {
+        if(imagery != null) {
+            return imagery.toString();
+        } else {
+            //TODO don't.
+            return "shit";
+        }
     }
 }

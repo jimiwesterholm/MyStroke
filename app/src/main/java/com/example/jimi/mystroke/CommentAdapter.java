@@ -22,16 +22,18 @@ public class CommentAdapter extends BaseAdapter {
     //TODO: therapist side displaying correctly
     private int[] layoutResources = {R.layout.list_element_view_received_message, R.layout.list_element_view_sent_message};
     private LayoutInflater inflater;
+    private int isPatient;
 
     static class ViewHolder {
         public TextView textView;
         public TextView timeView;
     }
 
-    public CommentAdapter(@NonNull Context context, @NonNull List<Comment> objects) {
+    public CommentAdapter(@NonNull Context context, @NonNull List<Comment> objects, int isPatient) {
         //super(context, resource, objects);
         comments = objects;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.isPatient = isPatient;
     }
 
     @Override
@@ -56,7 +58,15 @@ public class CommentAdapter extends BaseAdapter {
 
         if(convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(layoutResources[comment.getSentByPatient()], null);
+            if(isPatient == 1) {
+                convertView = inflater.inflate(layoutResources[comment.getSentByPatient()], null);
+            } else {
+                if(comment.getSentByPatient() == 1) {
+                    convertView = inflater.inflate(layoutResources[0], null);
+                } else {
+                    convertView = inflater.inflate(layoutResources[1], null);
+                }
+            }
             viewHolder.textView = convertView.findViewById(R.id.textView);
             viewHolder.timeView = convertView.findViewById(R.id.timeView);
             convertView.setTag(viewHolder);
