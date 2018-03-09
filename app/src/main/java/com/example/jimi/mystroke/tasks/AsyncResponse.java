@@ -5,5 +5,5 @@ package com.example.jimi.mystroke.tasks;
  */
 
 public interface AsyncResponse {
-    public void respond(int var, Object... objects);
+    void respond(int var, Object... objects);
 }

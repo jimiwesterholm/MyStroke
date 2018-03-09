@@ -7,31 +7,29 @@ import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.models.Imagery;
 import com.example.jimi.mystroke.models.PatientListImagery;
 
-import java.util.List;
-
 /**
  * Created by jimi on 02/03/2018.
  */
 
-public class DeletePatientListImageryTask extends AsyncTask<PatientListImagery, Void, Boolean> {
+public class DeleteImageriesTask extends AsyncTask<Imagery, Void, Boolean> {
     private AsyncResponse asyncResponse;
     private AppDatabase appDatabase;
     public static final int var = 12;
 
-    public DeletePatientListImageryTask(AsyncResponse asyncResponse, AppDatabase appDatabase) {
+    public DeleteImageriesTask(AsyncResponse asyncResponse, AppDatabase appDatabase) {
         this.asyncResponse = asyncResponse;
         this.appDatabase = appDatabase;
     }
 
     @Override
-    protected Boolean doInBackground(PatientListImagery... listImageries) {
+    protected Boolean doInBackground(Imagery... imageries) {
         long latestUp = Globals.getInstance().getLatestUpdate();
-        for (PatientListImagery listImagery : listImageries) {
-            if(listImagery.getCreated() > latestUp) {   //If the item is not yet in global database, delete
-                appDatabase.patientListImageryDao().delete(listImagery);
+        for (Imagery imagery : imageries) {
+            if(imagery.getCreated() > latestUp) {   //If the item is not yet in global database, delete
+                appDatabase.imageryDao().delete(imagery);
             } else {
-                listImagery.setToDelete(true);
-                appDatabase.patientListImageryDao().update(listImagery);
+                imagery.setToDelete(true);
+                appDatabase.imageryDao().update(imagery);
             }
         }
         return true;

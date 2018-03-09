@@ -26,13 +26,13 @@ public class ViewPatientsActivity extends AppCompatActivity implements AsyncResp
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patients);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
 
 
-        TextView title = (TextView) findViewById(R.id.titleText);
+        TextView title = findViewById(R.id.titleText);
         title.setText(R.string.patientTitle);
 
         //TODO: Check for alerts, indicate where
@@ -61,7 +61,7 @@ public class ViewPatientsActivity extends AppCompatActivity implements AsyncResp
 
     private void itemsToListView(List<Patient> items, AdapterView.OnItemClickListener listener) {
         ArrayAdapter<Patient> adapter = new ArrayAdapter<Patient>(this, R.layout.sample_list_element_view, items.toArray(new Patient[0]));
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(mMessageClickedHandler);
     }

@@ -8,5 +8,5 @@ import org.json.JSONObject;
  */
 
 public interface DatabaseObject {
-    public JSONObject toJSON() throws JSONException;
+    JSONObject toJSON() throws JSONException;
 }

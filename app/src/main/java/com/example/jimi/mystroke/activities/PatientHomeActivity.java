@@ -21,12 +21,12 @@ public class PatientHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
     public void buttonPress(View view) {
-        Intent intent = null;
+        Intent intent;
         switch (view.getId()) {
             case (R.id.buttonExercises):
                 intent = new Intent(getApplicationContext(), ViewExerciseSectionsActivity.class);

@@ -28,7 +28,7 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //TODO: Check for alerts, indicate where
@@ -58,7 +58,7 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
 
     private void itemsToListView(List<Imagery> items, AdapterView.OnItemClickListener listener) {
         ArrayAdapter<Imagery> adapter = new ArrayAdapter<Imagery>(this, R.layout.sample_list_element_view, items);
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
     }

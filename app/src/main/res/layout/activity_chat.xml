@@ -59,7 +59,8 @@
         android:hint="@string/message_edit_text_hint"
         app:layout_constraintBottom_toBottomOf="@+id/sendMessageButton"
         app:layout_constraintStart_toStartOf="@+id/exerciseSelection"
-        app:layout_constraintTop_toTopOf="@+id/sendMessageButton" />
+        app:layout_constraintTop_toTopOf="@+id/sendMessageButton"
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/sendMessageButton"

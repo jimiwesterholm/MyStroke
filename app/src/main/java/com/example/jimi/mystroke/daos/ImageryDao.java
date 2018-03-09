@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.Imagery;
@@ -37,4 +38,7 @@ public interface ImageryDao {
 
     @Query("SELECT * FROM imagery WHERE imageryID =:iId AND toDelete =:toDelete")
     Imagery loadByImageryId(int iId, boolean toDelete);
+
+    @Update
+    void update(Imagery imagery);
 }

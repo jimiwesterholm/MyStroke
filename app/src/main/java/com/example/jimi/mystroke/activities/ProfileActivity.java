@@ -38,8 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
         editFields[3] = findViewById(R.id.textEmailEdit);
         editFields[3].setText(Globals.getInstance().getUser().getEmail());
 
-        editButton = (Button) findViewById(R.id.buttonEditOrCancel);
-        confirmButton = (Button) findViewById(R.id.buttonConfirmChanges);
+        editButton = findViewById(R.id.buttonEditOrCancel);
+        confirmButton = findViewById(R.id.buttonConfirmChanges);
     }
 
     @Override

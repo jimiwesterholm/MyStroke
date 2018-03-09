@@ -50,18 +50,18 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_list);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        patientSpinner = (Spinner) findViewById(R.id.choosePatientSpinner);
-        sectionSpinner = (Spinner) findViewById(R.id.chooseSectionSpinner);
-        itemSpinner = (Spinner) findViewById(R.id.chooseItemSpinner);
+        patientSpinner = findViewById(R.id.choosePatientSpinner);
+        sectionSpinner = findViewById(R.id.chooseSectionSpinner);
+        itemSpinner = findViewById(R.id.chooseItemSpinner);
 
         new GetPatientsTask(getApplicationContext(), this).execute();
 
-        addButton = (Button) findViewById(R.id.addButton);
-        patientButton = (Button) findViewById(R.id.patientButton);
-        sectionButton = (Button) findViewById(R.id.sectionButton);
-        itemButton = (Button) findViewById(R.id.itemButton);
+        addButton = findViewById(R.id.addButton);
+        patientButton = findViewById(R.id.patientButton);
+        sectionButton = findViewById(R.id.sectionButton);
+        itemButton = findViewById(R.id.itemButton);
     }
 
     private void itemsToListView(Spinner spinner, ArrayAdapter adapter) {
@@ -126,7 +126,7 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
                     for (int i = 0; i < patients.size(); i++) {
                         if(patients.get(i).getPid() == pId) {
                             patientSpinner.setSelection(i);
-                            onPatientButtonClicked((View) patientSpinner);
+                            onPatientButtonClicked(patientSpinner);
                             break;
                         }
                     }
@@ -134,7 +134,7 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
         }
     }
 
-    public void onPatientButtonClicked(View view) {
+    private void onPatientButtonClicked(View view) {
         if (patientSpinner.isEnabled()) {
             Patient patient = (Patient) patientSpinner.getSelectedItem();
             new GetPatientListExercisesTask(this, patient.getPid(), AppDatabase.getDatabase(getApplicationContext())).execute();
@@ -196,7 +196,7 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
             new RecordsToAppDatabase(getString(R.string.patient_list_imagery), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListImagery(patient.getPid(), imagery.getImageryID()));
         } else {
             Exercise exercise = (Exercise) itemSpinner.getSelectedItem();
-            EditText message = (EditText) findViewById(R.id.guideText);
+            EditText message = findViewById(R.id.guideText);
             new RecordsToAppDatabase(getString(R.string.patient_list_exercise), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListExercise(patient.getPid(), exercise.getEid(), message.getText().toString()));
         }
         patientSpinner.setEnabled(true);

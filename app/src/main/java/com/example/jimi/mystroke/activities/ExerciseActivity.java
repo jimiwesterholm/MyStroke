@@ -22,7 +22,7 @@ public class ExerciseActivity extends AppCompatActivity {
         Future<Exercise> fut = Executors.newSingleThreadExecutor().submit(gebit);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 

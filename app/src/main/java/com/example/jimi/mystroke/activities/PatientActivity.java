@@ -22,7 +22,7 @@ public class PatientActivity extends AppCompatActivity implements AsyncResponse 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patient);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         int pId = getIntent().getExtras().getInt("EXTRA_PATIENT_ID");
         new GetPatientTask(this, pId, getApplicationContext()).execute();

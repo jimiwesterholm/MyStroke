@@ -3,7 +3,6 @@ package com.example.jimi.mystroke.tasks;
 import android.os.AsyncTask;
 
 import com.example.jimi.mystroke.AppDatabase;
-import com.example.jimi.mystroke.activities.ChatActivity;
 import com.example.jimi.mystroke.models.Comment;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class GetCommentsTask extends AsyncTask<Void, Void, List<Comment>> {
 
     @Override
     protected List<Comment> doInBackground(Void... voids) {
-        return appDatabase.commentDao().getByPatientOrdered(pId, false);
+        return appDatabase.commentDao().getByPatientOrdered(pId);
     }
 
     @Override

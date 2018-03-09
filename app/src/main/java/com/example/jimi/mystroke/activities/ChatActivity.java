@@ -57,23 +57,23 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
             new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextView title = (TextView) findViewById(R.id.titleText);
+        TextView title = findViewById(R.id.titleText);
         title.setText(R.string.title_activity_chat);
 
-        messageButton = (Button) findViewById(R.id.sendMessageButton);
-        messageText = (EditText) findViewById(R.id.messageText);
+        messageButton = findViewById(R.id.sendMessageButton);
+        messageText = findViewById(R.id.messageText);
     }
 
     public void sendButtonOnClick(View view) {
-        if(!messageText.getText().toString().equals(null)) {
+        if(messageText.getText() != null) {
             new GetMinCommentIdTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
         }
     }
 
-    public void addComment(int id) {
+    private void addComment(int id) {
         //TODO get actual values for patient id etc
         Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getUser().getPatient(), 1, Globals.getInstance().isPatient());
         new RecordsToAppDatabase("comment", AppDatabase.getDatabase(getApplicationContext())).execute(new Comment[]{comment});
@@ -91,7 +91,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     private void itemsToListView(List<Comment> items, AdapterView.OnItemClickListener listener) {
         messages = items;
         adapter = new CommentAdapter(this, messages, Globals.getInstance().isPatient());
-        ListView listView = (ListView) findViewById(R.id.messages);
+        ListView listView = findViewById(R.id.messages);
         listView.setAdapter(adapter);
         //listView.setOnItemClickListener(listener);
     }

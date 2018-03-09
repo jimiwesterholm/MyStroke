@@ -13,12 +13,12 @@ import java.util.List;
  * Created by jimi on 19/02/2018.
  */
 
-public class DeletePatientListExerciseTask extends AsyncTask<PatientListExercise, Void, Boolean> {
+public class DeletePatientListExercisesTask extends AsyncTask<PatientListExercise, Void, Boolean> {
     private AsyncResponse asyncResponse;
     private AppDatabase appDatabase;
     public static final int var = 13;
 
-    public DeletePatientListExerciseTask(AsyncResponse asyncResponse, AppDatabase appDatabase) {
+    public DeletePatientListExercisesTask(AsyncResponse asyncResponse, AppDatabase appDatabase) {
         this.asyncResponse = asyncResponse;
         this.appDatabase = appDatabase;
     }

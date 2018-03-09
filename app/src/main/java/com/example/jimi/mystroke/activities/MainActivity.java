@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         Future<String> future = Executors.newSingleThreadExecutor().submit(frtUser);
         String temp = null;
 
-        TextView text = (TextView) findViewById(R.id.text);
+        TextView text = findViewById(R.id.text);
         try {
             text.setText("Loading");
             do {

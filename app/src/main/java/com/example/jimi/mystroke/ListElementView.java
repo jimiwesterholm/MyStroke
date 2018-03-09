@@ -57,6 +57,7 @@ public class ListElementView extends View {
         if (a.hasValue(R.styleable.ListElementView_exampleDrawable)) {
             mExampleDrawable = a.getDrawable(
                     R.styleable.ListElementView_exampleDrawable);
+            assert mExampleDrawable != null;
             mExampleDrawable.setCallback(this);
         }
 

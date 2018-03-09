@@ -6,7 +6,6 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import com.example.jimi.mystroke.models.Comment;
-import com.example.jimi.mystroke.models.DatabaseObject;
 
 import java.util.List;
 

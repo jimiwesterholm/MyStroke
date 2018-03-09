@@ -12,18 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/darkBlue"
-        android:fontFamily="sans-serif"
         android:gravity="start"
         android:paddingEnd="4dp"
         android:paddingStart="8dp"
-        android:text="TextView"
         android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="9dp"
-        tools:layout_editor_absoluteY="137dp" />
+        tools:layout_editor_absoluteY="137dp"
+        android:paddingRight="4dp"
+        android:paddingLeft="8dp" />
 
     <include
         android:id="@+id/search_bar"
