@@ -24,7 +24,7 @@ import com.example.jimi.mystroke.tasks.GetImageriesTask;
 
 import java.util.List;
 
-public class AdminExerciseActivity extends AppCompatActivity implements AsyncResponse{
+public class AdminExerciseActivity extends AppCompatActivity implements AsyncResponse {
     private ListView list;
     private EditText search;
     private TextView title;
@@ -35,6 +35,8 @@ public class AdminExerciseActivity extends AppCompatActivity implements AsyncRes
     private List<Imagery> imageries;
     private List<Exercise> exercises;
     private Button switchButton;
+    private ArrayAdapter<Exercise> exerciseArrayAdapter;
+    private ArrayAdapter<Imagery> imageryArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,12 +104,16 @@ public class AdminExerciseActivity extends AppCompatActivity implements AsyncRes
                 return;
             }
             new DeleteImageriesTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(imagery);
+            imageryArrayAdapter.remove(imagery);
+            imagery = null;
         } else {
             if(exercise == null) {
                 //TODO error message
                 return;
             }
             new DeleteExercisesTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
+            exerciseArrayAdapter.remove(exercise);
+            exercise = null;
         }
     }
 
@@ -116,10 +122,12 @@ public class AdminExerciseActivity extends AppCompatActivity implements AsyncRes
         switch (var) {
             case GetImageriesTask.var:
                 imageries = (List<Imagery>) objects[0];
+                imageryArrayAdapter = new ArrayAdapter<Imagery>(this, R.layout.support_simple_spinner_dropdown_item, imageries.toArray(new Imagery[0]));
                 break;
             case GetExercisesTask.var:
                 exercises = (List<Exercise>) objects[0];
-                itemsToListView(new ArrayAdapter<Exercise>(this, R.layout.support_simple_spinner_dropdown_item, exercises.toArray(new Exercise[0])), exerciseClickedHandler);
+                exerciseArrayAdapter = new ArrayAdapter<Exercise>(this, R.layout.support_simple_spinner_dropdown_item, exercises.toArray(new Exercise[0]));
+                itemsToListView(exerciseArrayAdapter, exerciseClickedHandler);
                 break;
         }
     }

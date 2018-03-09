@@ -37,6 +37,8 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     private Button switchButton;
     private List<PatientListImagery> patientImageries;
     private List<PatientListExercise> patientExercises;
+    private ArrayAdapter<PatientListExercise> exerciseArrayAdapter;
+    private ArrayAdapter<PatientListImagery> imageryArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +86,13 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
         switch(var) {
             case GetPatientListImageriesTask.var:
                 patientImageries = (List<PatientListImagery>) objects[0];
-                //title.setText(R.string.imagery_list);
-                //itemsToListView(new ArrayAdapter<Imagery>(this, R.layout.support_simple_spinner_dropdown_item, patientImageries.toArray(new Imagery[0])), imageryClickedHandler);
+                imageryArrayAdapter = new ArrayAdapter<PatientListImagery>(this, R.layout.support_simple_spinner_dropdown_item, patientImageries.toArray(new PatientListImagery[0]));
                 break;
             case GetPatientListExercisesTask.var:
                 patientExercises = (List<PatientListExercise>) objects[0];
                 //title.setText(R.string.exercise_list);
-                itemsToListView(new ArrayAdapter<PatientListExercise>(this, R.layout.support_simple_spinner_dropdown_item, patientExercises.toArray(new PatientListExercise[0])), exerciseClickedHandler);
+                exerciseArrayAdapter = new ArrayAdapter<PatientListExercise>(this, R.layout.support_simple_spinner_dropdown_item, patientExercises.toArray(new PatientListExercise[0]));
+                itemsToListView(exerciseArrayAdapter, exerciseClickedHandler);
         }
     }
 
@@ -98,13 +100,13 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
         Button button = (Button) view;
         if(!imageryOn) {
             title.setText(R.string.imagery_list);
-            itemsToListView(new ArrayAdapter<PatientListImagery>(this, R.layout.support_simple_spinner_dropdown_item, patientImageries.toArray(new PatientListImagery[0])), imageryClickedHandler);
+            itemsToListView(imageryArrayAdapter, imageryClickedHandler);
             button.setText(R.string.exerciseBut);
             label.setText(R.string.imageryBut);
             imageryOn = true;
         } else {
             title.setText(R.string.exercise_list);
-            itemsToListView(new ArrayAdapter<PatientListExercise>(this, R.layout.support_simple_spinner_dropdown_item, patientExercises.toArray(new PatientListExercise[0])), exerciseClickedHandler);
+            itemsToListView(exerciseArrayAdapter, exerciseClickedHandler);
             button.setText(R.string.imageryBut);
             label.setText(R.string.exerciseBut);
             imageryOn = false;
@@ -123,14 +125,17 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
                 //TODO error message
                 return;
             }
-            //TODO delete from listview
             new DeletePatientListImageriesTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(imagery);
+            imageryArrayAdapter.remove(imagery);
+            imagery = null;
         } else {
             if(exercise == null) {
                 //TODO error message
                 return;
             }
             new DeletePatientListExercisesTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
+            exerciseArrayAdapter.remove(exercise);
+            exercise = null;
         }
     }
 
