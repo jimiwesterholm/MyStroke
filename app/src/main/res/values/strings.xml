@@ -84,4 +84,7 @@
     <string name="imageriesSwitch">Imageries </string>
     <string name="title_activity_edit_list_imagery">EditListImageryActivity</string>
     <string name="title_activity_edit_list_exercise">EditListExerciseActivity</string>
+    <string name="title_activity_patient_or_therapist">PatientOrTherapistActivity</string>
+    <string name="login_as">Login as a</string>
+    <string name="or">or</string>
 </resources>

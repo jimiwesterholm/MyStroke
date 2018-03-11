@@ -11,7 +11,7 @@
         android:id="@+id/labelTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/darkBlue"
+        android:background="@drawable/box_label_basic"
         android:gravity="start"
         android:paddingEnd="4dp"
         android:paddingStart="8dp"
@@ -34,8 +34,8 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="268dp"
-        android:background="@android:color/holo_blue_dark"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_view_round_light_blue"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="233dp" />
 

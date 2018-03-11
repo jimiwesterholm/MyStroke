@@ -92,8 +92,7 @@ public class AdminExerciseActivity extends AppCompatActivity implements AsyncRes
     }
 
     public void onAddListItemButtonClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), AddToListActivity.class);
-        //intent.putExtra("EXTRA_PATIENT_ID", pId);
+        Intent intent = new Intent(getApplicationContext(), AddExerciseActivity.class);
         startActivity(intent);
     }
 
