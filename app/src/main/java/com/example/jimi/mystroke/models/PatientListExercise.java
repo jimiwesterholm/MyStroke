@@ -62,6 +62,7 @@ public class PatientListExercise implements DatabaseObject {
         this.eID = eID;
         this.message = message;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     @Ignore
@@ -71,6 +72,7 @@ public class PatientListExercise implements DatabaseObject {
         this.eID = eID;
         this.message = message;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     public String getListExerciseID() {
@@ -119,9 +121,10 @@ public class PatientListExercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("patient_list_exerciseid", listExerciseID);
+        jsonObject.put("patient_list_exerciseid", listExerciseID);
         jsonObject.put("patient_id", pID);
         jsonObject.put("exercise_id", eID);
+        jsonObject.put("message", message);
         return jsonObject;
     }
 

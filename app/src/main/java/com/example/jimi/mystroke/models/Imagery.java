@@ -38,6 +38,7 @@ public class Imagery implements DatabaseObject {
         this.imageryID = imageryID;
         this.name = name;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     @Ignore
@@ -45,6 +46,7 @@ public class Imagery implements DatabaseObject {
         imageryID = UUID.randomUUID().toString();
         this.name = name;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     public String getImageryID() {
@@ -69,7 +71,7 @@ public class Imagery implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idimagery", imageryID);
+        jsonObject.put("idimagery", imageryID);
         jsonObject.put("name", name);
         return jsonObject;
     }

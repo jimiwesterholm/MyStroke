@@ -59,6 +59,7 @@ public class PatientListImagery implements DatabaseObject {
         this.pID = pID;
         this.iID = iID;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     @Ignore
@@ -67,6 +68,7 @@ public class PatientListImagery implements DatabaseObject {
         this.pID = pID;
         this.iID = iID;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     public String getListImageryID() {
@@ -109,7 +111,7 @@ public class PatientListImagery implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idpatient_list_imagery", listImageryID);
+        jsonObject.put("idpatient_list_imagery", listImageryID);
         jsonObject.put("idpatient", pID);
         jsonObject.put("idimagery", iID);
         return jsonObject;

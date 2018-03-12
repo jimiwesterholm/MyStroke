@@ -61,6 +61,7 @@ public class Comment implements DatabaseObject {
         created = System.currentTimeMillis();
         timestamp = date.getTime() + time.getTime();
         this.sentByPatient = sentByPatient;
+        toDelete = false;
     }
 
     @Ignore
@@ -74,6 +75,7 @@ public class Comment implements DatabaseObject {
         created = System.currentTimeMillis();
         timestamp = date.getTime() + time.getTime();
         this.sentByPatient = sentByPatient;
+        toDelete = false;
     }
 
     public long getCreated() {
@@ -134,7 +136,7 @@ public class Comment implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idcomment", cid);
+        jsonObject.put("idcomment", cid);
         jsonObject.put("date", date);
         jsonObject.put("time", time);
         jsonObject.put("text", text);

@@ -71,6 +71,7 @@ import java.util.UUID;
         this.firstName = firstName;
         this.lastName = lastName;
         created = new Date().getTime();
+        toDelete = false;
     }
 
     @Ignore
@@ -85,6 +86,7 @@ import java.util.UUID;
         this.firstName = firstName;
         this.lastName = lastName;
         created = new Date().getTime();
+        toDelete = false;
     }
 
     //Getters and Setters
@@ -169,7 +171,7 @@ import java.util.UUID;
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("iduser", uid);
+        jsonObject.put("iduser", uid);
         jsonObject.put("username", username);
         jsonObject.put("password", password);
         jsonObject.put("salt", salt);

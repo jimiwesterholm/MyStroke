@@ -57,6 +57,7 @@ public class Therapist implements DatabaseObject {
         this.position = position;
         this.active = active;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     @Ignore
@@ -66,6 +67,7 @@ public class Therapist implements DatabaseObject {
         this.position = position;
         this.active = active;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     public long getCreated() {
@@ -102,7 +104,7 @@ public class Therapist implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idtherapist", tid);
+        jsonObject.put("idtherapist", tid);
         jsonObject.put("position", position);
         jsonObject.put("user_iduser", userID);
         jsonObject.put("active", active);

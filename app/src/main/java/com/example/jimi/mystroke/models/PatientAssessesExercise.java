@@ -77,6 +77,7 @@ public class PatientAssessesExercise implements DatabaseObject {
         this.date = date;
         timestamp = date.getTime() + time.getTime();
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     @Ignore
@@ -89,6 +90,7 @@ public class PatientAssessesExercise implements DatabaseObject {
         this.date = date;
         timestamp = date.getTime() + time.getTime();
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     public String getPatientAssessesExerciseID() {
@@ -143,7 +145,7 @@ public class PatientAssessesExercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idpatient_assesses_exercise", patientAssessesExerciseID);
+        jsonObject.put("idpatient_assesses_exercise", patientAssessesExerciseID);
         jsonObject.put("idpatient_idpatient", pID);
         jsonObject.put("exercise_idexercise", eID);
         jsonObject.put("score", score);

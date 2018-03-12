@@ -32,23 +32,16 @@ import java.util.UUID;
                 )
         }
 )
-public class Exercise implements DatabaseObject {
+public class ExerciseImage implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "idexercise")
+    private String exerciseImageId;
+
     private String eid;
 
-    @ColumnInfo(name = "verboseDescription")
-    private String description;
+    private String altText;
 
-    @ColumnInfo(name = "section")
-    private String section;
-
-    @ColumnInfo(name = "assessment_idassessment")
-    private String aid;
-
-    @ColumnInfo(name = "name")
-    private String name;
+    private int position;
 
     //Used to determine which objects have been changed since the last sync of the application
     @ColumnInfo
@@ -64,24 +57,23 @@ public class Exercise implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Exercise(String eid, String description, String section, String name, String aid) {
+
+    public ExerciseImage(@NonNull String exerciseImageId, String eid, String altText, int position, long created) {
+        this.exerciseImageId = exerciseImageId;
         this.eid = eid;
-        this.description = description;
-        this.section = section;
-        this.name = name;
-        this.aid = aid;
-        created  = new Date().getTime();
+        this.altText = altText;
+        this.position = position;
+        this.created = created;
         toDelete = false;
     }
 
     @Ignore
-    public Exercise(String description, String section, String name, String aid) {
-        eid = UUID.randomUUID().toString();
-        this.description = description;
-        this.section = section;
-        this.name = name;
-        this.aid = aid;
-        created  = new Date().getTime();
+    public ExerciseImage(String eid, String altText, int position, long created) {
+        this.exerciseImageId = UUID.randomUUID().toString();
+        this.eid = eid;
+        this.altText = altText;
+        this.position = position;
+        this.created = created;
         toDelete = false;
     }
 
@@ -97,44 +89,38 @@ public class Exercise implements DatabaseObject {
     public void setEid(String eid) {
         this.eid = eid;
     }
-    public String getDescription() {
-        return description;
+    @NonNull
+    public String getExerciseImageId() {
+        return exerciseImageId;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setExerciseImageId(@NonNull String exerciseImageId) {
+        this.exerciseImageId = exerciseImageId;
     }
-    public String getSection() {
-        return section;
+    public String getAltText() {
+        return altText;
     }
-    public void setSection(String section) {
-        this.section = section;
+    public void setAltText(String altText) {
+        this.altText = altText;
     }
-    public String getAid() {
-        return aid;
+    public int getPosition() {
+        return position;
     }
-    public void setAid(String aid) {
-        this.aid = aid;
+    public void setPosition(int position) {
+        this.position = position;
     }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
-        return getName();
+        return getAltText();
     }
 
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idexercise", eid);
-        jsonObject.put("verbose_description", description);
-        jsonObject.put("section", section);
-        jsonObject.put("name", name);
-        jsonObject.put("assessment_idassessment", aid);
+        //jsonObject.put("idexercise", eid);
+        jsonObject.put("id_exercise_image", exerciseImageId);
+        jsonObject.put("exercise_idexercise", eid);
+        jsonObject.put("position", position);
+        jsonObject.put("alt_text", altText);
         return jsonObject;
     }
 }

@@ -70,6 +70,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         this.therapist = therapist;
         this.active = active;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     @Ignore
@@ -79,6 +80,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         this.therapist = therapist;
         this.active = active;
         created = System.currentTimeMillis();
+        toDelete = false;
     }
 
     @Ignore
@@ -89,6 +91,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         this.active = active;
         created = System.currentTimeMillis();
         this.user = user;
+        toDelete = false;
     }
 
     @Ignore
@@ -99,6 +102,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         this.active = active;
         created = System.currentTimeMillis();
         this.user = user;
+        toDelete = false;
     }
 
     public long getCreated() {
@@ -147,7 +151,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idpatient", pid);
+        jsonObject.put("idpatient", pid);
         jsonObject.put("user_iduser", userID);
         jsonObject.put("therapist_idtherapist", therapist);
         jsonObject.put("active", active);
