@@ -4,19 +4,21 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 /**
  * Created by jimi on 30/12/2017.
  */
 @Entity(indices = {@Index(value = "imageryID", unique = true)})
 public class Imagery implements DatabaseObject {
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
-
-    private int imageryID;
+    @PrimaryKey
+    @NonNull
+    private String imageryID;
 
     private String name;
 
@@ -32,7 +34,7 @@ public class Imagery implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Imagery(int imageryID, String name) {
+    public Imagery(String imageryID, String name) {
         this.imageryID = imageryID;
         this.name = name;
         created = System.currentTimeMillis();
@@ -40,21 +42,15 @@ public class Imagery implements DatabaseObject {
 
     @Ignore
     public Imagery(String name) {
-        imageryID = 0;
+        imageryID = UUID.randomUUID().toString();
         this.name = name;
         created = System.currentTimeMillis();
     }
 
-    public int getSQLiteId() {
-        return SQLiteId;
-    }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
-    }
-    public int getImageryID() {
+    public String getImageryID() {
         return imageryID;
     }
-    public void setImageryID(int imageryID) {
+    public void setImageryID(String imageryID) {
         this.imageryID = imageryID;
     }
     public String getName() {

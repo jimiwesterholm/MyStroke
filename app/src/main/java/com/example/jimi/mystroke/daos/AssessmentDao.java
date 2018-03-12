@@ -19,8 +19,8 @@ public interface AssessmentDao {
     @Query("SELECT * FROM assessment")
     List<Assessment> getAll();
 
-    @Query("SELECT * FROM assessment WHERE SQLiteId IN (:assessmentIds)")
-    List<Assessment> loadAllByIds(int[] assessmentIds);
+    @Query("SELECT * FROM assessment WHERE idassessment IN (:assessmentIds)")
+    List<Assessment> loadAllByIds(String[] assessmentIds);
 
     @Query("SELECT * FROM assessment WHERE created > (:created)")
     List<Assessment> loadChanged(long created);

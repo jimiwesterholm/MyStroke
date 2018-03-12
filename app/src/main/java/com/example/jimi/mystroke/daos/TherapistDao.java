@@ -12,8 +12,8 @@ public interface TherapistDao {
     @Query("SELECT * FROM therapist WHERE toDelete =:toDelete")
     List<Therapist> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM therapist WHERE SQLiteId IN (:therapistIds) AND toDelete =:toDelete")
-    List<Therapist> loadAllByIds(int[] therapistIds, boolean toDelete);
+    @Query("SELECT * FROM therapist WHERE idtherapist IN (:therapistIds) AND toDelete =:toDelete")
+    List<Therapist> loadAllByIds(String[] therapistIds, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Therapist... therapists);

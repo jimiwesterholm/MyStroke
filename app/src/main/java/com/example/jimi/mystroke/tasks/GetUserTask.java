@@ -15,10 +15,10 @@ import java.util.List;
 public class GetUserTask extends AsyncTask<Void, Void, User>{
     private AppDatabase appDatabase;
     private AsyncResponse asyncResponse;
-    private int id;
+    private String id;
     public static final int var = 10;
 
-    public GetUserTask(Context applicationContext, AsyncResponse asyncResponse, int id) {
+    public GetUserTask(Context applicationContext, AsyncResponse asyncResponse, String id) {
         appDatabase = AppDatabase.getDatabase(applicationContext);
         this.asyncResponse = asyncResponse;
         this.id = id;

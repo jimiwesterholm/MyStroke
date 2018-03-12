@@ -5,9 +5,12 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 /**
  * Created by jimi on 28/12/2017.
@@ -35,14 +38,13 @@ import org.json.JSONObject;
         }
 )
 public class PatientListExercise implements DatabaseObject {
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
+    @PrimaryKey
+    @NonNull
+    private String listExerciseID;
 
-    private int listExerciseID;
+    private String pID;
 
-    private int pID;
-
-    private int eID;
+    private String eID;
 
     private String message;
 
@@ -54,7 +56,7 @@ public class PatientListExercise implements DatabaseObject {
     private Exercise exercise;
 
 
-    public PatientListExercise(int listExerciseID, int pID, int eID, String message) {
+    public PatientListExercise(String listExerciseID, String pID, String eID, String message) {
         this.listExerciseID = listExerciseID;
         this.pID = pID;
         this.eID = eID;
@@ -63,30 +65,30 @@ public class PatientListExercise implements DatabaseObject {
     }
 
     @Ignore
-    public PatientListExercise(int pID, int eID, String message) {
-        listExerciseID = 0;
+    public PatientListExercise(String pID, String eID, String message) {
+        listExerciseID = UUID.randomUUID().toString();
         this.pID = pID;
         this.eID = eID;
         this.message = message;
         created = System.currentTimeMillis();
     }
 
-    public int getListExerciseID() {
+    public String getListExerciseID() {
         return listExerciseID;
     }
-    public void setListExerciseID(int listExerciseID) {
+    public void setListExerciseID(String listExerciseID) {
         this.listExerciseID = listExerciseID;
     }
-    public int getPID() {
+    public String getPID() {
         return pID;
     }
-    public void setPID(int pID) {
+    public void setPID(String pID) {
         this.pID = pID;
     }
-    public int getEID() {
+    public String getEID() {
         return eID;
     }
-    public void setEID(int eID) {
+    public void setEID(String eID) {
         this.eID = eID;
     }
     public long getCreated() {
@@ -100,12 +102,6 @@ public class PatientListExercise implements DatabaseObject {
     }
     public void setMessage(String message) {
         this.message = message;
-    }
-    public int getSQLiteId() {
-        return SQLiteId;
-    }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
     }
     public Exercise getExercise() {
         return exercise;

@@ -5,9 +5,12 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 /**
  * Created by jimi on 13/12/2017.
@@ -15,11 +18,10 @@ import org.json.JSONObject;
 
 @Entity(indices = {@Index(value = "idassessment", unique = true)})
 public class Assessment implements DatabaseObject {
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "idassessment")
-    private int aid;
+    private String aid;
 
     private int scoreMin;
 
@@ -40,7 +42,7 @@ public class Assessment implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Assessment(int aid, int scoreMin, int scoreMax, String label) {
+    public Assessment(String aid, int scoreMin, int scoreMax, String label) {
         this.aid = aid;
         this.scoreMin = scoreMin;
         this.scoreMax = scoreMax;
@@ -50,7 +52,7 @@ public class Assessment implements DatabaseObject {
 
     @Ignore
     public Assessment(int scoreMin, int scoreMax, String label) {
-        aid = 0;
+        aid = UUID.randomUUID().toString();
         this.scoreMin = scoreMin;
         this.scoreMax = scoreMax;
         this.label = label;
@@ -63,10 +65,10 @@ public class Assessment implements DatabaseObject {
     public void setCreated(long created) {
         this.created = created;
     }
-    public int getAid() {
+    public String getAid() {
         return aid;
     }
-    public void setAid(int aid) {
+    public void setAid(String aid) {
         this.aid = aid;
     }
     public int getScoreMin() {
@@ -86,12 +88,6 @@ public class Assessment implements DatabaseObject {
     }
     public void setLabel(String label) {
         this.label = label;
-    }
-    public int getSQLiteId() {
-        return SQLiteId;
-    }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
     }
 
     @Override

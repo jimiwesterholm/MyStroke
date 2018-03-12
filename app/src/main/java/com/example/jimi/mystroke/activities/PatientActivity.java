@@ -24,7 +24,7 @@ public class PatientActivity extends AppCompatActivity implements AsyncResponse 
         setContentView(R.layout.activity_view_patient);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-        int pId = getIntent().getExtras().getInt("EXTRA_PATIENT_ID");
+        String pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
         new GetPatientTask(this, pId, getApplicationContext()).execute();
         //TODO this is obv not ok
 

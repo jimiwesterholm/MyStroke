@@ -32,6 +32,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by jimi on 30/11/2017.
@@ -53,34 +54,34 @@ public class JSONtoSQLite {
             switch (className) {
                 //TODO Make these use the string resource
                 case "user":
-                    results.add((T) new User((int) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (int) record.get(4), (int) record.get(5), (String) record.get(6), (String) record.get(7), (String) record.get(8)));
+                    results.add((T) new User((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (int) record.get(4), (int) record.get(5), (String) record.get(6), (String) record.get(7), (String) record.get(8)));
                     break;
                 case "exercise":
-                    results.add((T) new Exercise((int) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (int) record.get(4)));
+                    results.add((T) new Exercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (String) record.get(4)));
                     break;
                 case "assessment":
-                    results.add ((T) new Assessment((int) record.get(0), (int) record.get(1), (int) record.get(2), (String) record.get(3)));
+                    results.add ((T) new Assessment((String) record.get(0), (int) record.get(1), (int) record.get(2), (String) record.get(3)));
                     break;
                 case "comment":
-                    results.add((T) new Comment((int) record.get(0) , (Date) record.get(1), (Time) record.get(2), (String) record.get(3), (int) record.get(4), (int) record.get(5), (int) record.get(6)));
+                    results.add((T) new Comment((String) record.get(0) , (Date) record.get(1), (Time) record.get(2), (String) record.get(3), (String) record.get(4), (String) record.get(5), (int) record.get(6)));
                     break;
                 case "imagery":
-                    results.add((T) new Imagery((int) record.get(0), (String) record.get(1)));
+                    results.add((T) new Imagery((String) record.get(0), (String) record.get(1)));
                     break;
                 case "patient":
-                    results.add((T) new Patient((int) record.get(0), (int) record.get(1), (int) record.get(2), (int) record.get(3)));
+                    results.add((T) new Patient((String) record.get(0), (String) record.get(1), (int) record.get(2), (int) record.get(3)));
                     break;
                 case "therapist":
-                    results.add((T) new Therapist((int) record.get(0), (int) record.get(3), (String) record.get(1), (int) record.get(4)));
+                    results.add((T) new Therapist((String) record.get(0), (String) record.get(3), (String) record.get(1), (int) record.get(4)));
                     break;
                 case "patient_assessess_exercise":
-                    results.add((T) new PatientAssessesExercise((int) record.get(0), (int) record.get(1), (int) record.get(2), (double) record.get(3), (Date) record.get(4), (Time) record.get(5)));
+                    results.add((T) new PatientAssessesExercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (double) record.get(3), (Date) record.get(4), (Time) record.get(5)));
                     break;
                 case "patient_list_exercise":
-                    results.add((T) new PatientListExercise((int) record.get(0), (int) record.get(1), (int) record.get(2), (String) record.get(3)));
+                    results.add((T) new PatientListExercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3)));
                     break;
                 case "patient_list_imagery":
-                    results.add((T) new PatientListImagery((int) record.get(0), (int) record.get(1), (int) record.get(2)));
+                    results.add((T) new PatientListImagery((String) record.get(0), (String) record.get(1), (String) record.get(2)));
                     break;
             }
         }

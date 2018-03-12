@@ -2,19 +2,20 @@ package com.example.jimi.mystroke.models; /**
  * Created by jimi on 25/11/2017.
  */
 import android.arch.persistence.room.*;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity(indices = {@Index(value = "iduser", unique = true)})
         public class User implements DatabaseObject {
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "iduser")
-    private int uid;
+    private String uid;
 
     @ColumnInfo(name = "username")
     private String username;
@@ -45,6 +46,12 @@ import java.util.Date;
 
     private boolean toDelete;
 
+    @Ignore
+    private Patient patientOb;
+
+    @Ignore
+    private Therapist therapistOb;
+
     public boolean isToDelete() {
         return toDelete;
     }
@@ -53,7 +60,7 @@ import java.util.Date;
         this.toDelete = toDelete;
     }
 
-    public User(int uid, String username, String password, String salt, int therapist, int patient, String email, String firstName, String lastName) {
+    public User(String uid, String username, String password, String salt, int therapist, int patient, String email, String firstName, String lastName) {
         this.uid = uid;
         this.username = username;
         this.password = password;
@@ -68,7 +75,7 @@ import java.util.Date;
 
     @Ignore
     public User(String username, String password, String salt, int therapist, int patient, String email, String firstName, String lastName) {
-        uid = 0;
+        uid = UUID.randomUUID().toString();
         this.username = username;
         this.password = password;
         this.salt = salt;
@@ -81,23 +88,29 @@ import java.util.Date;
     }
 
     //Getters and Setters
-    public int getSQLiteId() {
-        return SQLiteId;
+    public Patient getPatientOb() {
+        return patientOb;
     }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
+    public void setPatientOb(Patient patientOb) {
+        this.patientOb = patientOb;
     }
-    public int getUid() {
+    public Therapist getTherapistOb() {
+        return therapistOb;
+    }
+    public void setTherapistOb(Therapist therapistOb) {
+        this.therapistOb = therapistOb;
+    }
+    public String getUid() {
         return uid;
+    }
+    public void setUid(String uid) {
+        this.uid = uid;
     }
     public long getCreated() {
         return created;
     }
     public void setCreated(long created) {
         this.created = created;
-    }
-    public void setUid(int uid) {
-        this.uid = uid;
     }
     public String getUsername() {
         return username;

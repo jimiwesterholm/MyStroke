@@ -6,11 +6,13 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by jimi on 13/12/2017.
@@ -31,12 +33,10 @@ import java.util.Date;
         }
 )
 public class Exercise implements DatabaseObject {
-    //TODO: add video
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "idexercise")
-    private int eid;
+    private String eid;
 
     @ColumnInfo(name = "verboseDescription")
     private String description;
@@ -45,7 +45,7 @@ public class Exercise implements DatabaseObject {
     private String section;
 
     @ColumnInfo(name = "assessment_idassessment")
-    private int aid;
+    private String aid;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -67,7 +67,7 @@ public class Exercise implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Exercise(int eid, String description, String section, String name, int aid) {
+    public Exercise(String eid, String description, String section, String name, String aid) {
         this.eid = eid;
         this.description = description;
         this.section = section;
@@ -78,8 +78,8 @@ public class Exercise implements DatabaseObject {
     }
 
     @Ignore
-    public Exercise(String description, String section, String name, int aid) {
-        eid = 0;
+    public Exercise(String description, String section, String name, String aid) {
+        eid = UUID.randomUUID().toString();
         this.description = description;
         this.section = section;
         this.name = name;
@@ -88,22 +88,16 @@ public class Exercise implements DatabaseObject {
         viewed = false;
     }
 
-    public int getSQLiteId() {
-        return SQLiteId;
-    }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
-    }
     public long getCreated() {
         return created;
     }
     public void setCreated(long created) {
         this.created = created;
     }
-    public int getEid() {
+    public String getEid() {
         return eid;
     }
-    public void setEid(int eid) {
+    public void setEid(String eid) {
         this.eid = eid;
     }
     public String getDescription() {
@@ -118,10 +112,10 @@ public class Exercise implements DatabaseObject {
     public void setSection(String section) {
         this.section = section;
     }
-    public int getAid() {
+    public String getAid() {
         return aid;
     }
-    public void setAid(int aid) {
+    public void setAid(String aid) {
         this.aid = aid;
     }
     public String getName() {

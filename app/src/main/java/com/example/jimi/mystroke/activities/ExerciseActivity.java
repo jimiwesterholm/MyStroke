@@ -18,7 +18,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GetExerciseByIdTask gebit = new GetExerciseByIdTask(AppDatabase.getDatabase(getApplicationContext()), getIntent().getExtras().getInt("EXTRA_EXERCISE_ID"));
+        GetExerciseByIdTask gebit = new GetExerciseByIdTask(AppDatabase.getDatabase(getApplicationContext()), getIntent().getStringExtra("EXTRA_EXERCISE_ID"));
         Future<Exercise> fut = Executors.newSingleThreadExecutor().submit(gebit);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);

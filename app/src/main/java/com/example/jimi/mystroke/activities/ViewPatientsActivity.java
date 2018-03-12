@@ -54,7 +54,7 @@ public class ViewPatientsActivity extends AppCompatActivity implements AsyncResp
         {
             Patient selected = (Patient) parent.getAdapter().getItem(position);
             Intent intent = new Intent(getBaseContext(), PatientActivity.class);
-            intent.putExtra("EXTRA_PATIENT_ID", selected.getSQLiteId());
+            intent.putExtra("EXTRA_PATIENT_ID", selected.getPid());
             startActivity(intent);
         }
     };

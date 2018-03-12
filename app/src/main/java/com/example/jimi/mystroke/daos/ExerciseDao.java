@@ -24,11 +24,11 @@ public interface ExerciseDao {
     @Query("SELECT DISTINCT section FROM exercise WHERE toDelete =:toDelete")
     List<String> getSections(boolean toDelete);
 
-    @Query("SELECT DISTINCT section FROM exercise WHERE SQLiteId IN (:ids) AND toDelete =:toDelete")
-    List<String> getSectionsOfIds(int[] ids, boolean toDelete);
+    @Query("SELECT DISTINCT section FROM exercise WHERE idexercise IN (:ids) AND toDelete =:toDelete")
+    List<String> getSectionsOfIds(String[] ids, boolean toDelete);
 
-    @Query("SELECT DISTINCT section FROM exercise WHERE SQLiteId NOT IN (:ids) AND toDelete =:toDelete")
-    List<String> getSectionsNotOfIds(int[] ids, boolean toDelete);
+    @Query("SELECT DISTINCT section FROM exercise WHERE idexercise NOT IN (:ids) AND toDelete =:toDelete")
+    List<String> getSectionsNotOfIds(String[] ids, boolean toDelete);
 
     @Query("SELECT * FROM exercise WHERE section = :section AND viewed =:viewed AND toDelete =:toDelete")
     List<Exercise> getBySectionAndViewed(String section, boolean viewed, boolean toDelete);
@@ -36,20 +36,20 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise WHERE section = :section AND toDelete =:toDelete")
     List<Exercise> getBySection(String section, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE SQLiteId IN (:exerciseIds) AND toDelete =:toDelete")
-    List<Exercise> loadAllByIds(int[] exerciseIds, boolean toDelete);
+    @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIds) AND toDelete =:toDelete")
+    List<Exercise> loadAllByIds(String[] exerciseIds, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE SQLiteId NOT IN (:exerciseIds) AND toDelete =:toDelete")
-    List<Exercise> loadAllButIds(int[] exerciseIds, boolean toDelete);
+    @Query("SELECT * FROM exercise WHERE idexercise NOT IN (:exerciseIds) AND toDelete =:toDelete")
+    List<Exercise> loadAllButIds(String[] exerciseIds, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE SQLiteId IN (:exerciseIds) AND section =:section AND toDelete =:toDelete")
-    List<Exercise> loadAllByIdsFromSection(int[] exerciseIds, String section, boolean toDelete);
+    @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIds) AND section =:section AND toDelete =:toDelete")
+    List<Exercise> loadAllByIdsFromSection(String[] exerciseIds, String section, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE SQLiteId NOT IN (:exerciseIds) AND section =:section AND toDelete =:toDelete")
-    List<Exercise> loadAllButIdsFromSection(int[] exerciseIds, String section, boolean toDelete);
+    @Query("SELECT * FROM exercise WHERE idexercise NOT IN (:exerciseIds) AND section =:section AND toDelete =:toDelete")
+    List<Exercise> loadAllButIdsFromSection(String[] exerciseIds, String section, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE SQLiteId = :exerciseId AND toDelete =:toDelete LIMIT 1")
-    Exercise loadById(int exerciseId, boolean toDelete);
+    @Query("SELECT * FROM exercise WHERE idexercise = :exerciseId AND toDelete =:toDelete LIMIT 1")
+    Exercise loadById(String exerciseId, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Exercise... exercises);
@@ -60,11 +60,8 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise WHERE created > :created AND toDelete =:toDelete")
     List<Exercise> loadChanged(long created, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIDs) AND toDelete =:toDelete")
-    List<Exercise> loadAllByExerciseIds(int[] exerciseIDs, boolean toDelete);
-
     @Query("SELECT * FROM exercise WHERE idexercise =:exerciseId AND toDelete =:toDelete LIMIT 1")
-    Exercise loadByExerciseId(int exerciseId, boolean toDelete);
+    Exercise loadByExerciseId(String exerciseId, boolean toDelete);
 
      @Update
     void update(Exercise exercise);

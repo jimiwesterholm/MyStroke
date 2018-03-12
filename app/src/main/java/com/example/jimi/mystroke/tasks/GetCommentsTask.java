@@ -14,10 +14,10 @@ import java.util.List;
 public class GetCommentsTask extends AsyncTask<Void, Void, List<Comment>> {
     private AppDatabase appDatabase;
     private AsyncResponse asyncResponse;
-    private int pId;
+    private String pId;
     public static final int var = 2;
 
-    public GetCommentsTask(AppDatabase appDatabase, int pId, AsyncResponse asyncResponse) {
+    public GetCommentsTask(AppDatabase appDatabase, String pId, AsyncResponse asyncResponse) {
         this.asyncResponse = asyncResponse;
         this.appDatabase = appDatabase;
         this.pId = pId;
@@ -25,7 +25,7 @@ public class GetCommentsTask extends AsyncTask<Void, Void, List<Comment>> {
 
     @Override
     protected List<Comment> doInBackground(Void... voids) {
-        return appDatabase.commentDao().getByPatientOrdered(pId);
+        return appDatabase.commentDao().getByPatientOrdered(pId, false);
     }
 
     @Override

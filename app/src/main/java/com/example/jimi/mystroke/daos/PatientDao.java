@@ -13,11 +13,11 @@ public interface PatientDao {
     @Query("SELECT * FROM patient WHERE toDelete =:toDelete")
     List<Patient> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient WHERE SQLiteId IN (:patientIds) AND toDelete =:toDelete")
-    List<Patient> loadAllByIds(int[] patientIds, boolean toDelete);
+    @Query("SELECT * FROM patient WHERE idpatient IN (:patientIds) AND toDelete =:toDelete")
+    List<Patient> loadAllByIds(String[] patientIds, boolean toDelete);
 
-    @Query("SELECT * FROM patient WHERE SQLiteId =:patientId AND toDelete =:toDelete")
-    Patient loadById(int patientId, boolean toDelete);
+    @Query("SELECT * FROM patient WHERE idpatient =:patientId AND toDelete =:toDelete")
+    Patient loadById(String patientId, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Patient... patients);

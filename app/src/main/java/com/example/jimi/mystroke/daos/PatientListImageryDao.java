@@ -20,8 +20,8 @@ public interface PatientListImageryDao {
     @Query("SELECT * FROM patient_list_imagery WHERE toDelete =:toDelete")
     List<PatientListImagery> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient_list_imagery WHERE SQLiteId IN (:patientListImageryIds) AND toDelete =:toDelete")
-    List<PatientListImagery> loadAllByIds(int[] patientListImageryIds, boolean toDelete);
+    @Query("SELECT * FROM patient_list_imagery WHERE listImageryID IN (:patientListImageryIds) AND toDelete =:toDelete")
+    List<PatientListImagery> loadAllByIds(String[] patientListImageryIds, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(PatientListImagery... patientListImageries);
@@ -36,5 +36,5 @@ public interface PatientListImageryDao {
     List<PatientListImagery> loadChanged(long created, boolean toDelete);
 
     @Query("SELECT * FROM patient_list_imagery WHERE pID =:pID AND toDelete =:toDelete")
-    List<PatientListImagery> loadAllByPatientId(int pID, boolean toDelete);
+    List<PatientListImagery> loadAllByPatientId(String pID, boolean toDelete);
 }

@@ -13,12 +13,12 @@ import java.util.List;
 
 public class GetSectionExercisesExceptTask extends AsyncTask<Void, Void, List<Exercise>> {
     private AsyncResponse asyncResponse;
-    private int[] IDs;
+    private String[] IDs;
     private AppDatabase appDatabase;
     private String section;
     public static final int var = 7;
 
-    public GetSectionExercisesExceptTask(AsyncResponse asyncResponse, int[] IDs, String section, AppDatabase appDatabase) {
+    public GetSectionExercisesExceptTask(AsyncResponse asyncResponse, String[] IDs, String section, AppDatabase appDatabase) {
         this.asyncResponse = asyncResponse;
         this.IDs = IDs;
         this.appDatabase = appDatabase;

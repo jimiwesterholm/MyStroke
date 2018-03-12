@@ -16,10 +16,10 @@ import java.util.List;
 public class GetPatientTask extends AsyncTask<Void, Void, Patient>{
     private AppDatabase appDatabase;
     private AsyncResponse asyncResponse;
-    private int pId;
+    private String pId;
     public static final int var = 12;
 
-    public GetPatientTask(AsyncResponse asyncResponse, int pId, Context applicationContext) {
+    public GetPatientTask(AsyncResponse asyncResponse, String pId, Context applicationContext) {
         appDatabase = AppDatabase.getDatabase(applicationContext);
         this.asyncResponse = asyncResponse;
         this.pId = pId;

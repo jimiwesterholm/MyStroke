@@ -30,7 +30,7 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     private EditText search;
     private TextView title;
     private TextView label;
-    private int pId;
+    private String pId;
     private PatientListExercise exercise;
     private PatientListImagery imagery;
     private boolean imageryOn;
@@ -44,7 +44,7 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list);
-        pId = getIntent().getExtras().getInt("EXTRA_PATIENT_ID");
+        pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
         list = findViewById(R.id.list);
         new GetPatientListExercisesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
         new GetPatientListImageriesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();

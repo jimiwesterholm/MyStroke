@@ -20,8 +20,8 @@ public interface PatientAssessesExerciseDao {
     @Query("SELECT * FROM patient_assessment WHERE toDelete =:toDelete")
     List<PatientAssessesExercise> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient_assessment WHERE SQLiteId IN (:patientAssessesExerciseIds) AND toDelete =:toDelete")
-    List<PatientAssessesExercise> loadAllByIds(int[] patientAssessesExerciseIds, boolean toDelete);
+    @Query("SELECT * FROM patient_assessment WHERE patientAssessesExerciseID IN (:patientAssessesExerciseIds) AND toDelete =:toDelete")
+    List<PatientAssessesExercise> loadAllByIds(String[] patientAssessesExerciseIds, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(PatientAssessesExercise... patientAssessesExercises);

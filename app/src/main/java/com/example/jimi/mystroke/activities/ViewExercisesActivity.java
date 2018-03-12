@@ -54,7 +54,7 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
         {
             Exercise selected = (Exercise) parent.getAdapter().getItem(position);
             Intent intent = new Intent(getBaseContext(), ExerciseActivity.class);
-            intent.putExtra("EXTRA_EXERCISE_ID", selected.getSQLiteId());
+            intent.putExtra("EXTRA_EXERCISE_ID", selected.getEid());
             startActivity(intent);
         }
     };

@@ -5,11 +5,13 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
+import java.util.UUID;
 
 /**
  * Created by jimi on 27/12/2017.
@@ -17,15 +19,14 @@ import java.sql.Time;
 
 @Entity(indices = {@Index(value = "idcomment", unique = true)})
 public class Comment implements DatabaseObject {
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "idcomment")
-    private Integer cid;
+    private String cid;
 
-    private int patientId;
+    private String patientId;
 
-    private int exerciseId;
+    private String exerciseId;
 
     private String text;
 
@@ -50,7 +51,7 @@ public class Comment implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Comment(Integer cid, java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
+    public Comment(String cid, java.sql.Date date, Time time, String text, String patientId, String exerciseId, int sentByPatient) {
         this.cid = cid;
         this.time = time;
         this.date = date;
@@ -63,8 +64,8 @@ public class Comment implements DatabaseObject {
     }
 
     @Ignore
-    public Comment(java.sql.Date date, Time time, String text, int patientId, int exerciseId, int sentByPatient) {
-        cid = null;
+    public Comment(java.sql.Date date, Time time, String text, String patientId, String exerciseId, int sentByPatient) {
+        cid = UUID.randomUUID().toString();
         this.time = time;
         this.date = date;
         this.patientId = patientId;
@@ -75,34 +76,28 @@ public class Comment implements DatabaseObject {
         this.sentByPatient = sentByPatient;
     }
 
-    public int getSQLiteId() {
-        return SQLiteId;
-    }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
-    }
     public long getCreated() {
             return created;
         }
     public void setCreated(long created) {
             this.created = created;
         }
-    public Integer getCid() {
+    public String getCid() {
             return cid;
         }
-    public void setCid(Integer cid) {
+    public void setCid(String cid) {
             this.cid = cid;
     }
-    public int getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
-    public void setPatientId(int patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
-    public int getExerciseId() {
+    public String getExerciseId() {
         return exerciseId;
     }
-    public void setExerciseId(int exerciseId) {
+    public void setExerciseId(String exerciseId) {
         this.exerciseId = exerciseId;
     }
     public String getText() {

@@ -1,22 +1,11 @@
 package com.example.jimi.mystroke.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,13 +18,10 @@ import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Comment;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetCommentsTask;
-import com.example.jimi.mystroke.tasks.GetMinCommentIdTask;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabase;
 
-import java.lang.reflect.Array;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Calendar;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity implements AsyncResponse {
@@ -43,7 +29,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     private Button messageButton;
     private CommentAdapter adapter;
     private List<Comment> messages;
-    private int pId;
+    private String pId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +37,10 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         setContentView(R.layout.activity_chat);
 
         if (Globals.getInstance().isPatient() == 1) {
-            new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), Globals.getInstance().getUser().getPatient(), this).execute();
+            new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), Globals.getInstance().getUser().getUid(), this).execute();
         } else {
-            pId = getIntent().getIntExtra("EXTRA_PATIENT_ID", -1);
-            new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
+            pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
+            if(pId != null) new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -68,14 +54,12 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     }
 
     public void sendButtonOnClick(View view) {
-        if(messageText.getText() != null) {
-            new GetMinCommentIdTask(AppDatabase.getDatabase(getApplicationContext()), this).execute();
-        }
+        addComment();
     }
 
-    private void addComment(int id) {
+    private void addComment() {
         //TODO get actual values for patient id etc
-        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getUser().getPatient(), 1, Globals.getInstance().isPatient());
+        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getUser().getPatientOb().getPid(), null, Globals.getInstance().isPatient());
         new RecordsToAppDatabase("comment", AppDatabase.getDatabase(getApplicationContext())).execute(new Comment[]{comment});
         messages.add(comment);
         messageText.getText().clear();
@@ -107,12 +91,6 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         switch (var) {
             case GetCommentsTask.var:
                 itemsToListView((List<Comment>) objects[0], mMessageClickedHandler);
-                break;
-            case GetMinCommentIdTask.var:
-                int id = (Integer) objects[0];
-                if(id > 0) id = 0;
-                id--;
-                addComment(id);
                 break;
         }
     }

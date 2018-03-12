@@ -1,0 +1,785 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 14,
+    "identityHash": "a2ab09d5e0e9c6be6630bedbfd4e2a1b",
+    "entities": [
+      {
+        "tableName": "User",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`iduser` TEXT NOT NULL, `username` TEXT, `password` TEXT, `salt` TEXT, `email` TEXT, `patient` INTEGER NOT NULL, `therapist` INTEGER NOT NULL, `firstName` TEXT, `lastName` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`iduser`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "iduser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "salt",
+            "columnName": "salt",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "patient",
+            "columnName": "patient",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "therapist",
+            "columnName": "therapist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "firstName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "lastName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "iduser"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_User_iduser",
+            "unique": true,
+            "columnNames": [
+              "iduser"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_User_iduser` ON `${TABLE_NAME}` (`iduser`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "patient",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idpatient` TEXT NOT NULL, `user_iduser` TEXT, `therapist_idtherapist` INTEGER NOT NULL, `active` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`idpatient`), FOREIGN KEY(`user_iduser`) REFERENCES `User`(`iduser`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`therapist_idtherapist`) REFERENCES `therapist`(`idtherapist`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "pid",
+            "columnName": "idpatient",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userID",
+            "columnName": "user_iduser",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "therapist",
+            "columnName": "therapist_idtherapist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idpatient"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_patient_idpatient",
+            "unique": true,
+            "columnNames": [
+              "idpatient"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_patient_idpatient` ON `${TABLE_NAME}` (`idpatient`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_iduser"
+            ],
+            "referencedColumns": [
+              "iduser"
+            ]
+          },
+          {
+            "table": "therapist",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "therapist_idtherapist"
+            ],
+            "referencedColumns": [
+              "idtherapist"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "therapist",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idtherapist` TEXT NOT NULL, `user_iduser` TEXT, `position` TEXT, `active` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`idtherapist`), FOREIGN KEY(`user_iduser`) REFERENCES `User`(`iduser`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "tid",
+            "columnName": "idtherapist",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userID",
+            "columnName": "user_iduser",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idtherapist"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_therapist_idtherapist",
+            "unique": true,
+            "columnNames": [
+              "idtherapist"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_therapist_idtherapist` ON `${TABLE_NAME}` (`idtherapist`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_iduser"
+            ],
+            "referencedColumns": [
+              "iduser"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Exercise",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idexercise` TEXT NOT NULL, `verboseDescription` TEXT, `section` TEXT, `assessment_idassessment` TEXT, `name` TEXT, `created` INTEGER NOT NULL, `viewed` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`idexercise`), FOREIGN KEY(`assessment_idassessment`) REFERENCES `Assessment`(`idassessment`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "eid",
+            "columnName": "idexercise",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "verboseDescription",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "section",
+            "columnName": "section",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "aid",
+            "columnName": "assessment_idassessment",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "viewed",
+            "columnName": "viewed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idexercise"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Exercise_idexercise",
+            "unique": true,
+            "columnNames": [
+              "idexercise"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Exercise_idexercise` ON `${TABLE_NAME}` (`idexercise`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Assessment",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "assessment_idassessment"
+            ],
+            "referencedColumns": [
+              "idassessment"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Assessment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idassessment` TEXT NOT NULL, `scoreMin` INTEGER NOT NULL, `scoreMax` INTEGER NOT NULL, `label` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`idassessment`))",
+        "fields": [
+          {
+            "fieldPath": "aid",
+            "columnName": "idassessment",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scoreMin",
+            "columnName": "scoreMin",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scoreMax",
+            "columnName": "scoreMax",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idassessment"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Assessment_idassessment",
+            "unique": true,
+            "columnNames": [
+              "idassessment"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Assessment_idassessment` ON `${TABLE_NAME}` (`idassessment`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Comment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idcomment` TEXT NOT NULL, `patientId` TEXT, `exerciseId` TEXT, `text` TEXT, `sentByPatient` INTEGER NOT NULL, `date` INTEGER, `time` INTEGER, `timestamp` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`idcomment`))",
+        "fields": [
+          {
+            "fieldPath": "cid",
+            "columnName": "idcomment",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "patientId",
+            "columnName": "patientId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exerciseId",
+            "columnName": "exerciseId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sentByPatient",
+            "columnName": "sentByPatient",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idcomment"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Comment_idcomment",
+            "unique": true,
+            "columnNames": [
+              "idcomment"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Comment_idcomment` ON `${TABLE_NAME}` (`idcomment`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Imagery",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`imageryID` TEXT NOT NULL, `name` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`imageryID`))",
+        "fields": [
+          {
+            "fieldPath": "imageryID",
+            "columnName": "imageryID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "imageryID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Imagery_imageryID",
+            "unique": true,
+            "columnNames": [
+              "imageryID"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Imagery_imageryID` ON `${TABLE_NAME}` (`imageryID`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "patient_list_exercise",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`listExerciseID` TEXT NOT NULL, `pID` TEXT, `eID` TEXT, `message` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`listExerciseID`), FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`eID`) REFERENCES `Exercise`(`idexercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "listExerciseID",
+            "columnName": "listExerciseID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pID",
+            "columnName": "pID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "eID",
+            "columnName": "eID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "listExerciseID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_patient_list_exercise_listExerciseID",
+            "unique": true,
+            "columnNames": [
+              "listExerciseID"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_patient_list_exercise_listExerciseID` ON `${TABLE_NAME}` (`listExerciseID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "patient",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pID"
+            ],
+            "referencedColumns": [
+              "idpatient"
+            ]
+          },
+          {
+            "table": "Exercise",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "eID"
+            ],
+            "referencedColumns": [
+              "idexercise"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "patient_list_imagery",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`listImageryID` TEXT NOT NULL, `pID` TEXT, `iID` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`listImageryID`), FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`iID`) REFERENCES `Imagery`(`imageryID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "listImageryID",
+            "columnName": "listImageryID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pID",
+            "columnName": "pID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "iID",
+            "columnName": "iID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "listImageryID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_patient_list_imagery_listImageryID",
+            "unique": true,
+            "columnNames": [
+              "listImageryID"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_patient_list_imagery_listImageryID` ON `${TABLE_NAME}` (`listImageryID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "patient",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pID"
+            ],
+            "referencedColumns": [
+              "idpatient"
+            ]
+          },
+          {
+            "table": "Imagery",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "iID"
+            ],
+            "referencedColumns": [
+              "imageryID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "patient_assessment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`patientAssessesExerciseID` TEXT NOT NULL, `pID` TEXT, `eID` TEXT, `score` REAL NOT NULL, `date` INTEGER, `time` INTEGER, `timestamp` INTEGER NOT NULL, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`patientAssessesExerciseID`), FOREIGN KEY(`pID`) REFERENCES `patient`(`idpatient`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`eID`) REFERENCES `Exercise`(`idexercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "patientAssessesExerciseID",
+            "columnName": "patientAssessesExerciseID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pID",
+            "columnName": "pID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "eID",
+            "columnName": "eID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "score",
+            "columnName": "score",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toDelete",
+            "columnName": "toDelete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "patientAssessesExerciseID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_patient_assessment_patientAssessesExerciseID",
+            "unique": true,
+            "columnNames": [
+              "patientAssessesExerciseID"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_patient_assessment_patientAssessesExerciseID` ON `${TABLE_NAME}` (`patientAssessesExerciseID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "patient",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pID"
+            ],
+            "referencedColumns": [
+              "idpatient"
+            ]
+          },
+          {
+            "table": "Exercise",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "eID"
+            ],
+            "referencedColumns": [
+              "idexercise"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a2ab09d5e0e9c6be6630bedbfd4e2a1b\")"
+    ]
+  }
+}

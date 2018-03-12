@@ -5,11 +5,13 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
+import java.util.UUID;
 
 /**
  * Created by jimi on 28/12/2017.
@@ -38,14 +40,13 @@ import java.sql.Time;
         }
 )
 public class PatientAssessesExercise implements DatabaseObject {
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
+    @PrimaryKey
+    @NonNull
+    private String patientAssessesExerciseID;
 
-    private int patientAssessesExerciseID;
+    private String pID;
 
-    private int pID;
-
-    private int eID;
+    private String eID;
 
     private double score;
 
@@ -67,7 +68,7 @@ public class PatientAssessesExercise implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public PatientAssessesExercise(int patientAssessesExerciseID, int pID, int eID, double score, java.sql.Date date, Time time) {
+    public PatientAssessesExercise(String patientAssessesExerciseID, String pID, String eID, double score, java.sql.Date date, Time time) {
         this.patientAssessesExerciseID = patientAssessesExerciseID;
         this.pID = pID;
         this.eID = eID;
@@ -79,8 +80,8 @@ public class PatientAssessesExercise implements DatabaseObject {
     }
 
     @Ignore
-    public PatientAssessesExercise(int pID, int eID, double score, java.sql.Date date, Time time) {
-        patientAssessesExerciseID = 0;
+    public PatientAssessesExercise(String pID, String eID, double score, java.sql.Date date, Time time) {
+        patientAssessesExerciseID = UUID.randomUUID().toString();
         this.pID = pID;
         this.eID = eID;
         this.score = score;
@@ -90,28 +91,22 @@ public class PatientAssessesExercise implements DatabaseObject {
         created = System.currentTimeMillis();
     }
 
-    public int getSQLiteId() {
-        return SQLiteId;
-    }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
-    }
-    public int getPatientAssessesExerciseID() {
+    public String getPatientAssessesExerciseID() {
         return patientAssessesExerciseID;
     }
-    public void setPatientAssessesExerciseID(int patientAssessesExerciseID) {
+    public void setPatientAssessesExerciseID(String patientAssessesExerciseID) {
         this.patientAssessesExerciseID = patientAssessesExerciseID;
     }
-    public int getPID() {
+    public String getPID() {
         return pID;
     }
-    public void setPID(int pID) {
+    public void setPID(String pID) {
         this.pID = pID;
     }
-    public int getEID() {
+    public String getEID() {
         return eID;
     }
-    public void setEID(int eID) {
+    public void setEID(String eID) {
         this.eID = eID;
     }
     public double getScore() {

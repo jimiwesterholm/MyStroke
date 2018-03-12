@@ -2,11 +2,14 @@ package com.example.jimi.mystroke.models; /**
  * Created by jimi on 25/11/2017.
  */
 import android.arch.persistence.room.*;
+import android.support.annotation.NonNull;
 
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 @Entity(tableName = "patient",
         foreignKeys = {
@@ -32,14 +35,13 @@ import org.json.JSONObject;
 )
 
 public class Patient implements DatabaseObject, AsyncResponse {
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "idpatient")
-    private int pid;
+    private String pid;
 
     @ColumnInfo(name = "user_iduser")
-    private int userID;
+    private String userID;
 
     @ColumnInfo(name = "therapist_idtherapist")
     private int therapist;
@@ -62,7 +64,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         this.toDelete = toDelete;
     }
 
-    public Patient(int pid, int userID, int therapist, int active) {
+    public Patient(String pid, String userID, int therapist, int active) {
         this.pid = pid;
         this.userID = userID;
         this.therapist = therapist;
@@ -71,8 +73,8 @@ public class Patient implements DatabaseObject, AsyncResponse {
     }
 
     @Ignore
-    public Patient(int userID, int therapist, int active) {
-        pid = 0;
+    public Patient(String userID, int therapist, int active) {
+        pid = UUID.randomUUID().toString();
         this.userID = userID;
         this.therapist = therapist;
         this.active = active;
@@ -80,7 +82,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
     }
 
     @Ignore
-    public Patient(int pid, int userID, int therapist, int active, User user) {
+    public Patient(String pid, String userID, int therapist, int active, User user) {
         this.pid = pid;
         this.userID = userID;
         this.therapist = therapist;
@@ -90,8 +92,8 @@ public class Patient implements DatabaseObject, AsyncResponse {
     }
 
     @Ignore
-    public Patient(int userID, int therapist, int active, User user) {
-        pid = 0;
+    public Patient(String userID, int therapist, int active, User user) {
+        pid = UUID.randomUUID().toString();
         this.userID = userID;
         this.therapist = therapist;
         this.active = active;
@@ -105,16 +107,16 @@ public class Patient implements DatabaseObject, AsyncResponse {
     public void setCreated(long created) {
         this.created = created;
     }
-    public int getPid() {
+    public String getPid() {
         return pid;
     }
-    public void setPid(int pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
     public int getTherapist() {
@@ -134,12 +136,6 @@ public class Patient implements DatabaseObject, AsyncResponse {
     }
     public void setUser(User user) {
         this.user = user;
-    }
-    public int getSQLiteId() {
-        return SQLiteId;
-    }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
     }
 
     @Override

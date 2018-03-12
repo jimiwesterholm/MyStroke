@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         database = AppDatabase.getDatabase(getApplicationContext());
         context = getApplicationContext();
+        setContentView(R.layout.activity_main);
 
         //Get login details TODO: add offline support
         FetchRecordsTask frtUser = new FetchRecordsTask();

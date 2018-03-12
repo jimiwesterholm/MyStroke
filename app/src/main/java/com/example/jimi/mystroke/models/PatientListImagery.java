@@ -5,9 +5,12 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 /**
  * Created by jimi on 28/12/2017.
@@ -35,14 +38,13 @@ import org.json.JSONObject;
         }
 )
 public class PatientListImagery implements DatabaseObject {
-    @PrimaryKey(autoGenerate = true)    //SQLite primary key - different from one matching the MySQL database
-    private int SQLiteId;
+    @PrimaryKey
+    @NonNull
+    private String listImageryID;
 
-    private int listImageryID;
+    private String pID;
 
-    private int pID;
-
-    private int iID;
+    private String iID;
 
     private long created;
 
@@ -52,7 +54,7 @@ public class PatientListImagery implements DatabaseObject {
     private Imagery imagery;
 
 
-    public PatientListImagery(int listImageryID, int pID, int iID) {
+    public PatientListImagery(String listImageryID, String pID, String iID) {
         this.listImageryID = listImageryID;
         this.pID = pID;
         this.iID = iID;
@@ -60,35 +62,29 @@ public class PatientListImagery implements DatabaseObject {
     }
 
     @Ignore
-    public PatientListImagery(int pID, int iID) {
-        listImageryID = 0;
+    public PatientListImagery(String pID, String iID) {
+        listImageryID = UUID.randomUUID().toString();
         this.pID = pID;
         this.iID = iID;
         created = System.currentTimeMillis();
     }
 
-    public int getSQLiteId() {
-        return SQLiteId;
-    }
-    public void setSQLiteId(int SQLiteId) {
-        this.SQLiteId = SQLiteId;
-    }
-    public int getListImageryID() {
+    public String getListImageryID() {
         return listImageryID;
     }
-    public void setListImageryID(int listImageryID) {
+    public void setListImageryID(String listImageryID) {
         this.listImageryID = listImageryID;
     }
-    public int getPID() {
+    public String getPID() {
         return pID;
     }
-    public void setPID(int pID) {
+    public void setPID(String pID) {
         this.pID = pID;
     }
-    public int getIID() {
+    public String getIID() {
         return iID;
     }
-    public void setIID(int iID) {
+    public void setIID(String iID) {
         this.iID = iID;
     }
     public long getCreated() {

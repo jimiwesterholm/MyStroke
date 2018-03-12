@@ -41,7 +41,7 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
     private Button patientButton;
     private Button sectionButton;
     private Button itemButton;
-    private int[] listExerciseIds;
+    private String[] listExerciseIds;
     private List<Imagery> imageries;
     private boolean imagerySelected;
 
@@ -100,9 +100,9 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
                 break;
             case GetPatientListExercisesTask.var:
                 List<PatientListExercise> patientListExercises = (List<PatientListExercise>) objects[0];
-                int[] exerciseIDs = new int[patientListExercises.size()];
+                String[] exerciseIDs = new String[patientListExercises.size()];
                 for (int i = 0; i < patientListExercises.size(); i++) {
-                    exerciseIDs[i] = patientListExercises.get(i).getExercise().getSQLiteId();
+                    exerciseIDs[i] = patientListExercises.get(i).getExercise().getEid();
                 }
                 listExerciseIds = exerciseIDs;
                 new GetSectionsNotFromIdsTask(this, exerciseIDs, AppDatabase.getDatabase(getApplicationContext())).execute();
@@ -121,8 +121,8 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
             case GetPatientsTask.var:
                 List<Patient> patients = (List<Patient>) objects[0];
                 itemsToListView(patientSpinner, new ArrayAdapter<Patient>(this, R.layout.support_simple_spinner_dropdown_item, patients.toArray(new Patient[0])));
-                int pId = getIntent().getIntExtra("EXTRA_PATIENT_ID", -1);
-                if(pId != -1) {
+                String pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
+                if(pId != null) {
                     for (int i = 0; i < patients.size(); i++) {
                         if(patients.get(i).getPid() == pId) {
                             patientSpinner.setSelection(i);

@@ -14,11 +14,11 @@ import java.util.List;
 
 public class GetPatientListImageriesTask extends AsyncTask<Void, Void, List<PatientListImagery>> {
     private AsyncResponse asyncResponse;
-    private int pID;
+    private String pID;
     private AppDatabase appDatabase;
     public static final int var = 11;
 
-    public GetPatientListImageriesTask(AsyncResponse asyncResponse, int pID, AppDatabase appDatabase) {
+    public GetPatientListImageriesTask(AsyncResponse asyncResponse, String pID, AppDatabase appDatabase) {
         this.asyncResponse = asyncResponse;
         this.pID = pID;
         this.appDatabase = appDatabase;

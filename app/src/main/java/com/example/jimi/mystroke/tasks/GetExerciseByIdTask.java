@@ -13,9 +13,9 @@ import java.util.concurrent.Callable;
 
 public class GetExerciseByIdTask implements Callable {
     AppDatabase aDb;
-    int id;
+    String id;
 
-    public GetExerciseByIdTask(AppDatabase aDb, int id) {
+    public GetExerciseByIdTask(AppDatabase aDb, String id) {
         this.aDb = aDb;
         this.id = id;
     }

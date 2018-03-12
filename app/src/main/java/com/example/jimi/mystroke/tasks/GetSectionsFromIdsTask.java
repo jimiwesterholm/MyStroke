@@ -15,10 +15,10 @@ import java.util.List;
 public class GetSectionsFromIdsTask extends AsyncTask<Void, Void, List<String>> {
     private AsyncResponse asyncResponse;
     private AppDatabase appDatabase;
-    private int[] exerciseIds;
+    private String[] exerciseIds;
     public static final int var = 8;
 
-    public GetSectionsFromIdsTask (AsyncResponse asyncResponse, int[] exerciseIds, AppDatabase appDatabase) {
+    public GetSectionsFromIdsTask (AsyncResponse asyncResponse, String[] exerciseIds, AppDatabase appDatabase) {
         this.asyncResponse = asyncResponse;
         this.appDatabase = appDatabase;
         this.exerciseIds = exerciseIds;
