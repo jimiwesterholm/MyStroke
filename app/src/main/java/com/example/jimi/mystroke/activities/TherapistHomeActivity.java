@@ -26,7 +26,8 @@ public class TherapistHomeActivity extends AppCompatActivity {
         Intent intent;
         switch (view.getId()) {
             case (R.id.buttonExercises):
-                intent = new Intent(getApplicationContext(), ViewExerciseSectionsActivity.class);
+                intent = new Intent(getApplicationContext(), AddExerciseActivity.class);    //TODO change, add actual path to this
+                //intent = new Intent(getApplicationContext(), ViewExerciseSectionsActivity.class);
                 break;
             case (R.id.buttonChat):
                 intent = new Intent(getApplicationContext(), ChatActivity.class);

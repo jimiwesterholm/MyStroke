@@ -69,7 +69,7 @@ public class JSONtoSQLite {
                     results.add((T) new Imagery((String) record.get(0), (String) record.get(1)));
                     break;
                 case "patient":
-                    results.add((T) new Patient((String) record.get(0), (String) record.get(1), (int) record.get(2), (int) record.get(3)));
+                    results.add((T) new Patient((String) record.get(0), (String) record.get(1), (String) record.get(2), (int) record.get(3)));
                     break;
                 case "therapist":
                     results.add((T) new Therapist((String) record.get(0), (String) record.get(3), (String) record.get(1), (int) record.get(4)));

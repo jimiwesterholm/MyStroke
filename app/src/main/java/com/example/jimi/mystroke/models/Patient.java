@@ -44,7 +44,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
     private String userID;
 
     @ColumnInfo(name = "therapist_idtherapist")
-    private int therapist;
+    private String therapist;
 
     private int active;
 
@@ -64,7 +64,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
         this.toDelete = toDelete;
     }
 
-    public Patient(String pid, String userID, int therapist, int active) {
+    public Patient(String pid, String userID, String therapist, int active) {
         this.pid = pid;
         this.userID = userID;
         this.therapist = therapist;
@@ -74,7 +74,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
     }
 
     @Ignore
-    public Patient(String userID, int therapist, int active) {
+    public Patient(String userID, String therapist, int active) {
         pid = UUID.randomUUID().toString();
         this.userID = userID;
         this.therapist = therapist;
@@ -84,7 +84,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
     }
 
     @Ignore
-    public Patient(String pid, String userID, int therapist, int active, User user) {
+    public Patient(String pid, String userID, String therapist, int active, User user) {
         this.pid = pid;
         this.userID = userID;
         this.therapist = therapist;
@@ -95,7 +95,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
     }
 
     @Ignore
-    public Patient(String userID, int therapist, int active, User user) {
+    public Patient(String userID, String therapist, int active, User user) {
         pid = UUID.randomUUID().toString();
         this.userID = userID;
         this.therapist = therapist;
@@ -123,10 +123,10 @@ public class Patient implements DatabaseObject, AsyncResponse {
     public void setUserID(String userID) {
         this.userID = userID;
     }
-    public int getTherapist() {
+    public String getTherapist() {
         return therapist;
     }
-    public void setTherapist(int therapist) {
+    public void setTherapist(String therapist) {
         this.therapist = therapist;
     }
     public void setActive(int active) {

@@ -30,9 +30,6 @@ public interface ExerciseDao {
     @Query("SELECT DISTINCT section FROM exercise WHERE idexercise NOT IN (:ids) AND toDelete =:toDelete")
     List<String> getSectionsNotOfIds(String[] ids, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE section = :section AND viewed =:viewed AND toDelete =:toDelete")
-    List<Exercise> getBySectionAndViewed(String section, boolean viewed, boolean toDelete);
-
     @Query("SELECT * FROM exercise WHERE section = :section AND toDelete =:toDelete")
     List<Exercise> getBySection(String section, boolean toDelete);
 

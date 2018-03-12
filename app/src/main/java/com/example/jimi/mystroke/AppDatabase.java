@@ -29,7 +29,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 @Database(entities = {User.class, Patient.class, Therapist.class, Exercise.class, Assessment.class, Comment.class, Imagery.class, PatientListExercise.class, PatientListImagery.class, PatientAssessesExercise.class},
-        version = 14)
+        version = 15)
 @TypeConverters(PersistenceTypeConverters.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase APPDB;

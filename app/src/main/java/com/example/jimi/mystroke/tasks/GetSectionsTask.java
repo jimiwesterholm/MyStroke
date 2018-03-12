@@ -31,7 +31,7 @@ public class GetSectionsTask extends AsyncTask<Void, Void, List<ExerciseSection>
         List<String> sectionNames = exerciseDao.getSections(false);
         List<ExerciseSection> sections = new ArrayList<ExerciseSection>();
         for (String sectionName : sectionNames) {
-            sections.add(new ExerciseSection(exerciseDao.getBySectionAndViewed(sectionName, false, false).size(), sectionName));
+            sections.add(new ExerciseSection(aDb.patientListExerciseDao().loadByViewed(false, false).size(), sectionName));
         }
         sections.add(new ExerciseSection(aDb.imageryDao().getAll(false).size(), "Imageries"));
         return sections;

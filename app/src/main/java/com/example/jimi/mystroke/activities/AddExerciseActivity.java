@@ -6,10 +6,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
 
 import com.example.jimi.mystroke.R;
 
 public class AddExerciseActivity extends AppCompatActivity {
+    private Spinner sectionSpinner;
+    private Spinner assessmentSpinner;
+    private Button addButton;
+    private Button mediaButton;
 
     /** TODO - check links, make work - will need some server side nonsense as well
      *  https://www.simplifiedcoding.net/android-upload-video-to-server-using-php/
@@ -26,14 +32,11 @@ public class AddExerciseActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        View view = findViewById(R.id.include_edit_add);
+        sectionSpinner = view.findViewById(R.id.section_spinner).findViewById(R.id.spinner);
+        assessmentSpinner = view.findViewById(R.id.assessment_spinner).findViewById(R.id.spinner);
+        addButton = view.findViewById(R.id.add_button);
+        mediaButton = view.findViewById(R.id.media_button);
     }
 
 }

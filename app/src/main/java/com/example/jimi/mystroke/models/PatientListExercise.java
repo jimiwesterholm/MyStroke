@@ -50,6 +50,8 @@ public class PatientListExercise implements DatabaseObject {
 
     private long created;
 
+    private boolean viewed;
+
     private boolean toDelete;
 
     @Ignore
@@ -61,6 +63,7 @@ public class PatientListExercise implements DatabaseObject {
         this.pID = pID;
         this.eID = eID;
         this.message = message;
+        viewed = false;
         created = System.currentTimeMillis();
         toDelete = false;
     }
@@ -71,6 +74,7 @@ public class PatientListExercise implements DatabaseObject {
         this.pID = pID;
         this.eID = eID;
         this.message = message;
+        viewed = false;
         created = System.currentTimeMillis();
         toDelete = false;
     }
@@ -116,6 +120,12 @@ public class PatientListExercise implements DatabaseObject {
     }
     public void setToDelete(boolean toDelete) {
         this.toDelete = toDelete;
+    }
+    public boolean isViewed() {
+        return viewed;
+    }
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
     }
 
     @Override

@@ -36,6 +36,9 @@ public interface PatientListExerciseDao {
     @Query("SELECT * FROM patient_list_exercise WHERE created > :created AND toDelete =:toDelete")
     List<PatientListExercise> loadChanged(long created, boolean toDelete);
 
+    @Query("SELECT * FROM patient_list_exercise WHERE viewed =:viewed AND toDelete =:toDelete")
+    List<PatientListExercise> loadByViewed(boolean viewed, boolean toDelete);
+
     @Update
     void update(PatientListExercise listExercise);
 }
