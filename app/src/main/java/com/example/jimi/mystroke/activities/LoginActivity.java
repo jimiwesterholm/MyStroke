@@ -35,6 +35,8 @@ import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.User;
 import com.example.jimi.mystroke.daos.UserDao;
+import com.example.jimi.mystroke.tasks.GetPatientByUserIdTask;
+import com.example.jimi.mystroke.tasks.GetPatientTask;
 import com.example.jimi.mystroke.tasks.SyncDatabaseTask;
 
 import java.util.ArrayList;
@@ -276,16 +278,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             Globals.getInstance().setUser(user);
 
+
             Intent intent = null;
             if (user.getTherapist() == 1 && user.getPatient() == 1) {
-                intent = new Intent(context, TherapistHomeActivity.class);
-                Globals.getInstance().setPatient(0);
+                //TODO therapist as well
+                user.setPatientOb(aDb.patientDao().loadByUserId(user.getUid(), false));
+                intent = new Intent(context, PatientOrTherapistActivity.class);
             } else if (user.getPatient() == 1) {
+                user.setPatientOb(aDb.patientDao().loadByUserId(user.getUid(), false));
                 intent = new Intent(context, PatientHomeActivity.class);
-                Globals.getInstance().setPatient(1);
+                Globals.getInstance().setLoggedAsPatient(1);
             } else if (user.getTherapist() == 1) {
                 intent = new Intent(context, TherapistHomeActivity.class);
-                Globals.getInstance().setPatient(0);
+                Globals.getInstance().setLoggedAsPatient(0);
             }
 
             if (intent != null) {

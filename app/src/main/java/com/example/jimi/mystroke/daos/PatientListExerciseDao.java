@@ -41,4 +41,7 @@ public interface PatientListExerciseDao {
 
     @Update
     void update(PatientListExercise listExercise);
+
+    @Query("SELECT * FROM patient_list_exercise WHERE viewed =:viewed AND pID =:patientId AND toDelete =:toDelete")
+    List<PatientListExercise>loadByViewedAndPatientId(String patientId, boolean viewed, boolean toDelete);
 }

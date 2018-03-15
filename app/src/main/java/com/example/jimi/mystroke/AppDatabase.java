@@ -7,6 +7,7 @@ import android.content.Context;
 import com.example.jimi.mystroke.daos.AssessmentDao;
 import com.example.jimi.mystroke.daos.CommentDao;
 import com.example.jimi.mystroke.daos.ExerciseDao;
+import com.example.jimi.mystroke.daos.ExerciseImageDao;
 import com.example.jimi.mystroke.daos.ImageryDao;
 import com.example.jimi.mystroke.daos.PatientAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.PatientDao;
@@ -17,6 +18,7 @@ import com.example.jimi.mystroke.daos.UserDao;
 import com.example.jimi.mystroke.models.Assessment;
 import com.example.jimi.mystroke.models.Comment;
 import com.example.jimi.mystroke.models.Exercise;
+import com.example.jimi.mystroke.models.ExerciseImage;
 import com.example.jimi.mystroke.models.Imagery;
 import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.models.PatientAssessesExercise;
@@ -28,8 +30,8 @@ import com.example.jimi.mystroke.models.User;
 import java.sql.Date;
 import java.sql.Time;
 
-@Database(entities = {User.class, Patient.class, Therapist.class, Exercise.class, Assessment.class, Comment.class, Imagery.class, PatientListExercise.class, PatientListImagery.class, PatientAssessesExercise.class},
-        version = 15)
+@Database(entities = {User.class, Patient.class, Therapist.class, Exercise.class, Assessment.class, Comment.class, Imagery.class, PatientListExercise.class, PatientListImagery.class, PatientAssessesExercise.class, ExerciseImage.class},
+        version = 16)
 @TypeConverters(PersistenceTypeConverters.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase APPDB;
@@ -44,6 +46,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract PatientAssessesExerciseDao patientAssessesExerciseDao();
     public abstract PatientListImageryDao patientListImageryDao();
     public abstract PatientListExerciseDao patientListExerciseDao();
+    public abstract ExerciseImageDao exerciseImageDao();
 
     public static AppDatabase getDatabase(Context context) {
         if (APPDB == null) {

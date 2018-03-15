@@ -31,7 +31,7 @@ import java.util.Arrays;
  * Created by jimi on 25/01/2018.
  */
 
-public class RecordsToAppDatabase extends AsyncTask<Object, Integer, Boolean> {
+public class RecordsToAppDatabaseTask extends AsyncTask<Object, Integer, Boolean> {
     private String className;
     private AppDatabase aDb ;
 
@@ -42,7 +42,7 @@ public class RecordsToAppDatabase extends AsyncTask<Object, Integer, Boolean> {
         this.className = className;
     }
 
-    public RecordsToAppDatabase(String className, AppDatabase aDb) {
+    public RecordsToAppDatabaseTask(String className, AppDatabase aDb) {
         this.className = className;
         this.aDb = aDb;
     }

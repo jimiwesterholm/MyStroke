@@ -3,6 +3,7 @@ package com.example.jimi.mystroke.daos; /**
  */
 import android.arch.persistence.room.*;
 
+import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.models.Therapist;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface TherapistDao {
 
     @Query("SELECT * FROM therapist WHERE created > :created AND toDelete =:toDelete")
     List<Therapist> loadChanged(long created, boolean toDelete);
+
+    @Query("SELECT * FROM therapist WHERE idtherapist =:tId AND toDelete =:toDelete LIMIT 1")
+    Therapist loadById(String tId, boolean toDelete);
 }

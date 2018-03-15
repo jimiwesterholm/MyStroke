@@ -18,7 +18,7 @@ import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Comment;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetCommentsTask;
-import com.example.jimi.mystroke.tasks.RecordsToAppDatabase;
+import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -36,7 +36,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        if (Globals.getInstance().isPatient() == 1) {
+        if (Globals.getInstance().isLoggedAsPatient() == 1) {
             new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), Globals.getInstance().getUser().getUid(), this).execute();
         } else {
             pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
@@ -59,8 +59,8 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
 
     private void addComment() {
         //TODO get actual values for patient id etc
-        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getUser().getPatientOb().getPid(), null, Globals.getInstance().isPatient());
-        new RecordsToAppDatabase("comment", AppDatabase.getDatabase(getApplicationContext())).execute(new Comment[]{comment});
+        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getUser().getPatientOb().getPid(), null, Globals.getInstance().isLoggedAsPatient());
+        new RecordsToAppDatabaseTask("comment", AppDatabase.getDatabase(getApplicationContext())).execute(new Comment[]{comment});
         messages.add(comment);
         messageText.getText().clear();
         adapter.notifyDataSetChanged();
@@ -74,7 +74,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
 
     private void itemsToListView(List<Comment> items, AdapterView.OnItemClickListener listener) {
         messages = items;
-        adapter = new CommentAdapter(this, messages, Globals.getInstance().isPatient());
+        adapter = new CommentAdapter(this, messages, Globals.getInstance().isLoggedAsPatient());
         ListView listView = findViewById(R.id.messages);
         listView.setAdapter(adapter);
         //listView.setOnItemClickListener(listener);

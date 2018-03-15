@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SyncDatabaseTask implements Runnable {
     //TODO Make these use the string resource
-    private String[] classNames = {"assessment", "exercise", "imagery", "user", "therapist", "patient", "patient_assesses_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
+    private String[] classNames = {"assessment", "exercise", "exercise_image", "imagery", "user", "therapist", "patient", "patient_assesses_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
     private Context context;
 
     public SyncDatabaseTask(Context context) {

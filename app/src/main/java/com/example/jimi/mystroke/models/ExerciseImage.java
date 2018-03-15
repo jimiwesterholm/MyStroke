@@ -17,18 +17,18 @@ import java.util.UUID;
 /**
  * Created by jimi on 13/12/2017.
  */
-@Entity(foreignKeys = {
+@Entity(tableName = "exercise_image",
+        foreignKeys = {
                 @ForeignKey(
-                        entity = Assessment.class,
-                        parentColumns = "idassessment",
-                        childColumns = "assessment_idassessment",
+                        entity = Exercise.class,
+                        parentColumns = "idexercise",
+                        childColumns = "eid",
                         onDelete = ForeignKey.NO_ACTION
                 )
         },
         indices = {
                 @Index(
-                        value = "idexercise",
-                        unique = true
+                        value = "eid"
                 )
         }
 )
@@ -58,22 +58,22 @@ public class ExerciseImage implements DatabaseObject {
     }
 
 
-    public ExerciseImage(@NonNull String exerciseImageId, String eid, String altText, int position, long created) {
+    public ExerciseImage(@NonNull String exerciseImageId, String eid, String altText, int position) {
         this.exerciseImageId = exerciseImageId;
         this.eid = eid;
         this.altText = altText;
         this.position = position;
-        this.created = created;
+        created = System.currentTimeMillis();
         toDelete = false;
     }
 
     @Ignore
-    public ExerciseImage(String eid, String altText, int position, long created) {
+    public ExerciseImage(String eid, String altText, int position) {
         this.exerciseImageId = UUID.randomUUID().toString();
         this.eid = eid;
         this.altText = altText;
         this.position = position;
-        this.created = created;
+        created = System.currentTimeMillis();
         toDelete = false;
     }
 

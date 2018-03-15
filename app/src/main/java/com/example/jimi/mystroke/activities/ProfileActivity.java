@@ -12,9 +12,8 @@ import android.widget.EditText;
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
-import com.example.jimi.mystroke.daos.UserDao;
 import com.example.jimi.mystroke.models.User;
-import com.example.jimi.mystroke.tasks.RecordsToAppDatabase;
+import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 public class ProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -97,8 +96,8 @@ public class ProfileActivity extends AppCompatActivity {
         user.setLastName(editFields[2].getText().toString());
         user.setEmail(editFields[3].getText().toString());
 
-        RecordsToAppDatabase recordsToAppDatabase = new RecordsToAppDatabase("user", AppDatabase.getDatabase(getApplicationContext()));
-        recordsToAppDatabase.execute(user);
+        RecordsToAppDatabaseTask recordsToAppDatabaseTask = new RecordsToAppDatabaseTask("user", AppDatabase.getDatabase(getApplicationContext()));
+        recordsToAppDatabaseTask.execute(user);
 
         cancelButtonOnClick(editButton);
     }

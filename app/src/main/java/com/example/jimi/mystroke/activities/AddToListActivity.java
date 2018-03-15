@@ -27,7 +27,7 @@ import com.example.jimi.mystroke.tasks.GetImageriesTask;
 import com.example.jimi.mystroke.tasks.GetPatientListExercisesTask;
 import com.example.jimi.mystroke.tasks.GetSectionsNotFromIdsTask;
 import com.example.jimi.mystroke.tasks.GetSectionsTask;
-import com.example.jimi.mystroke.tasks.RecordsToAppDatabase;
+import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,11 +193,11 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
         Patient patient = (Patient) patientSpinner.getSelectedItem();
         if(sectionSpinner.getSelectedItem().equals(getString(R.string.imageryBut))) {
             Imagery imagery = (Imagery) itemSpinner.getSelectedItem();
-            new RecordsToAppDatabase(getString(R.string.patient_list_imagery), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListImagery(patient.getPid(), imagery.getImageryID()));
+            new RecordsToAppDatabaseTask(getString(R.string.patient_list_imagery), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListImagery(patient.getPid(), imagery.getImageryID()));
         } else {
             Exercise exercise = (Exercise) itemSpinner.getSelectedItem();
             EditText message = findViewById(R.id.guideText);
-            new RecordsToAppDatabase(getString(R.string.patient_list_exercise), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListExercise(patient.getPid(), exercise.getEid(), message.getText().toString()));
+            new RecordsToAppDatabaseTask(getString(R.string.patient_list_exercise), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListExercise(patient.getPid(), exercise.getEid(), message.getText().toString()));
         }
         patientSpinner.setEnabled(true);
         sectionSpinner.setVisibility(View.GONE);

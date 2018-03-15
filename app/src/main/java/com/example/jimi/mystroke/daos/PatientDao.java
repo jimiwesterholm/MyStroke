@@ -27,4 +27,7 @@ public interface PatientDao {
 
     @Query("SELECT * FROM patient WHERE created > :created AND toDelete =:toDelete")
     List<Patient> loadChanged(long created, boolean toDelete);
+
+    @Query("SELECT * FROM patient WHERE user_iduser =:uId AND toDelete =:toDelete")
+    Patient loadByUserId(String uId, boolean toDelete);
 }

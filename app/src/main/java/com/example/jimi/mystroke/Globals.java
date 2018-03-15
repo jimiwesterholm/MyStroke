@@ -1,8 +1,8 @@
 package com.example.jimi.mystroke;
 
+import com.example.jimi.mystroke.models.Patient;
+import com.example.jimi.mystroke.models.Therapist;
 import com.example.jimi.mystroke.models.User;
-
-import java.sql.Timestamp;
 
 /**
  * Created by jimi on 25/12/2017.
@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 public class Globals {
     private static final Globals ourInstance = new Globals();
     private User user;
-    private int isPatient;
+    private int isLoggedAsPatient;
     private long latestUpdate;
-    private final String dbUrl = "http://11cb102e.ngrok.io/api.php/";
+    private final String dbUrl = "http://eae4c12d.ngrok.io/api.php/";
 
     public static Globals getInstance() {
         return ourInstance;
@@ -22,12 +22,12 @@ public class Globals {
     private Globals() {
     }
 
-    public int isPatient() {
-        return isPatient;
+    public int isLoggedAsPatient() {
+        return isLoggedAsPatient;
     }
 
-    public void setPatient(int patient) {
-        isPatient = patient;
+    public void setLoggedAsPatient(int patient) {
+        isLoggedAsPatient = patient;
     }
 
     public User getUser() {

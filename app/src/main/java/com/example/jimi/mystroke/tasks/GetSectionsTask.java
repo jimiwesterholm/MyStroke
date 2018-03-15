@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.daos.ExerciseDao;
 import com.example.jimi.mystroke.models.ExerciseSection;
+import com.example.jimi.mystroke.models.PatientListExercise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +19,39 @@ public class GetSectionsTask extends AsyncTask<Void, Void, List<ExerciseSection>
     private AppDatabase aDb;
     private AsyncResponse asyncResponse;
     private List<String> results;
+    private String patientId;
     public static final int var = 1;
 
-    public GetSectionsTask(Context context, AsyncResponse asyncResponse) {
+    public GetSectionsTask(Context context, AsyncResponse asyncResponse, String patientId) {
         this.aDb = AppDatabase.getDatabase(context);
         this.asyncResponse = asyncResponse;
+        this.patientId = patientId;
     }
 
     @Override
     protected List<ExerciseSection> doInBackground(Void...foo) {
         ExerciseDao exerciseDao = aDb.exerciseDao();
         List<String> sectionNames = exerciseDao.getSections(false);
+
         List<ExerciseSection> sections = new ArrayList<ExerciseSection>();
-        for (String sectionName : sectionNames) {
-            sections.add(new ExerciseSection(aDb.patientListExerciseDao().loadByViewed(false, false).size(), sectionName));
+        if(patientId != null) {
+            //Get alerts
+            List<PatientListExercise> newExercises = aDb.patientListExerciseDao().loadByViewedAndPatientId(patientId, false, false);
+            String[] ids = new String[newExercises.size()];
+            for (int i = 0; i < newExercises.size(); i++) {
+                ids[i] = newExercises.get(i).getEID();
+            }
+            for (int i = 0; i < sectionNames.size(); i++) {
+                int a = exerciseDao.loadAllByIdsFromSection(ids, sectionNames.get(i), false).size();
+                sections.add(new ExerciseSection(a, sectionNames.get(i)));
+            }
+        } else {
+            for (String sectionName : sectionNames) {
+                sections.add(new ExerciseSection(0, sectionName));
+            }
         }
-        sections.add(new ExerciseSection(aDb.imageryDao().getAll(false).size(), "Imageries"));
+        //TODO maybe use patient imagery list to store whether they've seen all yet - or search for new ones by created?
+        sections.add(new ExerciseSection(0, "Imageries"));
         return sections;
     }
 

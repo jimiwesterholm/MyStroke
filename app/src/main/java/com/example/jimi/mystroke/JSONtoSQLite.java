@@ -15,6 +15,7 @@ import com.example.jimi.mystroke.daos.UserDao;
 import com.example.jimi.mystroke.models.Assessment;
 import com.example.jimi.mystroke.models.Comment;
 import com.example.jimi.mystroke.models.Exercise;
+import com.example.jimi.mystroke.models.ExerciseImage;
 import com.example.jimi.mystroke.models.Imagery;
 import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.models.PatientAssessesExercise;
@@ -59,6 +60,9 @@ public class JSONtoSQLite {
                 case "exercise":
                     results.add((T) new Exercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (String) record.get(4)));
                     break;
+                case "exercise_image":
+                    results.add((T) new ExerciseImage((String) record.get(0), (String) record.get(1), (String) record.get(3), (int) record.get(2)));
+                    break;
                 case "assessment":
                     results.add ((T) new Assessment((String) record.get(0), (int) record.get(1), (int) record.get(2), (String) record.get(3)));
                     break;
@@ -98,6 +102,8 @@ public class JSONtoSQLite {
                 ExerciseDao exerciseDao = aDb.exerciseDao();
                 exerciseDao.insertAll(results.toArray(new Exercise[records.length()]));
                 //List<Exercise> exercisessss = exerciseDao.getAll();
+                break;
+            case "exercise_image":
                 break;
             case "assessment":
                 AssessmentDao assessmentDao = aDb.assessmentDao();  //.insertAll(results.toArray(new [records.length()]));

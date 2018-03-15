@@ -63,7 +63,15 @@
         <activity
             android:name=".activities.PatientOrTherapistActivity"
             android:label="@string/title_activity_patient_or_therapist"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.AddExerciseMediaActivity"
+            android:label="@string/title_activity_add_exercise_media"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ImageConfirmActivity"
+            android:label="@string/title_activity_image_confirm"
+            android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 
 </manifest>

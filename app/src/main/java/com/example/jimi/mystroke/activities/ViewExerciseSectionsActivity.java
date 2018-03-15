@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jimi.mystroke.AppDatabase;
+import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.models.ExerciseSection;
@@ -32,7 +33,7 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     //TODO: Convert from arrayadapter/listview to recyclerview?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetSectionsTask(getApplicationContext(), this).execute();
+        new GetSectionsTask(getApplicationContext(), this, Globals.getInstance().getUser().getPatientOb().getPid()).execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
@@ -46,7 +47,7 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
 
     @Override
     protected void onResume() {
-        GetSectionsTask gst = new GetSectionsTask(getApplicationContext(), this);
+        GetSectionsTask gst = new GetSectionsTask(getApplicationContext(), this, Globals.getInstance().getUser().getPatientOb().getPid());
         super.onResume();
 
         //TODO: Convert to use recyclerview insttead of listview
