@@ -13,13 +13,31 @@ public class Globals {
     private User user;
     private int isLoggedAsPatient;
     private long latestUpdate;
-    private final String dbUrl = "http://eae4c12d.ngrok.io/api.php/";
+    private final String ngrok = "http://5767e355.ngrok.io";
+    private final String dbUrl = ngrok.concat("/api.php/");
+    private final String fileDispUrl = ngrok.concat("/FileDispenser/");
+    private final String addImageFD = "addImage.php";
+    private final String loadImageFD = "addImage.php";
+
+    //NEXT A-TASK INT: 21
 
     public static Globals getInstance() {
         return ourInstance;
     }
 
     private Globals() {
+    }
+
+    public String getLoadImageFD() {
+        return loadImageFD;
+    }
+
+    public String getFileDispUrl() {
+        return fileDispUrl;
+    }
+
+    public String getAddImageFD() {
+        return addImageFD;
     }
 
     public int isLoggedAsPatient() {

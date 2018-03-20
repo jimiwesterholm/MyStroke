@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.Globals;
+import com.example.jimi.mystroke.models.ExerciseImage;
 import com.example.jimi.mystroke.models.User;
 
 import java.util.List;
@@ -15,7 +16,8 @@ import java.util.List;
 
 public class SyncDatabaseTask implements Runnable {
     //TODO Make these use the string resource
-    private String[] classNames = {"assessment", "exercise", "exercise_image", "imagery", "user", "therapist", "patient", "patient_assesses_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
+    private String[] classNames = {"assessment", "exercise", "imagery", "user", "therapist", "patient", "patient_assesses_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
+    private String[] mediaClassNames = {"exercise_image"};
     private Context context;
 
     public SyncDatabaseTask(Context context) {
@@ -34,7 +36,10 @@ public class SyncDatabaseTask implements Runnable {
 
         for (String className : classNames) {
             List<? extends DatabaseObject> databaseObjects = new GetChangedRecords(context).getChanged(className);
-
+            if(databaseObjects.size() > 0) {
+                SendRecordsTask sendRecordsTask = new SendRecordsTask(context, className, databaseObjects);
+                sendRecordsTask.call();
+            }
 
             //TODO: get changes, upload
             FetchRecordsTask frtEx = new FetchRecordsTask();
@@ -43,10 +48,6 @@ public class SyncDatabaseTask implements Runnable {
             frtEx.call();
         }
         Globals.getInstance().setLatestUpdate(System.currentTimeMillis());
-
-        /*
-
-         */
     }
 
     public void setContext(Context context) {

@@ -14,7 +14,7 @@ import com.example.jimi.mystroke.models.PatientListExercise;
 public class DeleteExercisesTask extends AsyncTask<Exercise, Void, Boolean> {
     private AsyncResponse asyncResponse;
     private AppDatabase appDatabase;
-    public static final int var = 13;
+    public static final int var = 17;
 
     public DeleteExercisesTask(AsyncResponse asyncResponse, AppDatabase appDatabase) {
         this.asyncResponse = asyncResponse;

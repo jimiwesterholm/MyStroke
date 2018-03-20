@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.jimi.mystroke.AppDatabase;
-import com.example.jimi.mystroke.models.Imagery;
 import com.example.jimi.mystroke.models.Patient;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class GetPatientsTask extends AsyncTask<Void, Void, List<Patient>>{
     protected List<Patient> doInBackground(Void... voids) {
         List<Patient> patients = appDatabase.patientDao().getAll(false);
         for (Patient patient : patients) {
-            patient.setUser(appDatabase.userDao().findById(patient.getPid(), false));
+            patient.setUser(appDatabase.userDao().findById(patient.getUserID(), false));
         }
         return patients;
     }

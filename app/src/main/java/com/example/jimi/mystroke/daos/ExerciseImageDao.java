@@ -7,7 +7,6 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.models.ExerciseImage;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public interface ExerciseImageDao {
     @Query("SELECT * FROM exercise_image WHERE toDelete =:toDelete")
     List<ExerciseImage> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM exercise_image WHERE exerciseImageId IN (:ids) AND toDelete =:toDelete")
+    @Query("SELECT * FROM exercise_image WHERE id IN (:ids) AND toDelete =:toDelete")
     List<ExerciseImage> loadAllByIds(String[] ids, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

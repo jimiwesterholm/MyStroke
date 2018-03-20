@@ -13,14 +13,14 @@ import java.util.UUID;
         foreignKeys = {
                 @ForeignKey(
                         entity = User.class,
-                        parentColumns = "iduser",
+                        parentColumns = "id",
                         childColumns = "user_iduser",
                         onDelete = ForeignKey.CASCADE
                 )
         },
         indices = {
                 @Index(
-                        value = "idtherapist",
+                        value = "id",
                         unique = true
                 )
         }
@@ -28,8 +28,7 @@ import java.util.UUID;
 public class Therapist implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "idtherapist")
-    private String tid;
+    private String id;
 
     @ColumnInfo(name = "user_iduser")
     private String userID;
@@ -51,8 +50,8 @@ public class Therapist implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Therapist(String tid, String userID, String position, int active) {
-        this.tid = tid;
+    public Therapist(String id, String userID, String position, int active) {
+        this.id = id;
         this.userID = userID;
         this.position = position;
         this.active = active;
@@ -62,7 +61,7 @@ public class Therapist implements DatabaseObject {
 
     @Ignore
     public Therapist(String userID, String position, int active) {
-        tid = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.userID = userID;
         this.position = position;
         this.active = active;
@@ -76,11 +75,11 @@ public class Therapist implements DatabaseObject {
     public void setCreated(long created) {
         this.created = created;
     }
-    public String getTid() {
-        return tid;
+    public String getId() {
+        return id;
     }
-    public void setTid(String tid) {
-        this.tid = tid;
+    public void setId(String id) {
+        this.id = id;
     }
     public String getUserID() {
         return userID;
@@ -104,7 +103,7 @@ public class Therapist implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idtherapist", tid);
+        //jsonObject.put("idtherapist", id);
         jsonObject.put("position", position);
         jsonObject.put("user_iduser", userID);
         jsonObject.put("active", active);

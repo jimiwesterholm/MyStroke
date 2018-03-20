@@ -14,11 +14,11 @@ import java.util.UUID;
 /**
  * Created by jimi on 30/12/2017.
  */
-@Entity(indices = {@Index(value = "imageryID", unique = true)})
+@Entity(indices = {@Index(value = "id", unique = true)})
 public class Imagery implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    private String imageryID;
+    private String id;
 
     private String name;
 
@@ -34,8 +34,8 @@ public class Imagery implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Imagery(String imageryID, String name) {
-        this.imageryID = imageryID;
+    public Imagery(String id, String name) {
+        this.id = id;
         this.name = name;
         created = System.currentTimeMillis();
         toDelete = false;
@@ -43,17 +43,17 @@ public class Imagery implements DatabaseObject {
 
     @Ignore
     public Imagery(String name) {
-        imageryID = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.name = name;
         created = System.currentTimeMillis();
         toDelete = false;
     }
 
-    public String getImageryID() {
-        return imageryID;
+    public String getId() {
+        return id;
     }
-    public void setImageryID(String imageryID) {
-        this.imageryID = imageryID;
+    public void setId(String id) {
+        this.id = id;
     }
     public String getName() {
         return name;
@@ -71,7 +71,7 @@ public class Imagery implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idimagery", imageryID);
+        //jsonObject.put("idimagery", id);
         jsonObject.put("name", name);
         return jsonObject;
     }

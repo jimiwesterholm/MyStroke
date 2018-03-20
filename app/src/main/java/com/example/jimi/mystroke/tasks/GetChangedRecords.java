@@ -47,7 +47,7 @@ public class GetChangedRecords {
                 return AppDatabase.getDatabase(context).patientDao().loadChanged(latestUpdate, false);
             case "therapist":
                 return AppDatabase.getDatabase(context).therapistDao().loadChanged(latestUpdate, false);
-            case "patient_assessess_exercise":
+            case "patient_assesses_exercise":
                 return AppDatabase.getDatabase(context).patientAssessesExerciseDao().loadChanged(latestUpdate, false);
             case "patient_list_exercise":
                 return AppDatabase.getDatabase(context).patientListExerciseDao().loadChanged(latestUpdate, false);

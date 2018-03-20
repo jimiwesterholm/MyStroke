@@ -68,8 +68,8 @@
         android:gravity="start" />
 
     <include
-        android:id="@+id/section_spinner"
-        layout="@layout/spinner_and_add_new"
+        android:id="@+id/section_text"
+        layout="@layout/set_text_element_auto_complete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -83,8 +83,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/list_view_round_light_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/section_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/section_text" />
 </android.support.constraint.ConstraintLayout>

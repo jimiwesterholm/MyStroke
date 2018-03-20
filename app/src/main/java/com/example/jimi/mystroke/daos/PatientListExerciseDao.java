@@ -7,7 +7,6 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.PatientListExercise;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public interface PatientListExerciseDao {
     @Query("SELECT * FROM patient_list_exercise WHERE toDelete =:toDelete")
     List<PatientListExercise> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient_list_exercise WHERE listExerciseID IN (:patientListExerciseIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM patient_list_exercise WHERE id IN (:patientListExerciseIds) AND toDelete =:toDelete")
     List<PatientListExercise> loadAllByIds(String[] patientListExerciseIds, boolean toDelete);
 
     @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID AND toDelete =:toDelete")

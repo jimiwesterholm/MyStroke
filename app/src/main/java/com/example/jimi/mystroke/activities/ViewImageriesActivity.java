@@ -51,7 +51,7 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             Imagery clicked = (Imagery) parent.getAdapter().getItem(position);
             Intent intent = new Intent(getBaseContext(), ImageryActivity.class);
-            intent.putExtra("EXTRA_IMAGERY_ID", clicked.getImageryID());
+            intent.putExtra("EXTRA_IMAGERY_ID", clicked.getId());
             startActivity(intent);
         }
     };

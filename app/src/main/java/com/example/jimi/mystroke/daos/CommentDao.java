@@ -21,7 +21,7 @@ public interface CommentDao {
     @Query("SELECT * FROM comment WHERE patientId =:pId AND toDelete =:toDelete ORDER BY created ASC")
     List<Comment> getByPatientOrdered(String pId, boolean toDelete);
 
-    @Query("SELECT * FROM comment WHERE idcomment IN (:commentIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM comment WHERE id IN (:commentIds) AND toDelete =:toDelete")
     List<Comment> loadAllByIds(String[] commentIds, boolean toDelete);
 
     @Insert

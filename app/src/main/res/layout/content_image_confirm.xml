@@ -11,36 +11,42 @@
         android:id="@+id/image_confirm_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/alt_text_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <Button
         android:id="@+id/confirm_image_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:onClick="onConfirmClick"
         android:text="@string/confirm"
         app:layout_constraintEnd_toEndOf="@+id/img_alt_text_form"
+        app:layout_constraintStart_toEndOf="@+id/delete_image_button"
         app:layout_constraintTop_toTopOf="@+id/cancel_image_button" />
 
     <Button
         android:id="@+id/cancel_image_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onCancelClick"
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete_image_button"
         app:layout_constraintStart_toStartOf="@+id/img_alt_text_form" />
 
     <TextView
         android:id="@+id/alt_text_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="4dp"
         android:text="@string/alternative_text"
         android:textStyle="bold"
@@ -49,15 +55,30 @@
 
     <EditText
         android:id="@+id/img_alt_text_form"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:gravity="top|left"
+        android:hint="@string/alt_text_hint"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_image_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/delete_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="@string/alt_text_hint"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/cancel_image_button"
+        android:onClick="onDeleteClick"
+        android:text="@string/delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -20,23 +20,25 @@ import java.util.UUID;
 @Entity(foreignKeys = {
                 @ForeignKey(
                         entity = Assessment.class,
-                        parentColumns = "idassessment",
+                        parentColumns = "id",
                         childColumns = "assessment_idassessment",
                         onDelete = ForeignKey.NO_ACTION
                 )
         },
         indices = {
                 @Index(
-                        value = "idexercise",
+                        value = "id",
                         unique = true
+                ),
+                @Index(
+                        value = "assessment_idassessment"
                 )
         }
 )
 public class Exercise implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "idexercise")
-    private String eid;
+    private String id;
 
     @ColumnInfo(name = "verboseDescription")
     private String description;
@@ -64,8 +66,8 @@ public class Exercise implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Exercise(String eid, String description, String section, String name, String aid) {
-        this.eid = eid;
+    public Exercise(String id, String description, String section, String name, String aid) {
+        this.id = id;
         this.description = description;
         this.section = section;
         this.name = name;
@@ -76,7 +78,7 @@ public class Exercise implements DatabaseObject {
 
     @Ignore
     public Exercise(String description, String section, String name, String aid) {
-        eid = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.description = description;
         this.section = section;
         this.name = name;
@@ -91,11 +93,11 @@ public class Exercise implements DatabaseObject {
     public void setCreated(long created) {
         this.created = created;
     }
-    public String getEid() {
-        return eid;
+    public String getId() {
+        return id;
     }
-    public void setEid(String eid) {
-        this.eid = eid;
+    public void setId(String id) {
+        this.id = id;
     }
     public String getDescription() {
         return description;
@@ -130,7 +132,7 @@ public class Exercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idexercise", eid);
+        //jsonObject.put("idexercise", id);
         jsonObject.put("verbose_description", description);
         jsonObject.put("section", section);
         jsonObject.put("name", name);

@@ -3,7 +3,6 @@ package com.example.jimi.mystroke.daos; /**
  */
 import android.arch.persistence.room.*;
 
-import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.Patient;
 
 import java.util.List;
@@ -13,10 +12,10 @@ public interface PatientDao {
     @Query("SELECT * FROM patient WHERE toDelete =:toDelete")
     List<Patient> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM patient WHERE idpatient IN (:patientIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM patient WHERE id IN (:patientIds) AND toDelete =:toDelete")
     List<Patient> loadAllByIds(String[] patientIds, boolean toDelete);
 
-    @Query("SELECT * FROM patient WHERE idpatient =:patientId AND toDelete =:toDelete")
+    @Query("SELECT * FROM patient WHERE id =:patientId AND toDelete =:toDelete")
     Patient loadById(String patientId, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

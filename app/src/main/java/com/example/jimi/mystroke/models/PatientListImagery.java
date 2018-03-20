@@ -19,20 +19,20 @@ import java.util.UUID;
         foreignKeys = {
                 @ForeignKey(
                         entity = Patient.class,
-                        parentColumns = "idpatient",
+                        parentColumns = "id",
                         childColumns = "pID",
                         onDelete = ForeignKey.NO_ACTION
                 ),
                 @ForeignKey(
                         entity = Imagery.class,
-                        parentColumns = "imageryID",
+                        parentColumns = "id",
                         childColumns = "iID",
                         onDelete = ForeignKey.NO_ACTION
                 )
         },
         indices = {
                 @Index(
-                        value = "listImageryID",
+                        value = "id",
                         unique = true
                 )
         }
@@ -40,7 +40,7 @@ import java.util.UUID;
 public class PatientListImagery implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    private String listImageryID;
+    private String id;
 
     private String pID;
 
@@ -54,8 +54,8 @@ public class PatientListImagery implements DatabaseObject {
     private Imagery imagery;
 
 
-    public PatientListImagery(String listImageryID, String pID, String iID) {
-        this.listImageryID = listImageryID;
+    public PatientListImagery(String id, String pID, String iID) {
+        this.id = id;
         this.pID = pID;
         this.iID = iID;
         created = System.currentTimeMillis();
@@ -64,18 +64,18 @@ public class PatientListImagery implements DatabaseObject {
 
     @Ignore
     public PatientListImagery(String pID, String iID) {
-        listImageryID = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.pID = pID;
         this.iID = iID;
         created = System.currentTimeMillis();
         toDelete = false;
     }
 
-    public String getListImageryID() {
-        return listImageryID;
+    public String getId() {
+        return id;
     }
-    public void setListImageryID(String listImageryID) {
-        this.listImageryID = listImageryID;
+    public void setId(String id) {
+        this.id = id;
     }
     public String getPID() {
         return pID;
@@ -111,7 +111,7 @@ public class PatientListImagery implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idpatient_list_imagery", listImageryID);
+        //jsonObject.put("idpatient_list_imagery", id);
         jsonObject.put("idpatient", pID);
         jsonObject.put("idimagery", iID);
         return jsonObject;

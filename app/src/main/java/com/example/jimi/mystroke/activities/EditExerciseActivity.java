@@ -2,11 +2,12 @@ package com.example.jimi.mystroke.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -26,7 +27,8 @@ import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddExerciseActivity extends AppCompatActivity implements AsyncResponse {
+public class EditExerciseActivity extends AppCompatActivity implements AsyncResponse {
+    //TODO just copy add exercise, except fill in values and update don't add
     private AutoCompleteTextView sectionEditText;
     private Spinner assessmentSpinner;
     private Button addButton;
@@ -37,6 +39,7 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
     private ArrayAdapter<Assessment> assessmentArrayAdapter;
     private EditText title;
     private EditText description;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
 
         addButton = findViewById(R.id.add_button);
         mediaButton = findViewById(R.id.media_button);
+
+        //TODO Initialise values from intent
     }
 
     private void itemsToAdapter(AutoCompleteTextView textView, ArrayAdapter adapter) {
@@ -117,3 +122,6 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
         }
     }
 }
+
+
+

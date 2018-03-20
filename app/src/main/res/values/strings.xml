@@ -101,4 +101,10 @@
     <string name="alternative_text">Alternative text</string>
     <string name="alt_text_hint">For accessibility, images should have a text alternative that explains their contents</string>
     <string name="title_activity_image_confirm">ImageConfirmActivity</string>
+    <string name="exercise_image">exercise_image</string>
+    <string name="add_link_to_youtube">Add link to YouTube</string>
+    <string name="yt_instruction">Success! You can confirm the link works by clicking the thumbnail.</string>
+    <string name="therapist_label">Therapist:</string>
+    <string name="email_label">Email:</string>
+    <string name="title_activity_edit_exercise">EditExerciseActivity</string>
 </resources>

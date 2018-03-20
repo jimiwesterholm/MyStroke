@@ -16,12 +16,11 @@ import java.util.UUID;
  * Created by jimi on 13/12/2017.
  */
 
-@Entity(indices = {@Index(value = "idassessment", unique = true)})
+@Entity(indices = {@Index(value = "id", unique = true)})
 public class Assessment implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "idassessment")
-    private String aid;
+    private String id;
 
     private int scoreMin;
 
@@ -42,8 +41,8 @@ public class Assessment implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Assessment(String aid, int scoreMin, int scoreMax, String label) {
-        this.aid = aid;
+    public Assessment(String id, int scoreMin, int scoreMax, String label) {
+        this.id = id;
         this.scoreMin = scoreMin;
         this.scoreMax = scoreMax;
         this.label = label;
@@ -52,7 +51,7 @@ public class Assessment implements DatabaseObject {
 
     @Ignore
     public Assessment(int scoreMin, int scoreMax, String label) {
-        aid = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.scoreMin = scoreMin;
         this.scoreMax = scoreMax;
         this.label = label;
@@ -65,11 +64,11 @@ public class Assessment implements DatabaseObject {
     public void setCreated(long created) {
         this.created = created;
     }
-    public String getAid() {
-        return aid;
+    public String getId() {
+        return id;
     }
-    public void setAid(String aid) {
-        this.aid = aid;
+    public void setId(String id) {
+        this.id = id;
     }
     public int getScoreMin() {
         return scoreMin;
@@ -93,7 +92,7 @@ public class Assessment implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idassessment", aid);
+        //jsonObject.put("idassessment", id);
         jsonObject.put("scoreMin", scoreMin);
         jsonObject.put("scoreMax", scoreMax);
         jsonObject.put("label", label);

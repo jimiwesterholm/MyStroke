@@ -6,12 +6,14 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 /**
@@ -21,7 +23,7 @@ import java.util.UUID;
         foreignKeys = {
                 @ForeignKey(
                         entity = Exercise.class,
-                        parentColumns = "idexercise",
+                        parentColumns = "id",
                         childColumns = "eid",
                         onDelete = ForeignKey.NO_ACTION
                 )
@@ -35,7 +37,7 @@ import java.util.UUID;
 public class ExerciseImage implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    private String exerciseImageId;
+    private String id;
 
     private String eid;
 
@@ -49,6 +51,9 @@ public class ExerciseImage implements DatabaseObject {
 
     private boolean toDelete;
 
+    @Ignore
+    private Bitmap bitmap;
+
     public boolean isToDelete() {
         return toDelete;
     }
@@ -58,8 +63,8 @@ public class ExerciseImage implements DatabaseObject {
     }
 
 
-    public ExerciseImage(@NonNull String exerciseImageId, String eid, String altText, int position) {
-        this.exerciseImageId = exerciseImageId;
+    public ExerciseImage(@NonNull String id, String eid, String altText, int position) {
+        this.id = id;
         this.eid = eid;
         this.altText = altText;
         this.position = position;
@@ -69,10 +74,21 @@ public class ExerciseImage implements DatabaseObject {
 
     @Ignore
     public ExerciseImage(String eid, String altText, int position) {
-        this.exerciseImageId = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.eid = eid;
         this.altText = altText;
         this.position = position;
+        created = System.currentTimeMillis();
+        toDelete = false;
+    }
+
+    @Ignore
+    public ExerciseImage(String eid, String altText, int position, Bitmap bitmap) {
+        this.id = UUID.randomUUID().toString();
+        this.eid = eid;
+        this.altText = altText;
+        this.position = position;
+        this.bitmap = bitmap;
         created = System.currentTimeMillis();
         toDelete = false;
     }
@@ -90,11 +106,11 @@ public class ExerciseImage implements DatabaseObject {
         this.eid = eid;
     }
     @NonNull
-    public String getExerciseImageId() {
-        return exerciseImageId;
+    public String getId() {
+        return id;
     }
-    public void setExerciseImageId(@NonNull String exerciseImageId) {
-        this.exerciseImageId = exerciseImageId;
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
     public String getAltText() {
         return altText;
@@ -116,11 +132,26 @@ public class ExerciseImage implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idexercise", eid);
-        jsonObject.put("id_exercise_image", exerciseImageId);
+        //jsonObject.put("id_exercise_image", id);
         jsonObject.put("exercise_idexercise", eid);
         jsonObject.put("position", position);
         jsonObject.put("alt_text", altText);
+        return jsonObject;
+    }
+
+    public JSONObject toJSONWithBitmap() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id_exercise_image", id);
+        jsonObject.put("exercise_idexercise", eid);
+        jsonObject.put("position", position);
+        jsonObject.put("alt_text", altText);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteImage = byteArrayOutputStream.toByteArray();
+        String image = Base64.encodeToString(byteImage, Base64.DEFAULT);
+
+        jsonObject.put("data", image);
         return jsonObject;
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,11 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar">
-
     <Button
         android:id="@+id/buttonExercises"
         android:layout_width="match_parent"
@@ -25,30 +21,31 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="buttonPress"
-        android:text="@string/exerciseBut" />
-
-    <Button
-        android:id="@+id/buttonChat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/buttonExercises"
-        android:onClick="buttonPress"
-        android:text="@string/chatBut" />
+        android:text="@string/exerciseBut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
         android:id="@+id/buttonPatient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/centreView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/centreView"
         android:layout_below="@+id/buttonChat"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="buttonPress"
         android:text="@string/trackerBut"
-        android:layout_alignEnd="@+id/centreView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonExercises"
+        android:layout_marginLeft="8dp" />
 
     <Button
         android:id="@+id/buttonAssessment"
@@ -57,30 +54,34 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/buttonChat"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/buttonPatient"
         android:layout_toRightOf="@+id/buttonPatient"
         android:onClick="buttonPress"
         android:text="@string/assessBut"
-        android:layout_toEndOf="@+id/buttonPatient" />
-
-    <View
-        android:id="@+id/centreView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerInParent="true" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonExercises"
+        android:layout_marginRight="8dp" />
 
     <Button
         android:id="@+id/buttonProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/centreView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/centreView"
         android:layout_below="@+id/buttonPatient"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_toLeftOf="@id/buttonProfile"
+        android:layout_toStartOf="@id/buttonProfile"
         android:onClick="buttonPress"
         android:text="@string/profileBut"
-        android:layout_toStartOf="@id/buttonProfile"
-        android:layout_alignEnd="@+id/centreView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPatient"
+        android:layout_marginLeft="8dp" />
 
     <Button
         android:id="@+id/buttonHelp"
@@ -89,9 +90,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/buttonAssessment"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/buttonProfile"
         android:layout_toRightOf="@+id/buttonProfile"
         android:onClick="buttonPress"
         android:text="@string/helpBut"
-        android:layout_toEndOf="@+id/buttonProfile" />
-    </RelativeLayout>
-</RelativeLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAssessment"
+        android:layout_marginRight="8dp" />
+
+</android.support.constraint.ConstraintLayout>

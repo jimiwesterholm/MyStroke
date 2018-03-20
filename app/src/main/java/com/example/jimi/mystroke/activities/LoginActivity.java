@@ -35,12 +35,12 @@ import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.User;
 import com.example.jimi.mystroke.daos.UserDao;
-import com.example.jimi.mystroke.tasks.GetPatientByUserIdTask;
-import com.example.jimi.mystroke.tasks.GetPatientTask;
 import com.example.jimi.mystroke.tasks.SyncDatabaseTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A login screen that offers login via email/password.
@@ -282,10 +282,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Intent intent = null;
             if (user.getTherapist() == 1 && user.getPatient() == 1) {
                 //TODO therapist as well
-                user.setPatientOb(aDb.patientDao().loadByUserId(user.getUid(), false));
+                user.setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
                 intent = new Intent(context, PatientOrTherapistActivity.class);
             } else if (user.getPatient() == 1) {
-                user.setPatientOb(aDb.patientDao().loadByUserId(user.getUid(), false));
+                user.setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
                 intent = new Intent(context, PatientHomeActivity.class);
                 Globals.getInstance().setLoggedAsPatient(1);
             } else if (user.getTherapist() == 1) {
@@ -294,7 +294,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             if (intent != null) {
-                new SyncDatabaseTask(getApplicationContext()).run();
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                SyncDatabaseTask syncDatabaseTask = new SyncDatabaseTask(getApplicationContext());
+                executorService.submit(syncDatabaseTask);
                 startActivity(intent);
                 return true;
             } else {

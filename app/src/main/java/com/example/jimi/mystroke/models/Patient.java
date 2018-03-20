@@ -15,21 +15,27 @@ import java.util.UUID;
         foreignKeys = {
                 @ForeignKey(
                         entity = User.class,
-                        parentColumns = "iduser",
+                        parentColumns = "id",
                         childColumns = "user_iduser",
                         onDelete = ForeignKey.CASCADE
                 ),
                 @ForeignKey(
                         entity = Therapist.class,
-                        parentColumns = "idtherapist",
+                        parentColumns = "id",
                         childColumns = "therapist_idtherapist",
                         onDelete = ForeignKey.NO_ACTION
                 )
         },
         indices = {
                 @Index(
-                        value = "idpatient",
+                        value = "id",
                         unique = true
+                ),
+                @Index(
+                        value = "user_iduser"
+                ),
+                @Index(
+                        value = "therapist_idtherapist"
                 )
         }
 )
@@ -37,8 +43,7 @@ import java.util.UUID;
 public class Patient implements DatabaseObject, AsyncResponse {
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "idpatient")
-    private String pid;
+    private String id;
 
     @ColumnInfo(name = "user_iduser")
     private String userID;
@@ -64,8 +69,8 @@ public class Patient implements DatabaseObject, AsyncResponse {
         this.toDelete = toDelete;
     }
 
-    public Patient(String pid, String userID, String therapist, int active) {
-        this.pid = pid;
+    public Patient(String id, String userID, String therapist, int active) {
+        this.id = id;
         this.userID = userID;
         this.therapist = therapist;
         this.active = active;
@@ -75,7 +80,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
 
     @Ignore
     public Patient(String userID, String therapist, int active) {
-        pid = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.userID = userID;
         this.therapist = therapist;
         this.active = active;
@@ -84,8 +89,8 @@ public class Patient implements DatabaseObject, AsyncResponse {
     }
 
     @Ignore
-    public Patient(String pid, String userID, String therapist, int active, User user) {
-        this.pid = pid;
+    public Patient(String id, String userID, String therapist, int active, User user) {
+        this.id = id;
         this.userID = userID;
         this.therapist = therapist;
         this.active = active;
@@ -96,7 +101,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
 
     @Ignore
     public Patient(String userID, String therapist, int active, User user) {
-        pid = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.userID = userID;
         this.therapist = therapist;
         this.active = active;
@@ -111,11 +116,11 @@ public class Patient implements DatabaseObject, AsyncResponse {
     public void setCreated(long created) {
         this.created = created;
     }
-    public String getPid() {
-        return pid;
+    public String getId() {
+        return id;
     }
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setId(String id) {
+        this.id = id;
     }
     public String getUserID() {
         return userID;
@@ -151,7 +156,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idpatient", pid);
+        //jsonObject.put("idpatient", id);
         jsonObject.put("user_iduser", userID);
         jsonObject.put("therapist_idtherapist", therapist);
         jsonObject.put("active", active);

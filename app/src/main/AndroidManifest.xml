@@ -71,7 +71,11 @@
         <activity
             android:name=".activities.ImageConfirmActivity"
             android:label="@string/title_activity_image_confirm"
-            android:theme="@android:style/Theme.Dialog"></activity>
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".activities.EditExerciseActivity"
+            android:label="@string/title_activity_edit_exercise"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

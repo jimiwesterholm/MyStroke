@@ -19,28 +19,34 @@ import java.util.UUID;
         foreignKeys = {
                 @ForeignKey(
                         entity = Patient.class,
-                        parentColumns = "idpatient",
+                        parentColumns = "id",
                         childColumns = "pID",
                         onDelete = ForeignKey.NO_ACTION
                 ),
                 @ForeignKey(
                         entity = Exercise.class,
-                        parentColumns = "idexercise",
+                        parentColumns = "id",
                         childColumns = "eID",
                         onDelete = ForeignKey.NO_ACTION
                 )
         },
         indices = {
                 @Index(
-                        value = "listExerciseID",
+                        value = "id",
                         unique = true
+                ),
+                @Index(
+                        value = "pID"
+                ),
+                @Index(
+                        value = "eID"
                 )
         }
 )
 public class PatientListExercise implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    private String listExerciseID;
+    private String id;
 
     private String pID;
 
@@ -58,8 +64,8 @@ public class PatientListExercise implements DatabaseObject {
     private Exercise exercise;
 
 
-    public PatientListExercise(String listExerciseID, String pID, String eID, String message) {
-        this.listExerciseID = listExerciseID;
+    public PatientListExercise(String id, String pID, String eID, String message) {
+        this.id = id;
         this.pID = pID;
         this.eID = eID;
         this.message = message;
@@ -70,7 +76,7 @@ public class PatientListExercise implements DatabaseObject {
 
     @Ignore
     public PatientListExercise(String pID, String eID, String message) {
-        listExerciseID = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.pID = pID;
         this.eID = eID;
         this.message = message;
@@ -79,11 +85,11 @@ public class PatientListExercise implements DatabaseObject {
         toDelete = false;
     }
 
-    public String getListExerciseID() {
-        return listExerciseID;
+    public String getId() {
+        return id;
     }
-    public void setListExerciseID(String listExerciseID) {
-        this.listExerciseID = listExerciseID;
+    public void setId(String id) {
+        this.id = id;
     }
     public String getPID() {
         return pID;
@@ -131,7 +137,7 @@ public class PatientListExercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("patient_list_exerciseid", listExerciseID);
+        //jsonObject.put("patient_list_exerciseid", id);
         jsonObject.put("patient_id", pID);
         jsonObject.put("exercise_id", eID);
         jsonObject.put("message", message);

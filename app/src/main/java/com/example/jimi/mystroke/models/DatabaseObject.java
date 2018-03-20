@@ -8,5 +8,7 @@ import org.json.JSONObject;
  */
 
 public interface DatabaseObject {
+    String getId();
+    void setId(String id);
     JSONObject toJSON() throws JSONException;
 }

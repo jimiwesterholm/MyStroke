@@ -3,7 +3,6 @@ package com.example.jimi.mystroke.daos; /**
  */
 import android.arch.persistence.room.*;
 
-import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.User;
 
 import java.util.List;
@@ -13,10 +12,10 @@ public abstract class UserDao {
     @Query("SELECT * FROM user WHERE toDelete =:toDelete")
     public abstract List<User> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM user WHERE iduser IN (:userIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM user WHERE id IN (:userIds) AND toDelete =:toDelete")
     public abstract List<User> loadAllByIds(String[] userIds, boolean toDelete);
 
-    @Query("SELECT * FROM user WHERE iduser = :iduser AND toDelete =:toDelete LIMIT 1")
+    @Query("SELECT * FROM user WHERE id = :iduser AND toDelete =:toDelete LIMIT 1")
     public abstract User findById(String iduser, boolean toDelete);
 
     @Query("SELECT * FROM user WHERE firstName LIKE :first AND "

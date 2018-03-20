@@ -7,7 +7,6 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.Imagery;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public interface ImageryDao {
     @Query("SELECT * FROM imagery WHERE toDelete =:toDelete")
     List<Imagery> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM imagery WHERE imageryID IN (:imageryIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM imagery WHERE id IN (:imageryIds) AND toDelete =:toDelete")
     List<Imagery> loadAllByIds(String[] imageryIds, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -33,7 +32,7 @@ public interface ImageryDao {
     @Query("SELECT * FROM imagery WHERE created > :created AND toDelete =:toDelete")
     List<Imagery> loadChanged(long created, boolean toDelete);
 
-    @Query("SELECT * FROM imagery WHERE imageryID =:iId AND toDelete =:toDelete")
+    @Query("SELECT * FROM imagery WHERE id =:iId AND toDelete =:toDelete")
     Imagery loadByImageryId(String iId, boolean toDelete);
 
     @Update

@@ -21,20 +21,20 @@ import java.util.UUID;
         foreignKeys = {
                 @ForeignKey(
                         entity = Patient.class,
-                        parentColumns = "idpatient",
+                        parentColumns = "id",
                         childColumns = "pID",
                         onDelete = ForeignKey.NO_ACTION
                 ),
                 @ForeignKey(
                         entity = Exercise.class,
-                        parentColumns = "idexercise",
+                        parentColumns = "id",
                         childColumns = "eID",
                         onDelete = ForeignKey.NO_ACTION
                 )
         },
         indices = {
                 @Index(
-                        value = "patientAssessesExerciseID",
+                        value = "id",
                         unique = true
                 )
         }
@@ -42,7 +42,7 @@ import java.util.UUID;
 public class PatientAssessesExercise implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    private String patientAssessesExerciseID;
+    private String id;
 
     private String pID;
 
@@ -68,8 +68,8 @@ public class PatientAssessesExercise implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public PatientAssessesExercise(String patientAssessesExerciseID, String pID, String eID, double score, java.sql.Date date, Time time) {
-        this.patientAssessesExerciseID = patientAssessesExerciseID;
+    public PatientAssessesExercise(String id, String pID, String eID, double score, java.sql.Date date, Time time) {
+        this.id = id;
         this.pID = pID;
         this.eID = eID;
         this.score = score;
@@ -82,7 +82,7 @@ public class PatientAssessesExercise implements DatabaseObject {
 
     @Ignore
     public PatientAssessesExercise(String pID, String eID, double score, java.sql.Date date, Time time) {
-        patientAssessesExerciseID = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.pID = pID;
         this.eID = eID;
         this.score = score;
@@ -93,11 +93,11 @@ public class PatientAssessesExercise implements DatabaseObject {
         toDelete = false;
     }
 
-    public String getPatientAssessesExerciseID() {
-        return patientAssessesExerciseID;
+    public String getId() {
+        return id;
     }
-    public void setPatientAssessesExerciseID(String patientAssessesExerciseID) {
-        this.patientAssessesExerciseID = patientAssessesExerciseID;
+    public void setId(String id) {
+        this.id = id;
     }
     public String getPID() {
         return pID;
@@ -145,7 +145,7 @@ public class PatientAssessesExercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idpatient_assesses_exercise", patientAssessesExerciseID);
+        //jsonObject.put("idpatient_assesses_exercise", id);
         jsonObject.put("idpatient_idpatient", pID);
         jsonObject.put("exercise_idexercise", eID);
         jsonObject.put("score", score);

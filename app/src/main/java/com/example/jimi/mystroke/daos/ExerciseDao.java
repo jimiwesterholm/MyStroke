@@ -7,7 +7,6 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.Exercise;
 
 import java.util.List;
@@ -24,28 +23,28 @@ public interface ExerciseDao {
     @Query("SELECT DISTINCT section FROM exercise WHERE toDelete =:toDelete")
     List<String> getSections(boolean toDelete);
 
-    @Query("SELECT DISTINCT section FROM exercise WHERE idexercise IN (:ids) AND toDelete =:toDelete")
+    @Query("SELECT DISTINCT section FROM exercise WHERE id IN (:ids) AND toDelete =:toDelete")
     List<String> getSectionsOfIds(String[] ids, boolean toDelete);
 
-    @Query("SELECT DISTINCT section FROM exercise WHERE idexercise NOT IN (:ids) AND toDelete =:toDelete")
+    @Query("SELECT DISTINCT section FROM exercise WHERE id NOT IN (:ids) AND toDelete =:toDelete")
     List<String> getSectionsNotOfIds(String[] ids, boolean toDelete);
 
     @Query("SELECT * FROM exercise WHERE section = :section AND toDelete =:toDelete")
     List<Exercise> getBySection(String section, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds) AND toDelete =:toDelete")
     List<Exercise> loadAllByIds(String[] exerciseIds, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE idexercise NOT IN (:exerciseIds) AND toDelete =:toDelete")
+    @Query("SELECT * FROM exercise WHERE id NOT IN (:exerciseIds) AND toDelete =:toDelete")
     List<Exercise> loadAllButIds(String[] exerciseIds, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE idexercise IN (:exerciseIds) AND section =:section AND toDelete =:toDelete")
+    @Query("SELECT * FROM exercise WHERE id IN (:exerciseIds) AND section =:section AND toDelete =:toDelete")
     List<Exercise> loadAllByIdsFromSection(String[] exerciseIds, String section, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE idexercise NOT IN (:exerciseIds) AND section =:section AND toDelete =:toDelete")
+    @Query("SELECT * FROM exercise WHERE id NOT IN (:exerciseIds) AND section =:section AND toDelete =:toDelete")
     List<Exercise> loadAllButIdsFromSection(String[] exerciseIds, String section, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE idexercise = :exerciseId AND toDelete =:toDelete LIMIT 1")
+    @Query("SELECT * FROM exercise WHERE id = :exerciseId AND toDelete =:toDelete LIMIT 1")
     Exercise loadById(String exerciseId, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -57,7 +56,7 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise WHERE created > :created AND toDelete =:toDelete")
     List<Exercise> loadChanged(long created, boolean toDelete);
 
-    @Query("SELECT * FROM exercise WHERE idexercise =:exerciseId AND toDelete =:toDelete LIMIT 1")
+    @Query("SELECT * FROM exercise WHERE id =:exerciseId AND toDelete =:toDelete LIMIT 1")
     Exercise loadByExerciseId(String exerciseId, boolean toDelete);
 
      @Update

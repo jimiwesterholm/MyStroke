@@ -11,6 +11,7 @@ import org.json.JSONException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -28,7 +29,13 @@ import static android.content.ContentValues.TAG;
 public class SendRecordsTask implements Callable {
     private Context context;
     private String className;
-    List<? extends DatabaseObject> records;
+    private List<? extends DatabaseObject> records;
+
+    public SendRecordsTask(Context context, String className, List<? extends DatabaseObject> records) {
+        this.context = context;
+        this.className = className;
+        this.records = records;
+    }
 
     public List<? extends DatabaseObject> getRecords() {
         return records;
@@ -54,50 +61,60 @@ public class SendRecordsTask implements Callable {
     public String call() {
         if(android.os.Debug.isDebuggerConnected())
             android.os.Debug.waitForDebugger();
-        String fullText = "";
         HttpURLConnection con = null;
+        String fullText = "";
         try {
-            URL url = new URL(Globals.getInstance().getDbUrl().concat(className));
+            String urlString = Globals.getInstance().getDbUrl().concat(className).concat("/");
+            urlString = urlString.concat(records.get(0).getId());;
+            for (int i = 1; i < records.size(); i++) {
+                urlString = urlString.concat(",");
+                urlString = urlString.concat(records.get(i).getId());
+                String urlStringT = urlString.concat(",").concat(records.get(i).getId());
+            }
+
+            URL url = new URL(urlString);
             con = (HttpURLConnection) url.openConnection();
+
+            //Two lines below directly from https://stackoverflow.com/questions/5379247/filenotfoundexception-while-getting-the-inputstream-object-from-httpurlconnectio/23857860
+            con.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+            con.setRequestProperty("Accept","*/*");
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestMethod("POST");
             con.setDoOutput(true);
-            con.connect();
 
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(con.getOutputStream());
-            outputStreamWriter.write(recordsToString(records));
+            DataOutputStream outputStreamWriter = new DataOutputStream(con.getOutputStream());
+            outputStreamWriter.writeBytes(recordsToString(records));
+            outputStreamWriter.flush();
             outputStreamWriter.close();
 
-            /* Get server output
-            InputStream is = new BufferedInputStream(con.getInputStream());
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            //con.connect();
+            // Get server input
+            InputStream er = con.getErrorStream();
+            int code = con.getResponseCode();
+            InputStream is = con.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
             String line =  br.readLine();
             Log.i(TAG, line);
             while (line != null) {
                 fullText += line + "\n";
                 line = br.readLine();
-            }*/
+            }
+            br.close();
         } catch (Exception exception) {
             Log.e(TAG, exception.getMessage());
         } finally {
-            Log.i(TAG, fullText);
+            //Log.i(TAG, fullText);
             if (con != null) {
                 con.disconnect();
             }
         }
-
-        try {
-            if(JSONtoSQLite.parseAndUploadJSON(fullText, className, context)) {
-                return fullText;
-            }
-        } catch (Exception ex) {
-            Log.e("Error", ex.getMessage());
-        }
+        fullText = "";
         return null;
     }
 
     public String recordsToString(List<? extends DatabaseObject> records) throws JSONException {
-        String result = null;
+        String result = "";
         for (DatabaseObject record : records) {
             result.concat(record.toJSON().toString());
         }

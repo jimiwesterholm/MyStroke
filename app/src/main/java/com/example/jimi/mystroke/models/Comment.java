@@ -17,12 +17,11 @@ import java.util.UUID;
  * Created by jimi on 27/12/2017.
  */
 
-@Entity(indices = {@Index(value = "idcomment", unique = true)})
+@Entity(indices = {@Index(value = "id", unique = true)})
 public class Comment implements DatabaseObject {
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "idcomment")
-    private String cid;
+    private String id;
 
     private String patientId;
 
@@ -51,8 +50,8 @@ public class Comment implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Comment(String cid, java.sql.Date date, Time time, String text, String patientId, String exerciseId, int sentByPatient) {
-        this.cid = cid;
+    public Comment(String id, java.sql.Date date, Time time, String text, String patientId, String exerciseId, int sentByPatient) {
+        this.id = id;
         this.time = time;
         this.date = date;
         this.patientId = patientId;
@@ -66,7 +65,7 @@ public class Comment implements DatabaseObject {
 
     @Ignore
     public Comment(java.sql.Date date, Time time, String text, String patientId, String exerciseId, int sentByPatient) {
-        cid = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.time = time;
         this.date = date;
         this.patientId = patientId;
@@ -84,11 +83,11 @@ public class Comment implements DatabaseObject {
     public void setCreated(long created) {
             this.created = created;
         }
-    public String getCid() {
-            return cid;
+    public String getId() {
+            return id;
         }
-    public void setCid(String cid) {
-            this.cid = cid;
+    public void setId(String id) {
+            this.id = id;
     }
     public String getPatientId() {
         return patientId;
@@ -136,7 +135,7 @@ public class Comment implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idcomment", cid);
+        //jsonObject.put("idcomment", id);
         jsonObject.put("date", date);
         jsonObject.put("time", time);
         jsonObject.put("text", text);
