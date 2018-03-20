@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,9 +29,11 @@ import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetExerciseByIdTask;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 import com.example.jimi.mystroke.tasks.UploadImagesTask;
+import com.example.jimi.mystroke.tasks.UpsertExerciseTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /** TODO - check links, make work - will need some server side nonsense as well
  * VIDEO:
@@ -68,6 +71,7 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
     private EditText youTubeText;
     private TextView youTubeInstruction;
     private ImageView thumbnailView;
+    private String vidId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +83,14 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
         uriList = new ArrayList<String>();
         list = new ArrayList<Bitmap>();
 
-        //TODO: get exercise
         eId = getIntent().getStringExtra("EXTRA_EXERCISE_ID");
-        new GetExerciseByIdTask(AppDatabase.getDatabase(getApplicationContext()), this, eId).execute();
+        if(eId != null) {
+            new GetExerciseByIdTask(AppDatabase.getDatabase(getApplicationContext()), this, eId).execute();
+        } else {
+            eId = UUID.randomUUID().toString();
+            exercise = new Exercise(eId, getIntent().getStringExtra("EXTRA_DECRIPTION"), getIntent().getStringExtra("EXTRA_SECTION"), getIntent().getStringExtra("EXTRA_TITLE"), getIntent().getStringExtra("EXTRA_ASSESSMENT_ID"));
+        }
+
         gridView = findViewById(R.id.imageGridView);
         list.add(BitmapFactory.decodeResource(getApplicationContext().getResources(), android.R.drawable.ic_input_add));
         itemsToGridView(list);
@@ -90,7 +99,8 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
         ((Button)findViewById(R.id.youTubeButton)).setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onYouTubeClick();
+                String vidAddress = youTubeText.getText().toString();
+                onYouTubeClick(vidAddress);
             }
         });
         youTubeInstruction = findViewById(R.id.youTubeInstructionText);
@@ -101,34 +111,45 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
     protected void onFinishClick(View view) {
         //Validate presence of stuff?
         upload();
+        if(getIntent().getStringExtra("EXTRA_TITLE") == null) {
+            new UpsertExerciseTask(AppDatabase.getDatabase(getApplicationContext()), eId).execute(exercise);
+        }
     }
 
     //This method is from https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent - by Roger Garzon Nieto
-    protected void watchYoutubeVideo(Context context, String id){
+    protected void watchYoutubeVideo(String id){
         Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
         Intent webIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://www.youtube.com/watch?v=" + id));
         try {
-            context.startActivity(appIntent);
+            this.startActivity(appIntent);
         } catch (ActivityNotFoundException ex) {
-            context.startActivity(webIntent);
+            this.startActivity(webIntent);
         }
     }
 
-    protected void onYouTubeClick() {
+    protected void onYouTubeClick(String vidAddress) {
         if(true) {  //TODO validation
-            String vidAddress = youTubeText.getText().toString();
-            if(vidAddress.contains("?v=")) {
-                String vidId = vidAddress.substring(vidAddress.indexOf("?v=") + 3);
 
-                //Set views visible
+            if(vidAddress.contains("?v=") || vidAddress.length() == 11) {
+                if(vidAddress.contains("?v=")) vidId = vidAddress.substring(vidAddress.indexOf("?v=") + 3);
+
+                //Make views visible
                 youTubeInstruction.setVisibility(View.VISIBLE);
                 thumbnailView.setVisibility(View.VISIBLE);
 
                 //Get thumbnail
                 Glide.with(this).load("http://img.youtube.com/vi/"+vidId+"/mqdefault.jpg").into(thumbnailView);
+                thumbnailView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        watchYoutubeVideo(vidId);
+                    }
+                });
+
+                exercise.setVideo(vidId);
             } else {
-                //TODO not valid msg
+                //TODO not valid address msg
             }
         }
     }
@@ -222,6 +243,9 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
                 break;
             case GetExerciseByIdTask.var:
                 exercise = (Exercise) objects[0];
+                if(exercise.getVideo() != null) {
+                    watchYoutubeVideo(exercise.getVideo());
+                }
                 break;
         }
     }

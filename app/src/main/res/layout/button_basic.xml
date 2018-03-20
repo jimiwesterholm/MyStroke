@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+<data>
+    <import type="android.graphics.drawable.Drawable"/>
+    <variable name="image" type="Drawable"/>
+    <variable name="textVar" type="java.lang.String"/>
+    <variable name="buttonOnClick" type="android.view.View.OnClickListener"/>
+</data>
+
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/basic_button">
-
     <Button
-        android:id="@+id/buttonChat"
+        android:id="@+id/button"
+        android:onClick="@{buttonOnClick}"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@android:color/transparent"
         android:gravity="bottom|center_horizontal"
-        android:onClick="buttonPress"
-        android:text="TESTTEST"
+        android:text="@{textVar, default=@string/placeholder}"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:visibility="visible"
@@ -34,9 +40,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:minHeight="@android:dimen/thumbnail_height"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonChat"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_iconmonstr_speech_bubble_26" />
+        android:src="@{image, default=@drawable/ic_iconmonstr_help_3}" />
 </android.support.constraint.ConstraintLayout>
+</layout>

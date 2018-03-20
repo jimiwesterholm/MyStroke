@@ -52,6 +52,8 @@ public class Exercise implements DatabaseObject {
     @ColumnInfo(name = "name")
     private String name;
 
+    private String video;
+
     //Used to determine which objects have been changed since the last sync of the application
     @ColumnInfo
     private long created;
@@ -66,27 +68,35 @@ public class Exercise implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public Exercise(String id, String description, String section, String name, String aid) {
+    public Exercise(String id, String description, String section, String name, String aid, String video) {
         this.id = id;
         this.description = description;
         this.section = section;
         this.name = name;
         this.aid = aid;
         created  = new Date().getTime();
+        this.video = video;
         toDelete = false;
     }
 
     @Ignore
-    public Exercise(String description, String section, String name, String aid) {
+    public Exercise(String description, String section, String name, String aid, String video) {
         id = UUID.randomUUID().toString();
         this.description = description;
         this.section = section;
         this.name = name;
         this.aid = aid;
+        this.video = video;
         created  = new Date().getTime();
         toDelete = false;
     }
 
+    public String getVideo() {
+        return video;
+    }
+    public void setVideo(String video) {
+        this.video = video;
+    }
     public long getCreated() {
         return created;
     }

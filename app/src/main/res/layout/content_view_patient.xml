@@ -29,9 +29,12 @@
         android:layout_marginStart="8dp"
         android:text="Button"
         app:layout_constraintBottom_toTopOf="@+id/listButton"
-        app:layout_constraintEnd_toStartOf="@+id/space"
+        app:layout_constraintEnd_toStartOf="@+id/messsagesButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Assessments" />
+        tools:text="Assessments"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="8dp" />
 
     <Button
         android:id="@+id/messsagesButton"
@@ -41,9 +44,12 @@
         android:layout_marginStart="4dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/space"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/assessmentButton"
         app:layout_constraintTop_toTopOf="@+id/assessmentButton"
-        tools:text="Messages" />
+        tools:text="Messages"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="4dp" />
 
     <Button
         android:id="@+id/listButton"
@@ -57,13 +63,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Space
-        android:id="@+id/space"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="297dp" />
 </android.support.constraint.ConstraintLayout>

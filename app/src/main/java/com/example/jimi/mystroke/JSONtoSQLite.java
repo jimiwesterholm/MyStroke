@@ -58,7 +58,7 @@ public class JSONtoSQLite {
                     results.add((T) new User((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (int) record.get(4), (int) record.get(5), (String) record.get(6), (String) record.get(7), (String) record.get(8)));
                     break;
                 case "exercise":
-                    results.add((T) new Exercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (String) record.get(4)));
+                    results.add((T) new Exercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (String) record.get(4), (String) record.get(5)));
                     break;
                 case "exercise_image":
                     results.add((T) new ExerciseImage((String) record.get(0), (String) record.get(1), (String) record.get(3), (int) record.get(2)));

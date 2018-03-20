@@ -25,6 +25,7 @@ import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AddExerciseActivity extends AppCompatActivity implements AsyncResponse {
     private AutoCompleteTextView sectionEditText;
@@ -48,7 +49,7 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
         View view = findViewById(R.id.include_edit_add);
         View sectionView = view.findViewById(R.id.section_text);
         sectionEditText = sectionView.findViewById(R.id.editValueText);
-        TextView sectionLabel = sectionView.findViewById(R.id.spinnerLabel);
+        TextView sectionLabel = sectionView.findViewById(R.id.labelView);
         sectionLabel.setText(R.string.section);
 
         new GetSectionsTask(getApplicationContext(), this, null).execute();
@@ -86,20 +87,24 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
         if (!verifyInput().isEmpty()) return;
         Intent intent = null;
 
-        //TODO test to make  sure this chooses the expected item
-        ExerciseSection exerciseSection = (ExerciseSection) sectionArrayAdapter.getItem(sectionEditText.getListSelection());
         Assessment assessment = (Assessment) assessmentSpinner.getSelectedItem();
-        //Exercise exercise = new Exercise(description.getText().toString(), exerciseSection.toString(), title.getText().toString(), assessment.getId());
+        String id = UUID.randomUUID().toString();
+        String desc = description.getText().toString();
+        String sect = sectionEditText.getText().toString();
+        String tit = title.getText().toString();
+        String ass = "70dab8d0-262f-11e8-b467-0ed5f89f718b";    //TODO get actual value
 
-        //TODO: remove, fix weird dropdown menu location, use actual values
-        Exercise exercise = new Exercise(description.getText().toString(), exerciseSection.toString(), title.getText().toString(), "70dab8d0-262f-11e8-b467-0ed5f89f718b");
+        //TODO: fix weird dropdown menu location (? - slightly futurier past Jimi)
         switch (view.getId()) {
             case (R.id.media_button):
-                exercise.setToDelete(true);
                 intent = new Intent(getApplicationContext(), AddExerciseMediaActivity.class);
-                intent.putExtra("EXTRA_EXERCISE_ID", exercise.getId());
+                intent.putExtra("EXTRA_DECRIPTION", desc);
+                intent.putExtra("EXTRA_SECTION", sect);
+                intent.putExtra("EXTRA_TITLE", tit);
+                intent.putExtra("EXTRA_ASSESSMENT_ID", ass);
                 break;
             case (R.id.add_button):
+                Exercise exercise = new Exercise(id, description.getText().toString(), sectionEditText.getText().toString(), title.getText().toString(), "70dab8d0-262f-11e8-b467-0ed5f89f718b");
                 new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
         }
         if (intent != null) startActivity(intent);

@@ -27,7 +27,7 @@
     <string name="trackerBut">Tracker</string>
     <string name="assessBut">Assessment</string>
     <string name="profileBut">Profile</string>
-    <string name="helpBut">Help</string>
+    <string name="helpBut">Info</string>
     <string name="patientBut">Patients</string>
     <string name="descriptionBut">Description</string>
     <string name="recordBut">Record Performance</string>
@@ -40,6 +40,7 @@
     <string name="email">Email</string>
     <string name="exercise_list_label">Exercises</string>
     <string name="imagery_list_label">Imageries</string>
+    <string name="placeholder">Placeholder</string>
 
     <!-- Strings for Dialogues -->
     <string name="cancel">Cancel</string>

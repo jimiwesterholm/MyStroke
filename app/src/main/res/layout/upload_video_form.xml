@@ -32,7 +32,7 @@
         app:layout_constraintStart_toEndOf="@+id/youTubeText"
         app:layout_constraintTop_toTopOf="@+id/youTubeText" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/thumbnailView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -58,5 +58,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/thumbnailView"
         app:layout_constraintEnd_toEndOf="@+id/youTubeText"
         app:layout_constraintStart_toStartOf="@+id/youTubeText"
-        app:layout_constraintTop_toTopOf="@+id/thumbnailView" />
+        app:layout_constraintTop_toTopOf="@+id/thumbnailView"
+        android:layout_marginRight="32dp" />
 </android.support.constraint.ConstraintLayout>
