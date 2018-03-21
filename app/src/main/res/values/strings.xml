@@ -104,8 +104,11 @@
     <string name="title_activity_image_confirm">ImageConfirmActivity</string>
     <string name="exercise_image">exercise_image</string>
     <string name="add_link_to_youtube">Add link to YouTube</string>
-    <string name="yt_instruction">Success! You can confirm the link works by clicking the thumbnail.</string>
+    <string name="yt_instruction">Success! You can confirm the link works by tapping the thumbnail.</string>
     <string name="therapist_label">Therapist:</string>
     <string name="email_label">Email:</string>
     <string name="title_activity_edit_exercise">EditExerciseActivity</string>
+    <string name="click_view_images">Tap to view images</string>
+    <string name="click_view_video">Tap to view video</string>
+    <string name="record_feedback">Record Feedback</string>
 </resources>

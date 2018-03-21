@@ -1,23 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto" >
 
-    <ImageView
-        android:id="@+id/imageView"
+    <data class="ExerciseBinding">
+        <import type="android.graphics.drawable.Drawable"/>
+        <import type="android.view.View" />
+        <variable name="thumbnail" type="Drawable"/>
+        <variable name="videoButtonOnClick" type="android.view.View.OnClickListener"/>
+        <variable name="imageButtonOnClick" type="android.view.View.OnClickListener"/>
+        <variable name="descriptionText" type="String" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_height="match_parent">
 
-    <include
-        layout="@xml/simple_message_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView"
-        android:layout_marginTop="88dp" />
+        <include
+            android:id="@+id/videoImageButton"
+            layout="@layout/labelled_image_with_button"
+            bind:buttonOnClick="@{videoButtonOnClick}"
+            bind:image="@{thumbnail}"
+            app:textVar="@{@string/trackerBut}"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="16dp" />
 
-</android.support.constraint.ConstraintLayout>
+        <include
+            android:id="@+id/imageButton"
+            layout="@layout/labelled_image_with_button"
+            bind:buttonOnClick="@{imageButtonOnClick}"
+            app:image="@{@drawable/ic_iconmonstr_picture_7}"
+            app:textVar="@{@string/click_view_images}"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/videoImageButton"
+            app:layout_constraintTop_toTopOf="@+id/videoImageButton"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="8dp" />
+
+        <Button
+            android:id="@+id/feedbackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/record_feedback"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            layout="@layout/exercise_description"
+            bind:descriptionText="@{descriptionText}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/videoImageButton" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

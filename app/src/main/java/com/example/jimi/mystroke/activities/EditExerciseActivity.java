@@ -97,7 +97,7 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
         //Exercise exercise = new Exercise(description.getText().toString(), exerciseSection.toString(), title.getText().toString(), assessment.getId());
 
         //TODO: remove, fix weird dropdown menu location, use actual values
-        Exercise exercise = new Exercise(description.getText().toString(), exerciseSection.toString(), title.getText().toString(), "70dab8d0-262f-11e8-b467-0ed5f89f718b");
+        Exercise exercise = new Exercise(description.getText().toString(), exerciseSection.toString(), title.getText().toString(), "70dab8d0-262f-11e8-b467-0ed5f89f718b", null);
         switch (view.getId()) {
             case (R.id.media_button):
                 exercise.setToDelete(true);

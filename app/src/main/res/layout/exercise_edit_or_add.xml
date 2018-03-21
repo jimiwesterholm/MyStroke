@@ -42,15 +42,16 @@
         android:layout_marginEnd="4dp"
         android:layout_marginStart="4dp"
         android:ems="10"
+        android:gravity="top"
         android:hint="@string/this_should_be_descriptive_enough_to_complete_the_exercise_without_additional_information"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/titleInclude"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionLabelTextView" />
 
     <TextView
-        android:id="@+id/descriptionTextView"
+        android:id="@+id/descriptionLabelTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

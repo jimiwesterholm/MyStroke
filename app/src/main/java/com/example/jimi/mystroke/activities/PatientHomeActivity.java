@@ -7,10 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.jimi.mystroke.R;
-import com.example.jimi.mystroke.databinding.ContentActivityPatientMainBinding;
+import com.example.jimi.mystroke.databinding.ContentPatientMainBinding;
 
 /**
  * Created by jimi on 12/12/2017.
@@ -24,7 +23,7 @@ public class PatientHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_patient_main);
-        ContentActivityPatientMainBinding binding = DataBindingUtil.setContentView(this, R.layout.content_activity_patient_main);
+        ContentPatientMainBinding binding = DataBindingUtil.setContentView(this, R.layout.content_patient_main);
         //Set onclick listeners
         binding.setExClick(new View.OnClickListener() {
             @Override

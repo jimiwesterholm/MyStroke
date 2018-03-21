@@ -1,5 +1,6 @@
 package com.example.jimi.mystroke.activities;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +8,7 @@ import android.view.Menu;
 
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.R;
+import com.example.jimi.mystroke.databinding.ExerciseBinding;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetExerciseByIdTask;
@@ -16,6 +18,7 @@ import java.util.concurrent.Future;
 
 public class ExerciseActivity extends AppCompatActivity implements AsyncResponse{
     private Toolbar toolbar;
+    private Exercise exercise;
 
 
     // TODO if youtube: https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent
@@ -24,7 +27,8 @@ public class ExerciseActivity extends AppCompatActivity implements AsyncResponse
     protected void onCreate(Bundle savedInstanceState) {
         new GetExerciseByIdTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getStringExtra("EXTRA_EXERCISE_ID")).execute();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise);
+        ExerciseBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_exercise);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
