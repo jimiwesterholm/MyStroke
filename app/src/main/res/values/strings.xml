@@ -90,7 +90,7 @@
     <string name="or">or</string>
     <string name="add_an_exercise">Add an exercise</string>
     <string name="title">Title</string>
-    <string name="click_to_write">Click to write</string>
+    <string name="click_to_write">Tap to write</string>
     <string name="description">Description</string>
     <string name="this_should_be_descriptive_enough_to_complete_the_exercise_without_additional_information">This should be descriptive enough that a user can complete the exercise without any additional information</string>
     <string name="add_media">Include media</string>
@@ -111,4 +111,5 @@
     <string name="click_view_images">Tap to view images</string>
     <string name="click_view_video">Tap to view video</string>
     <string name="record_feedback">Record Feedback</string>
+    <string name="tap_to_edit">Tap to edit:</string>
 </resources>
