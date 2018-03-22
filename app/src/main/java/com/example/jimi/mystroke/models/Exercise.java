@@ -149,4 +149,16 @@ public class Exercise implements DatabaseObject {
         jsonObject.put("assessment_idassessment", aid);
         return jsonObject;
     }
+
+    public static String vidIdFromYouTube(String link) {
+        if(link.contains("?v=")) {
+            return link.substring(link.indexOf("?v=") + 3);
+        } else {
+            return null;
+        }
+    }
+
+    public static String youTubeFromVidId(String id) {
+        return "https://www.youtube.com/watch?v=" + id;
+    }
 }

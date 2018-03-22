@@ -51,41 +51,56 @@ public class JSONtoSQLite {
 
         //TODO make sure this works with any class, switch to static methods in models? e.g. static T JSONToObject(JSONArray json)
         for (int i = 0; i < records.length(); i++) {
-            JSONArray record = records.getJSONArray(i);
+            JSONArray recordJSON = records.getJSONArray(i);
+
+            Object[] record = new Object[recordJSON.length()];
+            for(int j=0; j<recordJSON.length(); j++) {
+                try {
+                    String temp = recordJSON.getString(j);
+                    if(temp == "null") {
+                        record[j] = null;
+                    } else {
+                        record[j] = recordJSON.get(j);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+
             switch (className) {
-                //TODO Make these use the string resource
+                //TODO Make these use the string resource?
                 case "user":
-                    results.add((T) new User((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (int) record.get(4), (int) record.get(5), (String) record.get(6), (String) record.get(7), (String) record.get(8)));
+                    results.add((T) new User((String) record[0], (String) record[1], (String) record[2], (String) record[3], (int) record[4], (int) record[5], (String) record[6], (String) record[7], (String) record[8]));
                     break;
                 case "exercise":
-                    results.add((T) new Exercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3), (String) record.get(4), (String) record.get(5)));
+                    results.add((T) new Exercise((String) record[0], (String) record[1], (String) record[2], (String) record[3], (String) record[4], (String) record[5]));
                     break;
                 case "exercise_image":
-                    results.add((T) new ExerciseImage((String) record.get(0), (String) record.get(1), (String) record.get(3), (int) record.get(2)));
+                    results.add((T) new ExerciseImage((String) record[0], (String) record[1], (String) record[3], (int) record[2]));
                     break;
                 case "assessment":
-                    results.add ((T) new Assessment((String) record.get(0), (int) record.get(1), (int) record.get(2), (String) record.get(3)));
+                    results.add ((T) new Assessment((String) record[0], (int) record[1], (int) record[2], (String) record[3]));
                     break;
                 case "comment":
-                    results.add((T) new Comment((String) record.get(0) , (Date) record.get(1), (Time) record.get(2), (String) record.get(3), (String) record.get(4), (String) record.get(5), (int) record.get(6)));
+                    results.add((T) new Comment((String) record[0] , (Date) record[1], (Time) record[2], (String) record[3], (String) record[4], (String) record[5], (int) record[6]));
                     break;
                 case "imagery":
-                    results.add((T) new Imagery((String) record.get(0), (String) record.get(1)));
+                    results.add((T) new Imagery((String) record[0], (String) record[1]));
                     break;
                 case "patient":
-                    results.add((T) new Patient((String) record.get(0), (String) record.get(1), (String) record.get(2), (int) record.get(3)));
+                    results.add((T) new Patient((String) record[0], (String) record[1], (String) record[2], (int) record[3]));
                     break;
                 case "therapist":
-                    results.add((T) new Therapist((String) record.get(0), (String) record.get(3), (String) record.get(1), (int) record.get(4)));
+                    results.add((T) new Therapist((String) record[0], (String) record[3], (String) record[1], (int) record[4]));
                     break;
                 case "patient_assessess_exercise":
-                    results.add((T) new PatientAssessesExercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (double) record.get(3), (Date) record.get(4), (Time) record.get(5)));
+                    results.add((T) new PatientAssessesExercise((String) record[0], (String) record[1], (String) record[2], (double) record[3], (Date) record[4], (Time) record[5]));
                     break;
                 case "patient_list_exercise":
-                    results.add((T) new PatientListExercise((String) record.get(0), (String) record.get(1), (String) record.get(2), (String) record.get(3)));
+                    results.add((T) new PatientListExercise((String) record[0], (String) record[1], (String) record[2], (String) record[3]));
                     break;
                 case "patient_list_imagery":
-                    results.add((T) new PatientListImagery((String) record.get(0), (String) record.get(1), (String) record.get(2)));
+                    results.add((T) new PatientListImagery((String) record[0], (String) record[1], (String) record[2]));
                     break;
             }
         }

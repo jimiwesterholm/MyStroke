@@ -7,7 +7,6 @@
     <data class="ExerciseBinding">
         <import type="android.graphics.drawable.Drawable"/>
         <import type="android.view.View" />
-        <variable name="thumbnail" type="Drawable"/>
         <variable name="videoButtonOnClick" type="android.view.View.OnClickListener"/>
         <variable name="imageButtonOnClick" type="android.view.View.OnClickListener"/>
         <variable name="descriptionText" type="String" />
@@ -21,7 +20,6 @@
             android:id="@+id/videoImageButton"
             layout="@layout/labelled_image_with_button"
             bind:buttonOnClick="@{videoButtonOnClick}"
-            bind:image="@{thumbnail}"
             app:textVar="@{@string/trackerBut}"
             android:layout_width="0dp"
             android:layout_height="100dp"

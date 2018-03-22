@@ -117,10 +117,10 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
     }
 
     //This method is from https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent - by Roger Garzon Nieto
-    protected void watchYoutubeVideo(String id){
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+    protected void watchYoutubeVideo(){
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + exercise.getVideo()));
         Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://www.youtube.com/watch?v=" + id));
+                Uri.parse(Exercise.youTubeFromVidId(exercise.getVideo())));
         try {
             this.startActivity(appIntent);
         } catch (ActivityNotFoundException ex) {
@@ -130,9 +130,14 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
 
     protected void onYouTubeClick(String vidAddress) {
         if(true) {  //TODO validation
-
-            if(vidAddress.contains("?v=") || vidAddress.length() == 11) {
-                if(vidAddress.contains("?v=")) vidId = vidAddress.substring(vidAddress.indexOf("?v=") + 3);
+            String vidId = null;
+            if(vidAddress.length() == 11) {
+                vidId = vidAddress;
+            } else {
+                vidId = Exercise.vidIdFromYouTube(vidAddress);
+            }
+            if(vidId != null) {
+                exercise.setVideo(vidId);
 
                 //Make views visible
                 youTubeInstruction.setVisibility(View.VISIBLE);
@@ -143,11 +148,9 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
                 thumbnailView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        watchYoutubeVideo(vidId);
+                        watchYoutubeVideo();
                     }
                 });
-
-                exercise.setVideo(vidId);
             } else {
                 //TODO not valid address msg
             }
@@ -244,7 +247,7 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
             case GetExerciseByIdTask.var:
                 exercise = (Exercise) objects[0];
                 if(exercise.getVideo() != null) {
-                    watchYoutubeVideo(exercise.getVideo());
+                    onYouTubeClick(exercise.getVideo());
                 }
                 break;
         }

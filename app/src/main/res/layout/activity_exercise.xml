@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.jimi.mystroke.activities.ExerciseActivity">
+    xmlns:bind="http://schemas.android.com/apk/res-auto" >
 
-</android.support.constraint.ConstraintLayout>
+    <data class="ExerciseBinding">
+        <import type="android.graphics.drawable.Drawable"/>
+        <import type="android.view.View" />
+        <variable name="videoButtonOnClick" type="android.view.View.OnClickListener"/>
+        <variable name="imageButtonOnClick" type="android.view.View.OnClickListener"/>
+        <variable name="descriptionText" type="String" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.jimi.mystroke.activities.ExerciseActivity">
+
+        <include android:id="@+id/content"
+            layout="@layout/content_exercise"
+            bind:videoButtonOnClick="@{videoButtonOnClick}"
+            bind:imageButtonOnClick="@{imageButtonOnClick}"
+            bind:descriptionText="@{descriptionText}" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
