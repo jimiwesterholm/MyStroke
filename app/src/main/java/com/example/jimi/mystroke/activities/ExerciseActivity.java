@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.R;
-import com.example.jimi.mystroke.databinding.ExerciseBinding;
+import com.example.jimi.mystroke.databinding.ActivityExerciseBinding;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetExerciseByIdTask;
@@ -23,7 +23,7 @@ import java.util.concurrent.Future;
 public class ExerciseActivity extends AppCompatActivity implements AsyncResponse{
     private Toolbar toolbar;
     private Exercise exercise;
-    private ExerciseBinding binding;
+    private ActivityExerciseBinding binding;
 
     // TODO if youtube: https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent
 
