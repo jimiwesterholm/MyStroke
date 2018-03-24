@@ -26,7 +26,7 @@
     <string name="chatBut">Messages</string>
     <string name="trackerBut">Tracker</string>
     <string name="assessBut">Assessment</string>
-    <string name="profileBut">Profile</string>
+    <string name="profileBut">My Profile</string>
     <string name="helpBut">Info</string>
     <string name="patientBut">Patients</string>
     <string name="descriptionBut">Description</string>
@@ -41,6 +41,7 @@
     <string name="exercise_list_label">Exercises</string>
     <string name="imagery_list_label">Imageries</string>
     <string name="placeholder">Placeholder</string>
+    <string name="confirm_changes">Confirm changes</string>
 
     <!-- Strings for Dialogues -->
     <string name="cancel">Cancel</string>
@@ -51,6 +52,8 @@
     <string name="send">Send</string>
     <string name="add">Add</string>
     <string name="delete">Delete</string>
+    <string name="submit">Submit</string>
+    <string name="finish">Finish</string>
     <string name="title_activity_chat">Chat</string>
     <string name="message_edit_text_hint">Click to write</string>
     <string name="choose_patient">Choose a patient</string>
@@ -94,7 +97,6 @@
     <string name="description">Description</string>
     <string name="this_should_be_descriptive_enough_to_complete_the_exercise_without_additional_information">This should be descriptive enough that a user can complete the exercise without any additional information</string>
     <string name="add_media">Include media</string>
-    <string name="finish">Finish</string>
     <string name="section">Category</string>
     <string name="performance_metric">Performance metric</string>
     <string name="title_activity_add_exercise_media">AddExerciseMediaActivity</string>
@@ -112,4 +114,12 @@
     <string name="click_view_video">Tap to view video</string>
     <string name="record_feedback">Record Feedback</string>
     <string name="tap_to_edit">Tap to edit:</string>
+    <string name="cancel_changes">Cancel changes</string>
+    <string name="title_activity_register_patient">RegisterPatientActivity</string>
+    <string name="con_desc_send_button">Send button arrow</string>
+    <string name="title_activity_exercise_feedback">ExerciseFeedbackActivity</string>
+
+    <string name="completed_exercise_message">Well done! How did you find the exercise?</string>
+    <string name="easiest_exercise">Very easy</string>
+    <string name="hardest_exercise">Challenging</string>
 </resources>

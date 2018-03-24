@@ -28,6 +28,7 @@
         <!-- Inactive track color(30% transparency) -->
         <item name="android:colorForeground">@color/white</item>
     </style>
+
     <style name="TextAppearance.AppCompat.BoxLabelText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">24sp</item>

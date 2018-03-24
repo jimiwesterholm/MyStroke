@@ -282,10 +282,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Intent intent = null;
             if (user.getTherapist() == 1 && user.getPatient() == 1) {
                 //TODO therapist as well
-                user.setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
+                Globals.getInstance().setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
                 intent = new Intent(context, PatientOrTherapistActivity.class);
             } else if (user.getPatient() == 1) {
-                user.setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
+                Globals.getInstance().setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
                 intent = new Intent(context, PatientHomeActivity.class);
                 Globals.getInstance().setLoggedAsPatient(1);
             } else if (user.getTherapist() == 1) {

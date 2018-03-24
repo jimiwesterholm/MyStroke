@@ -65,15 +65,16 @@
 
         <include
             layout="@layout/exercise_description"
-            bind:descriptionText="@{descriptionText}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/videoImageButton" />
+            app:layout_constraintTop_toBottomOf="@+id/videoImageButton"
+            bind:descriptionText="@{descriptionText}" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

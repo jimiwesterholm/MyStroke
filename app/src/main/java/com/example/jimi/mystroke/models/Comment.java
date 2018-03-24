@@ -77,6 +77,20 @@ public class Comment implements DatabaseObject {
         toDelete = false;
     }
 
+    @Ignore
+    public Comment(long timestamp, String text, String patientId, String exerciseId, int sentByPatient) {
+        id = UUID.randomUUID().toString();
+        /*this.time = ; TODO get these from timestamp
+        this.date = date;*/
+        this.patientId = patientId;
+        this.exerciseId = exerciseId;
+        this.text = text;
+        created = System.currentTimeMillis();
+        this.timestamp = timestamp;  //date.getTime() + time.getTime();
+        this.sentByPatient = sentByPatient;
+        toDelete = false;
+    }
+
     public long getCreated() {
             return created;
         }

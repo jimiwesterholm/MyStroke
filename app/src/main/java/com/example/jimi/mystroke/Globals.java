@@ -11,6 +11,7 @@ import com.example.jimi.mystroke.models.User;
 public class Globals {
     private static final Globals ourInstance = new Globals();
     private User user;
+    private Patient patientOb;
     private int isLoggedAsPatient;
     private long latestUpdate;
     private final String ngrok = "http://5767e355.ngrok.io";
@@ -26,6 +27,14 @@ public class Globals {
     }
 
     private Globals() {
+    }
+
+    public void setPatientOb(Patient patientOb) {
+        this.patientOb = patientOb;
+    }
+
+    public Patient getPatientOb() {
+        return patientOb;
     }
 
     public String getLoadImageFD() {

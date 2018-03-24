@@ -75,6 +75,14 @@
         <activity
             android:name=".activities.EditExerciseActivity"
             android:label="@string/title_activity_edit_exercise"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".RegisterPatientActivity"
+            android:label="@string/title_activity_register_patient"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ExerciseFeedbackActivity"
+            android:label="@string/title_activity_exercise_feedback"
             android:theme="@style/AppTheme"></activity>
     </application>
 

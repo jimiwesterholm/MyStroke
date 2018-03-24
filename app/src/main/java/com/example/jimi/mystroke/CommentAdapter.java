@@ -60,6 +60,7 @@ public class CommentAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             if(isPatient == 1) {
                 convertView = inflater.inflate(layoutResources[comment.getSentByPatient()], null);
+                //convertView = inflater.inflate(R.layout.list_element_view_received_message, null);
             } else {
                 if(comment.getSentByPatient() == 1) {
                     convertView = inflater.inflate(layoutResources[0], null);

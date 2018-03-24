@@ -25,7 +25,9 @@ public class GetCommentsTask extends AsyncTask<Void, Void, List<Comment>> {
 
     @Override
     protected List<Comment> doInBackground(Void... voids) {
-        return appDatabase.commentDao().getByPatientOrdered(pId, false);
+        List<Comment> comments = appDatabase.commentDao().getByPatientOrdered(pId, false);
+        return comments;
+        //return appDatabase.commentDao().getByPatientOrdered(pId, false);
     }
 
     @Override

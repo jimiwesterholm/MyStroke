@@ -37,7 +37,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         setContentView(R.layout.activity_chat);
 
         if (Globals.getInstance().isLoggedAsPatient() == 1) {
-            new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), Globals.getInstance().getUser().getId(), this).execute();
+            new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), Globals.getInstance().getPatientOb().getId(), this).execute();
         } else {
             pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
             if(pId != null) new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
@@ -59,7 +59,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
 
     private void addComment() {
         //TODO get actual values for patient id etc
-        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getUser().getPatientOb().getId(), null, Globals.getInstance().isLoggedAsPatient());
+        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getPatientOb().getId(), null, Globals.getInstance().isLoggedAsPatient());
         new RecordsToAppDatabaseTask("comment", AppDatabase.getDatabase(getApplicationContext())).execute(new Comment[]{comment});
         messages.add(comment);
         messageText.getText().clear();
