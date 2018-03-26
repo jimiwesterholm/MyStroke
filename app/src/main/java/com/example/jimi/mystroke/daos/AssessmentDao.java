@@ -16,14 +16,14 @@ import java.util.List;
  */
 @Dao
 public interface AssessmentDao {
-    @Query("SELECT * FROM assessment")
-    List<Assessment> getAll();
+    @Query("SELECT * FROM assessment WHERE toDelete =:toDelete")
+    List<Assessment> getAll(boolean toDelete);
 
-    @Query("SELECT * FROM assessment WHERE id IN (:assessmentIds)")
-    List<Assessment> loadAllByIds(String[] assessmentIds);
+    @Query("SELECT * FROM assessment WHERE id IN (:assessmentIds) AND toDelete =:toDelete")
+    List<Assessment> loadAllByIds(String[] assessmentIds, boolean toDelete);
 
-    @Query("SELECT * FROM assessment WHERE created > (:created)")
-    List<Assessment> loadChanged(long created);
+    @Query("SELECT * FROM assessment WHERE created > (:created) AND toDelete =:toDelete")
+    List<Assessment> loadChanged(long created, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Assessment... assessments);

@@ -82,8 +82,8 @@ public class PatientHomeActivity extends AppCompatActivity {
     }
 
     public void inClick(View view) {
-        /*Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+        startActivity(intent);
     }
 
     public void prClick(View view) {

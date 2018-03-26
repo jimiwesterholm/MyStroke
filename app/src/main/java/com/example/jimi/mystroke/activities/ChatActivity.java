@@ -16,8 +16,10 @@ import com.example.jimi.mystroke.CommentAdapter;
 import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Comment;
+import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetCommentsTask;
+import com.example.jimi.mystroke.tasks.GetPatientByUserIdTask;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 import java.sql.Date;
@@ -37,7 +39,12 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         setContentView(R.layout.activity_chat);
 
         if (Globals.getInstance().isLoggedAsPatient() == 1) {
-            new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), Globals.getInstance().getPatientOb().getId(), this).execute();
+            Patient patient = Globals.getInstance().getPatientOb();
+            if(patient != null) {
+                new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), patient.getId(), this).execute();
+            } else {
+                new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
+            }
         } else {
             pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
             if(pId != null) new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
@@ -53,6 +60,22 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         messageText = findViewById(R.id.messageText);
     }
 
+    @Override
+    protected void onResume() {
+        if (Globals.getInstance().isLoggedAsPatient() == 1) {
+            Patient patient = Globals.getInstance().getPatientOb();
+            if(patient != null) {
+                new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), patient.getId(), this).execute();
+            } else {
+                new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
+            }
+        } else {
+            pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
+            if(pId != null) new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
+        }
+        super.onResume();
+    }
+
     public void sendButtonOnClick(View view) {
         addComment();
     }
@@ -60,7 +83,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     private void addComment() {
         //TODO get actual values for patient id etc
         Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getPatientOb().getId(), null, Globals.getInstance().isLoggedAsPatient());
-        new RecordsToAppDatabaseTask("comment", AppDatabase.getDatabase(getApplicationContext())).execute(new Comment[]{comment});
+        new RecordsToAppDatabaseTask("comment", AppDatabase.getDatabase(getApplicationContext())).execute(comment);
         messages.add(comment);
         messageText.getText().clear();
         adapter.notifyDataSetChanged();
@@ -91,6 +114,11 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         switch (var) {
             case GetCommentsTask.var:
                 itemsToListView((List<Comment>) objects[0], mMessageClickedHandler);
+                break;
+            case GetPatientByUserIdTask.var:
+                Patient patient = (Patient) objects[0];
+                Globals.getInstance().setPatientOb(patient);
+                new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), patient.getId(), this).execute();
                 break;
         }
     }

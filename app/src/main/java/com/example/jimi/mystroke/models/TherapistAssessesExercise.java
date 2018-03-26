@@ -16,9 +16,14 @@ import java.util.UUID;
 /**
  * Created by jimi on 28/12/2017.
  */
-//TODO PATIENTS DON'T DO THIS, THERAPISTS DO
-@Entity(tableName = "patient_assessment",
+@Entity(tableName = "therapist_assesses_exercise",
         foreignKeys = {
+                @ForeignKey(
+                        entity = Therapist.class,
+                        parentColumns = "id",
+                        childColumns = "tID",
+                        onDelete = ForeignKey.NO_ACTION
+                ),
                 @ForeignKey(
                         entity = Patient.class,
                         parentColumns = "id",
@@ -36,6 +41,15 @@ import java.util.UUID;
                 @Index(
                         value = "id",
                         unique = true
+                ),
+                @Index(
+                        value = "tID"
+                ),
+                @Index(
+                        value = "pID"
+                ),
+                @Index(
+                        value = "eID"
                 )
         }
 )
@@ -43,21 +57,13 @@ public class TherapistAssessesExercise implements DatabaseObject {
     @PrimaryKey
     @NonNull
     private String id;
-
     private String pID;
-
     private String eID;
-
-    private double score;
-
+    private String tID;
     private java.sql.Date date;
-
     private Time time;
-
     private long timestamp;
-
     private long created;
-
     private boolean toDelete;
 
     public boolean isToDelete() {
@@ -68,35 +74,36 @@ public class TherapistAssessesExercise implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public TherapistAssessesExercise(String id, String pID, String eID, double score, java.sql.Date date, Time time) {
+    public TherapistAssessesExercise(@NonNull String id, String pID, String eID, String tID, java.sql.Date date, Time time) {
         this.id = id;
         this.pID = pID;
         this.eID = eID;
-        this.score = score;
         this.time = time;
         this.date = date;
+        this.tID = tID;
         timestamp = date.getTime() + time.getTime();
         created = System.currentTimeMillis();
         toDelete = false;
     }
 
     @Ignore
-    public TherapistAssessesExercise(String pID, String eID, double score, java.sql.Date date, Time time) {
+    public TherapistAssessesExercise(String pID, String eID, String tID, java.sql.Date date, Time time) {
         id = UUID.randomUUID().toString();
         this.pID = pID;
         this.eID = eID;
-        this.score = score;
         this.time = time;
         this.date = date;
+        this.tID = tID;
         timestamp = date.getTime() + time.getTime();
         created = System.currentTimeMillis();
         toDelete = false;
     }
 
+    @NonNull
     public String getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
     public String getPID() {
@@ -111,11 +118,11 @@ public class TherapistAssessesExercise implements DatabaseObject {
     public void setEID(String eID) {
         this.eID = eID;
     }
-    public double getScore() {
-        return score;
+    public String getTID() {
+        return tID;
     }
-    public void setScore(double score) {
-        this.score = score;
+    public void setTID(String tID) {
+        this.tID = tID;
     }
     public long getTimestamp() {
         return timestamp;
@@ -145,10 +152,10 @@ public class TherapistAssessesExercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idpatient_assesses_exercise", id);
-        jsonObject.put("idpatient_idpatient", pID);
+        jsonObject.put("idtherapist_assesses_exercise", id);
+        jsonObject.put("patient_idpatient", pID);
         jsonObject.put("exercise_idexercise", eID);
-        jsonObject.put("score", score);
+        jsonObject.put("therapist_idtherapist", tID);
         jsonObject.put("date", date);
         jsonObject.put("time", time);
         return jsonObject;

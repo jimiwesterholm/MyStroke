@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="lightBlue">#a1d4ef</color>
-    <color name="medBlue">#168dcd</color>
+    <color name="medBlue">#189EE7</color>
+    <color name="medBlueOrg">#168dcd</color>
     <color name="white">#FFFFFF</color>
     <color name="darkBlue">#05307e</color>
     <color name="turquoise">#abebf4</color>

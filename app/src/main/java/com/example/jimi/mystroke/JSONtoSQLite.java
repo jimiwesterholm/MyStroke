@@ -3,25 +3,40 @@ package com.example.jimi.mystroke;
 import android.content.Context;
 
 import com.example.jimi.mystroke.daos.AssessmentDao;
+import com.example.jimi.mystroke.daos.AssessmentItemDao;
+import com.example.jimi.mystroke.daos.AssessmentResultBooleanDao;
+import com.example.jimi.mystroke.daos.AssessmentResultDoubleDao;
+import com.example.jimi.mystroke.daos.AssessmentResultIntDao;
+import com.example.jimi.mystroke.daos.AssessmentResultStringDao;
 import com.example.jimi.mystroke.daos.CommentDao;
 import com.example.jimi.mystroke.daos.ExerciseDao;
+import com.example.jimi.mystroke.daos.ExerciseImageDao;
+import com.example.jimi.mystroke.daos.HelpPageDao;
 import com.example.jimi.mystroke.daos.ImageryDao;
 import com.example.jimi.mystroke.daos.PatientAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.PatientDao;
 import com.example.jimi.mystroke.daos.PatientListExerciseDao;
 import com.example.jimi.mystroke.daos.PatientListImageryDao;
+import com.example.jimi.mystroke.daos.TherapistAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.TherapistDao;
 import com.example.jimi.mystroke.daos.UserDao;
 import com.example.jimi.mystroke.models.Assessment;
+import com.example.jimi.mystroke.models.AssessmentItem;
+import com.example.jimi.mystroke.models.AssessmentResultBoolean;
+import com.example.jimi.mystroke.models.AssessmentResultDouble;
+import com.example.jimi.mystroke.models.AssessmentResultInt;
+import com.example.jimi.mystroke.models.AssessmentResultString;
 import com.example.jimi.mystroke.models.Comment;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.models.ExerciseImage;
+import com.example.jimi.mystroke.models.HelpPage;
 import com.example.jimi.mystroke.models.Imagery;
 import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.models.PatientAssessesExercise;
 import com.example.jimi.mystroke.models.PatientListExercise;
 import com.example.jimi.mystroke.models.PatientListImagery;
 import com.example.jimi.mystroke.models.Therapist;
+import com.example.jimi.mystroke.models.TherapistAssessesExercise;
 import com.example.jimi.mystroke.models.User;
 
 import org.json.JSONArray;
@@ -79,7 +94,7 @@ public class JSONtoSQLite {
                     results.add((T) new ExerciseImage((String) record[0], (String) record[1], (String) record[3], (int) record[2]));
                     break;
                 case "assessment":
-                    results.add ((T) new Assessment((String) record[0], (int) record[1], (int) record[2], (String) record[3]));
+                    results.add ((T) new Assessment((String) record[0], (String) record[1]));
                     break;
                 case "comment":
                     results.add((T) new Comment((String) record[0] , (Date) record[1], (Time) record[2], (String) record[3], (String) record[4], (String) record[5], (int) record[6]));
@@ -93,14 +108,35 @@ public class JSONtoSQLite {
                 case "therapist":
                     results.add((T) new Therapist((String) record[0], (String) record[3], (String) record[1], (int) record[4]));
                     break;
-                case "patient_assessess_exercise":
-                    results.add((T) new PatientAssessesExercise((String) record[0], (String) record[1], (String) record[2], (double) record[3], (Date) record[4], (Time) record[5]));
+                case "patient_assesses_exercise":
+                    results.add((T) new PatientAssessesExercise((String) record[0], (String) record[1], (String) record[2], (int) record[3], (Date) record[4], (Time) record[5]));
+                    break;
+                case "therapist_assesses_exercise":
+                    results.add((T) new TherapistAssessesExercise((String) record[0], (String) record[1], (String) record[2], (String) record[3], (Date) record[4], (Time) record[5]));
                     break;
                 case "patient_list_exercise":
                     results.add((T) new PatientListExercise((String) record[0], (String) record[1], (String) record[2], (String) record[3]));
                     break;
                 case "patient_list_imagery":
                     results.add((T) new PatientListImagery((String) record[0], (String) record[1], (String) record[2]));
+                    break;
+                case "help_page":
+                    results.add((T) new HelpPage((String) record[0], (String) record[1], (String) record[2], (String) record[3]));
+                    break;
+                case "assessment_item":
+                    results.add((T) new AssessmentItem((String) record[0], (String) record[1], (String) record[2], (String) record[3]));
+                    break;
+                case "assessment_result_double":
+                    results.add((T) new AssessmentResultDouble((String) record[0], (String) record[1], (String) record[2], (double) record[3]));
+                    break;
+                case "assessment_result_int":
+                    results.add((T) new AssessmentResultInt((String) record[0], (String) record[1], (String) record[2], (int) record[3]));
+                    break;
+                case "assessment_result_string":
+                    results.add((T) new AssessmentResultString((String) record[0], (String) record[1], (String) record[2], (String) record[3]));
+                    break;
+                case "assessment_result_boolean":
+                    results.add((T) new AssessmentResultBoolean((String) record[0], (String) record[1], (String) record[2], (boolean) record[3]));
                     break;
             }
         }
@@ -116,12 +152,13 @@ public class JSONtoSQLite {
             case "exercise":
                 ExerciseDao exerciseDao = aDb.exerciseDao();
                 exerciseDao.insertAll(results.toArray(new Exercise[records.length()]));
-                //List<Exercise> exercisessss = exerciseDao.getAll();
                 break;
             case "exercise_image":
+                ExerciseImageDao exerciseImageDao = aDb.exerciseImageDao();
+                exerciseImageDao.insertAll(results.toArray(new ExerciseImage[records.length()]));
                 break;
             case "assessment":
-                AssessmentDao assessmentDao = aDb.assessmentDao();  //.insertAll(results.toArray(new [records.length()]));
+                AssessmentDao assessmentDao = aDb.assessmentDao();
                 assessmentDao.insertAll(results.toArray(new Assessment[records.length()]));
                 break;
             case "comment":
@@ -140,7 +177,7 @@ public class JSONtoSQLite {
                 TherapistDao therapistDao = aDb.therapistDao();
                 therapistDao.insertAll(results.toArray(new Therapist[records.length()]));
                 break;
-            case "patient_assessess_exercise":
+            case "patient_assesses_exercise":
                 PatientAssessesExerciseDao patientAssessesExerciseDao = aDb.patientAssessesExerciseDao();
                 patientAssessesExerciseDao.insertAll(results.toArray(new PatientAssessesExercise[records.length()]));
                 break;
@@ -151,6 +188,34 @@ public class JSONtoSQLite {
             case "patient_list_imagery":
                 PatientListImageryDao patientListImageryDao = aDb.patientListImageryDao();
                 patientListImageryDao.insertAll(results.toArray(new PatientListImagery[records.length()]));
+                break;
+            case "therapist_assesses_exercise":
+                TherapistAssessesExerciseDao therapistAssessesExerciseDao = aDb.therapistAssessesExerciseDao();
+                therapistAssessesExerciseDao.insertAll(results.toArray(new TherapistAssessesExercise[records.length()]));
+                break;
+            case "help_page":
+                HelpPageDao helpPageDao = aDb.helpPageDao();
+                helpPageDao.insertAll(results.toArray(new HelpPage[records.length()]));
+                break;
+            case "assessment_item":
+                AssessmentItemDao assessmentItemDao = aDb.assessmentItemDao();
+                assessmentItemDao.insertAll(results.toArray(new AssessmentItem[records.length()]));
+                break;
+            case "assessment_result_double":
+                AssessmentResultDoubleDao assessmentResultDoubleDao = aDb.assessmentResultDoubleDao();
+                assessmentResultDoubleDao.insertAll(results.toArray(new AssessmentResultDouble[records.length()]));
+                break;
+            case "assessment_result_int":
+                AssessmentResultIntDao assessmentResultIntDao= aDb.assessmentResultIntDao();
+                assessmentResultIntDao.insertAll(results.toArray(new AssessmentResultInt[records.length()]));
+                break;
+            case "assessment_result_string":
+                AssessmentResultStringDao assessmentResultStringDao = aDb.assessmentResultStringDao();
+                assessmentResultStringDao.insertAll(results.toArray(new AssessmentResultString[records.length()]));
+                break;
+            case "assessment_result_boolean":
+                AssessmentResultBooleanDao assessmentResultBooleanDao = aDb.assessmentResultBooleanDao();
+                assessmentResultBooleanDao.insertAll(results.toArray(new AssessmentResultBoolean[records.length()]));
                 break;
         }
 

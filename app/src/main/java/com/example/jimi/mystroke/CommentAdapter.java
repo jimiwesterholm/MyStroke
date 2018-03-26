@@ -25,8 +25,8 @@ public class CommentAdapter extends BaseAdapter {
     private int isPatient;
 
     static class ViewHolder {
-        public TextView textView;
-        public TextView timeView;
+        TextView textView;
+        TextView timeView;
     }
 
     public CommentAdapter(@NonNull Context context, @NonNull List<Comment> objects, int isPatient) {

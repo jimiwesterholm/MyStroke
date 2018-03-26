@@ -149,7 +149,7 @@ public class Comment implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idcomment", id);
+        jsonObject.put("idcomment", id);
         jsonObject.put("date", date);
         jsonObject.put("time", time);
         jsonObject.put("text", text);

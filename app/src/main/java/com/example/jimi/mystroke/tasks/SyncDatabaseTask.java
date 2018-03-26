@@ -15,9 +15,6 @@ import java.util.List;
  */
 
 public class SyncDatabaseTask implements Runnable {
-    //TODO Make these use the string resource
-    private String[] classNames = {"assessment", "exercise", "imagery", "user", "therapist", "patient", "patient_assesses_exercise", "patient_list_exercise", "patient_list_imagery", "comment",};
-    private String[] mediaClassNames = {"exercise_image"};
     private Context context;
 
     public SyncDatabaseTask(Context context) {
@@ -27,16 +24,18 @@ public class SyncDatabaseTask implements Runnable {
     //TODO make run intermittently!!!
     @Override
     public void run() {
+        String[] mediaClassNames = Globals.getInstance().getMediaClassNames();
+        String[] classNames = Globals.getInstance().getClassNames();
         User loggedInUser = Globals.getInstance().getUser();
         User user = findUser(loggedInUser.getUsername());
         if(user == null || !user.getPassword().equals(loggedInUser.getPassword()) || !user.getSalt().equals(loggedInUser.getSalt())) {
-            //TODO: Consider additional security measures? - esp. server side authentication
+            //TODO: Add security measures - esp. server side authentication
             return;
         }
 
         for (String className : classNames) {
             List<? extends DatabaseObject> databaseObjects = new GetChangedRecords(context).getChanged(className);
-            if(databaseObjects.size() > 0) {
+            if(databaseObjects != null) {
                 SendRecordsTask sendRecordsTask = new SendRecordsTask(context, className, databaseObjects);
                 sendRecordsTask.call();
             }

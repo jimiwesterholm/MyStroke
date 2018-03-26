@@ -61,17 +61,28 @@
     <string name="choose_section">Choose a category</string>
     <string name="add_instructions">Additional instructions</string>
 
-    <!-- Classnames -->
+    <!-- Class names -->
     <string name="imagery">imagery</string>
     <string name="assessment">assessment</string>
+    <string name="assessment_item">assessment_item</string>
+    <string name="assessment_result_double">assessment_result_double</string>
+    <string name="assessment_result_int">assessment_result_int</string>
+    <string name="assessment_result_string">assessment_result_string</string>
+    <string name="assessment_result_boolean">assessment_result_boolean</string>
     <string name="comment">comment</string>
     <string name="exercise">exercise</string>
     <string name="patient">patient</string>
-    <string name="patient_assesses_exercise">patient_list_exercise</string>
+    <string name="patient_assesses_exercise">patient_assesses_exercise</string>
+    <string name="therapist_assesses_exercise">therapist_assesses_exercise</string>
     <string name="patient_list_exercise">patient_list_exercise</string>
     <string name="patient_list_imagery">patient_list_imagery</string>
     <string name="therapist">therapist</string>
     <string name="user">user</string>
+    <string name="help_page">help_page</string>
+
+    <!-- Strings for content description -->
+    <string name="con_desc_send_button">Send button right arrow</string>
+    <string name="con_desc_list_link">List item right arrow</string>
 
     <string name="title_activity_add_exercise">AddExerciseActivity</string>
     <string name="title_activity_view_patients">ViewPatientsActivity</string>
@@ -116,10 +127,14 @@
     <string name="tap_to_edit">Tap to edit:</string>
     <string name="cancel_changes">Cancel changes</string>
     <string name="title_activity_register_patient">RegisterPatientActivity</string>
-    <string name="con_desc_send_button">Send button arrow</string>
     <string name="title_activity_exercise_feedback">ExerciseFeedbackActivity</string>
-
     <string name="completed_exercise_message">Well done! How did you find the exercise?</string>
     <string name="easiest_exercise">Very easy</string>
     <string name="hardest_exercise">Challenging</string>
+    <string name="title_activity_add_info_page">AddInfoPageActivity</string>
+    <string name="content_colon">Content:</string>
+    <string name="content">Content</string>
+    <string name="add_under">Add under:</string>
+    <string name="loading">Loading…</string>
+    <string name="info_page_content_form_hint">You may choose to leave this blank for a page that only contains links to other pages. When creating those pages, simply add them under this one.</string>
 </resources>

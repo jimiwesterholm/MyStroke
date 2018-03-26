@@ -11,10 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.ExerciseSection;
+import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
+import com.example.jimi.mystroke.tasks.GetPatientByUserIdTask;
 import com.example.jimi.mystroke.tasks.GetSectionsTask;
 
 import java.util.List;
@@ -25,7 +28,12 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     //TODO: Convert from arrayadapter/listview to recyclerview?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetSectionsTask(getApplicationContext(), this, Globals.getInstance().getUser().getPatientOb().getId()).execute();
+        Patient patient = Globals.getInstance().getPatientOb();
+        if(patient != null) {
+            new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
+        } else {
+            new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
@@ -39,14 +47,15 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
 
     @Override
     protected void onResume() {
-        GetSectionsTask gst = new GetSectionsTask(getApplicationContext(), this, Globals.getInstance().getUser().getPatientOb().getId());
+        Patient patient = Globals.getInstance().getPatientOb();
+        if(patient != null) {
+            new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
+        } else {
+            new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
+        }
         super.onResume();
 
-        //TODO: Convert to use recyclerview insttead of listview
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.sample_list_element_view, sections.toArray(new String[0]));
-        ListView listView = (ListView) findViewById(R.id.exercises);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(mMessageClickedHandler);*/
+        //TODO: Convert to use recyclerview instead of listview
     }
 
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
@@ -65,7 +74,7 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     };
 
     private void itemsToListView(List<ExerciseSection> items, AdapterView.OnItemClickListener listener) {
-        ArrayAdapter<ExerciseSection> adapter = new ArrayAdapter<ExerciseSection>(this, R.layout.sample_list_element_view, items.toArray(new ExerciseSection[0]));
+        ArrayAdapter<ExerciseSection> adapter = new ArrayAdapter<ExerciseSection>(this, R.layout.list_element_link, items.toArray(new ExerciseSection[0]));
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
@@ -79,6 +88,15 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
 
     @Override
     public void respond(int var, Object... objects) {
-        itemsToListView((List<ExerciseSection>) objects[0], mMessageClickedHandler);
+        switch (var) {
+            case GetSectionsTask.var:
+                itemsToListView((List<ExerciseSection>) objects[0], mMessageClickedHandler);
+                break;
+            case GetPatientByUserIdTask.var:
+                Patient patient = (Patient) objects[0];
+                Globals.getInstance().setPatientOb(patient);
+                new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
+                break;
+        }
     }
 }

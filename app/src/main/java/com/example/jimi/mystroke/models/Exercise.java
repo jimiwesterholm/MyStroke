@@ -142,7 +142,7 @@ public class Exercise implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idexercise", id);
+        jsonObject.put("idexercise", id);
         jsonObject.put("verbose_description", description);
         jsonObject.put("section", section);
         jsonObject.put("name", name);

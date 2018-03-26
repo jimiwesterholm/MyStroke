@@ -36,7 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
         Globals globals = Globals.getInstance();
         View view = findViewById(R.id.content_profile);
         passButton = findViewById(R.id.buttonPassword);
-        editButton = findViewById(R.id.buttonEdit);
+        editButton = findViewById(R.id.buttonCancel);
         confirmButton = findViewById(R.id.buttonConfirmChanges);
         view = view.findViewById(R.id.editProfileForm);
         TextView username = view.findViewById(R.id.labelTextView);
@@ -83,9 +83,12 @@ public class ProfileActivity extends AppCompatActivity {
     public void confirmButtonOnClick(View view) {
         User user = Globals.getInstance().getUser();
         //user.setUsername(editFields[0].getText().toString());
-        user.setFirstName(editFields[0].getText().toString());
-        user.setLastName(editFields[1].getText().toString());
-        user.setEmail(editFields[2].getText().toString());
+        savedValues[0] = editFields[0].getText().toString();
+        user.setFirstName(savedValues[0]);
+        savedValues[1] = editFields[1].getText().toString();
+        user.setLastName(savedValues[1]);
+        savedValues[2] = editFields[2].getText().toString();
+        user.setEmail(savedValues[2]);
         Globals.getInstance().setUser(user);
 
         RecordsToAppDatabaseTask recordsToAppDatabaseTask = new RecordsToAppDatabaseTask("user", AppDatabase.getDatabase(getApplicationContext()));

@@ -25,8 +25,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/basic_button"
             android:text="@string/change_password"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonEdit"
+            app:layout_constraintEnd_toStartOf="@+id/buttonCancel"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -39,15 +41,17 @@
             android:background="@drawable/basic_button"
             android:onClick="confirmButtonOnClick"
             android:text="@string/confirm_changes"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/buttonEdit"
-            app:layout_constraintTop_toTopOf="@+id/buttonEdit" />
+            app:layout_constraintStart_toEndOf="@+id/buttonCancel"
+            app:layout_constraintTop_toTopOf="@+id/buttonCancel" />
 
         <Button
-            android:id="@+id/buttonEdit"
+            android:id="@+id/buttonCancel"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -57,6 +61,8 @@
             android:onClick="cancelButtonOnClick"
             android:text="@string/cancel_changes"
             android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonConfirmChanges"
@@ -89,7 +95,8 @@
             app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_iconmonstr_user_20" />
+            app:srcCompat="@drawable/ic_iconmonstr_user_20"
+            tools:ignore="ContentDescription" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

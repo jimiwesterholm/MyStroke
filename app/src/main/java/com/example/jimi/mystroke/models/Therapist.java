@@ -22,10 +22,15 @@ import java.util.UUID;
                 @Index(
                         value = "id",
                         unique = true
+                ),
+                @Index(
+                        value = "user_iduser"
                 )
         }
 )
 public class Therapist implements DatabaseObject {
+    public static final int classNameIndex = 1;
+
     @PrimaryKey
     @NonNull
     private String id;
@@ -103,7 +108,7 @@ public class Therapist implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idtherapist", id);
+        jsonObject.put("idtherapist", id);
         jsonObject.put("position", position);
         jsonObject.put("user_iduser", userID);
         jsonObject.put("active", active);

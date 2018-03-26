@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ import java.util.UUID;
  * Created by jimi on 28/12/2017.
  */
 //TODO PATIENTS DON'T DO THIS, THERAPISTS DO
-@Entity(tableName = "patient_assessment",
+@Entity(tableName = "patient_assesses_exercise",
         foreignKeys = {
                 @ForeignKey(
                         entity = Patient.class,
@@ -36,6 +37,12 @@ import java.util.UUID;
                 @Index(
                         value = "id",
                         unique = true
+                ),
+                @Index(
+                        value = "pID"
+                ),
+                @Index(
+                        value = "eID"
                 )
         }
 )
@@ -43,21 +50,13 @@ public class PatientAssessesExercise implements DatabaseObject {
     @PrimaryKey
     @NonNull
     private String id;
-
     private String pID;
-
     private String eID;
-
-    private double score;
-
+    private int score;
     private java.sql.Date date;
-
     private Time time;
-
     private long timestamp;
-
     private long created;
-
     private boolean toDelete;
 
     public boolean isToDelete() {
@@ -68,7 +67,7 @@ public class PatientAssessesExercise implements DatabaseObject {
         this.toDelete = toDelete;
     }
 
-    public PatientAssessesExercise(String id, String pID, String eID, double score, java.sql.Date date, Time time) {
+    public PatientAssessesExercise(@NonNull  String id, String pID, String eID, int score, java.sql.Date date, Time time) {
         this.id = id;
         this.pID = pID;
         this.eID = eID;
@@ -81,15 +80,15 @@ public class PatientAssessesExercise implements DatabaseObject {
     }
 
     @Ignore
-    public PatientAssessesExercise(String pID, String eID, double score, java.sql.Date date, Time time) {
+    public PatientAssessesExercise(String pID, String eID, int score) {
         id = UUID.randomUUID().toString();
         this.pID = pID;
         this.eID = eID;
         this.score = score;
-        this.time = time;
-        this.date = date;
-        timestamp = date.getTime() + time.getTime();
         created = System.currentTimeMillis();
+        timestamp = created;
+        this.date = new Date(timestamp);
+        this.time = new Time(timestamp - date.getTime());
         toDelete = false;
     }
 
@@ -111,10 +110,10 @@ public class PatientAssessesExercise implements DatabaseObject {
     public void setEID(String eID) {
         this.eID = eID;
     }
-    public double getScore() {
+    public int getScore() {
         return score;
     }
-    public void setScore(double score) {
+    public void setScore(int score) {
         this.score = score;
     }
     public long getTimestamp() {

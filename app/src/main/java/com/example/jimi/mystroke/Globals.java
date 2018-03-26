@@ -19,8 +19,28 @@ public class Globals {
     private final String fileDispUrl = ngrok.concat("/FileDispenser/");
     private final String addImageFD = "addImage.php";
     private final String loadImageFD = "addImage.php";
+    private final String[] classNames = {
+            "user",
+            "therapist",
+            "patient",
+            "help_page",
+            "assessment",
+            "exercise",
+            "imagery",
+            "patient_assesses_exercise",
+            "therapist_assesses_exercise",
+            "patient_list_exercise",
+            "patient_list_imagery",
+            "comment",
+            "assessment_item",
+            "assessment_result_double",
+            "assessment_result_int",
+            "assessment_result_string",
+            "assessment_result_boolean"
+    };
+    private final String[] mediaClassNames = {"exercise_image"};
 
-    //NEXT A-TASK INT: 21
+    //TODO remove NEXT A-TASK INT: 23
 
     public static Globals getInstance() {
         return ourInstance;
@@ -75,5 +95,13 @@ public class Globals {
 
     public String getDbUrl() {
         return dbUrl;
+    }
+
+    public String[] getClassNames() {
+        return classNames;
+    }
+
+    public String[] getMediaClassNames() {
+        return mediaClassNames;
     }
 }

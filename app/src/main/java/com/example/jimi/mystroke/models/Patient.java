@@ -41,6 +41,8 @@ import java.util.UUID;
 )
 
 public class Patient implements DatabaseObject, AsyncResponse {
+    public static final int classNameIndex = 2;
+
     @PrimaryKey
     @NonNull
     private String id;
@@ -156,7 +158,7 @@ public class Patient implements DatabaseObject, AsyncResponse {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idpatient", id);
+        jsonObject.put("idpatient", id);
         jsonObject.put("user_iduser", userID);
         jsonObject.put("therapist_idtherapist", therapist);
         jsonObject.put("active", active);

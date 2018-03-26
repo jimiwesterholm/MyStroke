@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView text = findViewById(R.id.text);
         try {
-            text.setText("Loading");
+            text.setText(getString(R.string.loading));
             do {
                 temp = future.get();
             } while (!future.isDone());

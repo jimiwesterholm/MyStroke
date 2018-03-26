@@ -11,7 +11,9 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity(indices = {@Index(value = "id", unique = true)})
-        public class User implements DatabaseObject {
+public class User implements DatabaseObject {
+    public static final int classNameIndex = 0;
+
     @PrimaryKey
     @NonNull
     private String id;
@@ -59,14 +61,14 @@ import java.util.UUID;
         this.toDelete = toDelete;
     }
 
-    public User(String id, String username, String password, String salt, int therapist, int patient, String email, String firstName, String lastName) {
+    public User(String id, String username, String password, String salt, int patient, int therapist, String email, String firstName, String lastName) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.salt = salt;
         this.email = email;
-        this.therapist = therapist;
         this.patient = patient;
+        this.therapist = therapist;
         this.firstName = firstName;
         this.lastName = lastName;
         created = new Date().getTime();
@@ -74,14 +76,14 @@ import java.util.UUID;
     }
 
     @Ignore
-    public User(String username, String password, String salt, int therapist, int patient, String email, String firstName, String lastName) {
+    public User(String username, String password, String salt, int patient, int therapist, String email, String firstName, String lastName) {
         id = UUID.randomUUID().toString();
         this.username = username;
         this.password = password;
         this.salt = salt;
         this.email = email;
-        this.therapist = therapist;
         this.patient = patient;
+        this.therapist = therapist;
         this.firstName = firstName;
         this.lastName = lastName;
         created = new Date().getTime();
@@ -170,7 +172,7 @@ import java.util.UUID;
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("iduser", id);
+        jsonObject.put("iduser", id);
         jsonObject.put("username", username);
         jsonObject.put("password", password);
         jsonObject.put("salt", salt);

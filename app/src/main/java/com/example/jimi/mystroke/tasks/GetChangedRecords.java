@@ -33,12 +33,13 @@ public class GetChangedRecords {
     public List<? extends DatabaseObject> getChanged(String className) {
         long latestUpdate = Globals.getInstance().getLatestUpdate();
         switch (className) {
+            //TODO MAKE WORK, also add all the tables
             case "user":
                 return AppDatabase.getDatabase(context).userDao().loadChanged(latestUpdate, false);
             case "exercise":
                 return AppDatabase.getDatabase(context).exerciseDao().loadChanged(latestUpdate, false);
             case "assessment":
-                return AppDatabase.getDatabase(context).assessmentDao().loadChanged(latestUpdate);
+                return AppDatabase.getDatabase(context).assessmentDao().loadChanged(latestUpdate, false);
             case "comment":
                 return AppDatabase.getDatabase(context).commentDao().loadChanged(latestUpdate, false);
             case "imagery":

@@ -34,6 +34,12 @@ import java.util.UUID;
                 @Index(
                         value = "id",
                         unique = true
+                ),
+                @Index(
+                        value = "pID"
+                ),
+                @Index(
+                        value = "iID"
                 )
         }
 )
@@ -111,7 +117,7 @@ public class PatientListImagery implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("idpatient_list_imagery", id);
+        jsonObject.put("idpatient_list_imagery", id);
         jsonObject.put("idpatient", pID);
         jsonObject.put("idimagery", iID);
         return jsonObject;
