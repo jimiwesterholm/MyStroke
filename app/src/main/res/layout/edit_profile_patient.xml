@@ -27,10 +27,10 @@
         <include
             android:id="@+id/setFirstName"
             layout="@layout/set_text_element"
+            app:labelText="@{@string/name_first}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:labelText="@{@string/name_first}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tapToWriteText" />
@@ -38,10 +38,10 @@
         <include
             android:id="@+id/setSecondName"
             layout="@layout/set_text_element"
+            app:labelText="@{@string/name_second}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:labelText="@{@string/name_second}"
             app:layout_constraintEnd_toEndOf="@+id/setFirstName"
             app:layout_constraintStart_toStartOf="@+id/setFirstName"
             app:layout_constraintTop_toBottomOf="@+id/setFirstName" />
@@ -49,10 +49,10 @@
         <include
             android:id="@+id/setEmail"
             layout="@layout/set_text_element"
+            app:labelText="@{@string/email}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:labelText="@{@string/email}"
             app:layout_constraintEnd_toEndOf="@+id/setSecondName"
             app:layout_constraintStart_toStartOf="@+id/setSecondName"
             app:layout_constraintTop_toBottomOf="@+id/setSecondName" />

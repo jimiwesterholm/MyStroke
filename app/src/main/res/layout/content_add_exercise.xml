@@ -36,7 +36,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/include_edit_add"
-        app:layout_constraintStart_toEndOf="@+id/add_button" />
+        app:layout_constraintStart_toEndOf="@+id/add_button"
+        android:layout_marginLeft="8dp" />
 
     <include
         android:id="@+id/include_edit_add"

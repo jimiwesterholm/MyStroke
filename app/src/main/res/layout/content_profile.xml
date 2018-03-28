@@ -48,7 +48,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/buttonCancel"
-            app:layout_constraintTop_toTopOf="@+id/buttonCancel" />
+            app:layout_constraintTop_toTopOf="@+id/buttonCancel"
+            android:layout_marginLeft="16dp" />
 
         <Button
             android:id="@+id/buttonCancel"
@@ -67,7 +68,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonConfirmChanges"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/buttonPassword" />
+            app:layout_constraintStart_toEndOf="@+id/buttonPassword"
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/profileTitleText"

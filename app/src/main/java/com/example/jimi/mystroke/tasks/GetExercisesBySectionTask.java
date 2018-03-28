@@ -19,7 +19,7 @@ public class GetExercisesBySectionTask extends AsyncTask<Void, Void, List<Exerci
     private String section;
     public static final int var = 5;
 
-    public GetExercisesBySectionTask(AppDatabase aDb, AsyncResponse asyncResponse, String section) {
+    public GetExercisesBySectionTask(AppDatabase aDb, AsyncResponse asyncResponse, String section   ) {
         this.aDb = aDb;
         this.asyncResponse = asyncResponse;
         this.section = section;

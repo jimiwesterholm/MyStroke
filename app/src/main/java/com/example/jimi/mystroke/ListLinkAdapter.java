@@ -16,15 +16,15 @@ import java.util.List;
  * Created by jimi on 25/03/2018.
  */
 
-public class ListLinkAdapter extends BaseAdapter{
-    private List<HelpPage> links;
+public class ListLinkAdapter<T> extends BaseAdapter{
+    private List<T> links;
     private LayoutInflater inflater;
 
     static class ViewHolder {
         TextView elementTitleText;
     }
 
-    public ListLinkAdapter(@NonNull Context context, @NonNull List<HelpPage> objects) {
+    public ListLinkAdapter(@NonNull Context context, @NonNull List<T> objects) {
         links = objects;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -35,7 +35,7 @@ public class ListLinkAdapter extends BaseAdapter{
     }
 
     @Override
-    public HelpPage getItem(int position) {
+    public T getItem(int position) {
         return links.get(position);
     }
 
@@ -46,7 +46,7 @@ public class ListLinkAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        HelpPage page = links.get(position);
+        T page = links.get(position);
         ViewHolder viewHolder;
 
         if(convertView == null) {
@@ -59,7 +59,7 @@ public class ListLinkAdapter extends BaseAdapter{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.elementTitleText.setText(page.getTitle());
+        viewHolder.elementTitleText.setText(page.toString());
         return convertView;
     }
 }

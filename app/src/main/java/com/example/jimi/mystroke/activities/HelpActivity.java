@@ -26,7 +26,7 @@ public class HelpActivity extends AppCompatActivity implements AsyncResponse, Ad
     private Toolbar toolbar;
     private HelpPage page;
     private List<HelpPage> children;
-    private ListLinkAdapter adapter;
+    private ListLinkAdapter<HelpPage> adapter;
     private View content;
     private TextView contentText;
     private ListView links;
@@ -56,7 +56,7 @@ public class HelpActivity extends AppCompatActivity implements AsyncResponse, Ad
     }
 
     private void itemsToListView() {
-        adapter = new ListLinkAdapter(this, children);
+        adapter = new ListLinkAdapter<HelpPage>(this, children);
         links.setAdapter(adapter);
         links.setOnItemClickListener(this);
         adapter.notifyDataSetChanged();

@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.jimi.mystroke.ListLinkAdapter;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
@@ -22,17 +23,16 @@ public class ViewPatientsActivity extends AppCompatActivity implements AsyncResp
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetPatientsTask(getApplicationContext(), this).execute();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patients);
+        new GetPatientsTask(getApplicationContext(), this).execute();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
 
 
-        TextView title = findViewById(R.id.titleText);
+        TextView title = findViewById(R.id.list_content).findViewById(R.id.labelTextView);
         title.setText(R.string.patientTitle);
 
         //TODO: Check for alerts, indicate where
@@ -60,7 +60,7 @@ public class ViewPatientsActivity extends AppCompatActivity implements AsyncResp
     };
 
     private void itemsToListView(List<Patient> items, AdapterView.OnItemClickListener listener) {
-        ArrayAdapter<Patient> adapter = new ArrayAdapter<Patient>(this, R.layout.sample_list_element_view, items.toArray(new Patient[0]));
+        ListLinkAdapter<Patient> adapter = new ListLinkAdapter<Patient>(this, items);
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(mMessageClickedHandler);

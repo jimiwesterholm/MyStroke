@@ -80,6 +80,7 @@
     <include
         android:id="@+id/assessment_spinner"
         layout="@layout/spinner_and_add_new"
+        app:labelText="@{@string/performance_metric}"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

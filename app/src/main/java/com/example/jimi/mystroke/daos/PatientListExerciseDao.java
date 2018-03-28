@@ -26,6 +26,9 @@ public interface PatientListExerciseDao {
     @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID AND toDelete =:toDelete")
     List<PatientListExercise> loadAllByPatientID(String pID, boolean toDelete);
 
+    @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID AND eID =:eID AND toDelete =:toDelete")
+    List<PatientListExercise> loadAllByPatientAndExerciseIDs(String pID, String eID, boolean toDelete);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(PatientListExercise... patientListExercises);
 
@@ -37,6 +40,9 @@ public interface PatientListExerciseDao {
 
     @Query("SELECT * FROM patient_list_exercise WHERE viewed =:viewed AND toDelete =:toDelete")
     List<PatientListExercise> loadByViewed(boolean viewed, boolean toDelete);
+
+    @Query("SELECT eID FROM patient_list_exercise WHERE pID =:pID AND toDelete =:toDelete")
+    List<String> getPatientExercises(String pID, boolean toDelete);
 
     @Update
     void update(PatientListExercise listExercise);

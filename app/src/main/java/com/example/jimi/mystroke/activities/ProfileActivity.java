@@ -1,5 +1,6 @@
 package com.example.jimi.mystroke.activities;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        DataBindingUtil.setContentView(this, R.layout.activity_profile);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

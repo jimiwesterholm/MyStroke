@@ -12,9 +12,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jimi.mystroke.AppDatabase;
+import com.example.jimi.mystroke.Globals;
+import com.example.jimi.mystroke.ListLinkAdapter;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
+import com.example.jimi.mystroke.tasks.GetExercisesBySectionAndPatientTask;
 import com.example.jimi.mystroke.tasks.GetExercisesBySectionTask;
 
 import java.util.List;
@@ -25,13 +28,17 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
     //TODO: Convert from arrayadapter/listview to recyclerview?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new GetExercisesBySectionTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION")).execute();
+        if(Globals.getInstance().isLoggedAsPatient() == 1) {
+            new GetExercisesBySectionAndPatientTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION"), Globals.getInstance().getPatientOb().getId()).execute();
+        } else {
+            new GetExercisesBySectionTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION")).execute();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView title = findViewById(R.id.titleText);
+        TextView title = findViewById(R.id.list_content).findViewById(R.id.labelTextView);
         title.setText(R.string.exerciseBut);
 
         //TODO: Check for alerts, indicate where
@@ -60,7 +67,7 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
     };
 
     private void itemsToListView(List<Exercise> items, AdapterView.OnItemClickListener listener) {
-        ArrayAdapter<Exercise> adapter = new ArrayAdapter<Exercise>(this, R.layout.sample_list_element_view, items.toArray(new Exercise[0]));
+        ListLinkAdapter<Exercise> adapter = new ListLinkAdapter<Exercise>(this, items);
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(mMessageClickedHandler);
@@ -74,6 +81,11 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
 
     @Override
     public void respond(int var, Object... objects) {
-        itemsToListView((List<Exercise>) objects[0], mMessageClickedHandler);
+        switch (var) {
+            case GetExercisesBySectionAndPatientTask.var:
+            case GetExercisesBySectionTask.var:
+                itemsToListView((List<Exercise>) objects[0], mMessageClickedHandler);
+                break;
+        }
     }
 }

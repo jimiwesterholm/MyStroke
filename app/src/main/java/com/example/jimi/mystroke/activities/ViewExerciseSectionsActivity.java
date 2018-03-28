@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.Globals;
+import com.example.jimi.mystroke.ListLinkAdapter;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.ExerciseSection;
 import com.example.jimi.mystroke.models.Patient;
@@ -28,18 +29,18 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     //TODO: Convert from arrayadapter/listview to recyclerview?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Patient patient = Globals.getInstance().getPatientOb();
+        /*Patient patient = Globals.getInstance().getPatientOb();
         if(patient != null) {
             new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
         } else {
             new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
-        }
+        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView title = findViewById(R.id.titleText);
+        TextView title = findViewById(R.id.list_content).findViewById(R.id.labelTextView);
         title.setText(R.string.exerciseBut);
 
         //TODO: Check for alerts, indicate where
@@ -74,7 +75,7 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     };
 
     private void itemsToListView(List<ExerciseSection> items, AdapterView.OnItemClickListener listener) {
-        ArrayAdapter<ExerciseSection> adapter = new ArrayAdapter<ExerciseSection>(this, R.layout.list_element_link, items.toArray(new ExerciseSection[0]));
+        ListLinkAdapter<ExerciseSection> adapter = new ListLinkAdapter<ExerciseSection>(this, items);
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);

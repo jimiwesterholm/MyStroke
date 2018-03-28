@@ -28,8 +28,8 @@ public class PatientOrTherapistActivity extends AppCompatActivity {
     }
 
     public void onTherapistClick(View view) {
-        //Intent intent = new Intent(getApplicationContext(), TherapistHomeActivity.class);
-        Intent intent = new Intent(getApplicationContext(), AddInfoPageActivity.class);
+        Intent intent = new Intent(getApplicationContext(), TherapistHomeActivity.class);
+        //Intent intent = new Intent(getApplicationContext(), AddInfoPageActivity.class);
         Globals.getInstance().setLoggedAsPatient(0);
         startActivity(intent);
     }

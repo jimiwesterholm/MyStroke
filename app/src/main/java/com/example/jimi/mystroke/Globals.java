@@ -40,7 +40,7 @@ public class Globals {
     };
     private final String[] mediaClassNames = {"exercise_image"};
 
-    //TODO remove NEXT A-TASK INT: 23
+    //TODO remove NEXT A-TASK INT: 24
 
     public static Globals getInstance() {
         return ourInstance;

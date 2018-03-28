@@ -30,8 +30,9 @@ public class GetSectionsTask extends AsyncTask<Void, Void, List<ExerciseSection>
 
     @Override
     protected List<ExerciseSection> doInBackground(Void...foo) {
+        List<String> list = aDb.patientListExerciseDao().getPatientExercises(patientId, false);
         ExerciseDao exerciseDao = aDb.exerciseDao();
-        List<String> sectionNames = exerciseDao.getSections(false);
+        List<String> sectionNames = exerciseDao.getSectionsOfIds(list.toArray(new String[0]), false);
 
         List<ExerciseSection> sections = new ArrayList<ExerciseSection>();
         if(patientId != null) {

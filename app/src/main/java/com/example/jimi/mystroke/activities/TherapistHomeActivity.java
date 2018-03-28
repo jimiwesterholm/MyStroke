@@ -43,7 +43,7 @@ public class TherapistHomeActivity extends AppCompatActivity {
                 break;
             case (R.id.buttonHelp):
                 //intent = new Intent(getApplicationContext(), HelpActivity.class);
-                intent = new Intent(getApplicationContext(), AddToListActivity.class);
+                intent = new Intent(getApplicationContext(), AddInfoPageActivity.class);
                 break;
             default:
                 return;
