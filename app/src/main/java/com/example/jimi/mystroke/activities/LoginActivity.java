@@ -91,10 +91,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
             }
         });
-
+/*
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+*/
         mLoginFormView = findViewById(R.id.scroll_login_form);
         mProgressView = findViewById(R.id.login_progress);
     }

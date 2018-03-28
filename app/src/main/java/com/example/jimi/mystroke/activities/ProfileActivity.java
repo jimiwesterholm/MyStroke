@@ -31,8 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DataBindingUtil.setContentView(this, R.layout.activity_profile);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
         Globals globals = Globals.getInstance();
         View view = findViewById(R.id.content_profile);

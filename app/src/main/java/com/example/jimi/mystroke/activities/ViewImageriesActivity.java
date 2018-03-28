@@ -28,8 +28,8 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
         //TODO: Check for alerts, indicate where
     }

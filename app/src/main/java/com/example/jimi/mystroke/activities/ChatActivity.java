@@ -49,10 +49,10 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
             pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
             if(pId != null) new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
         }
-
+/*
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+*/
         TextView title = findViewById(R.id.titleText);
         title.setText(R.string.title_activity_chat);
 

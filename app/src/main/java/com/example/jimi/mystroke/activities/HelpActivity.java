@@ -36,9 +36,9 @@ public class HelpActivity extends AppCompatActivity implements AsyncResponse, Ad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
+        setContentView(R.layout.activity_help);/*
         toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);*/
         String hID = getIntent().getStringExtra("EXTRA_HELP_ID");
         if(hID == null) {
             //TODO do this in a neater way?

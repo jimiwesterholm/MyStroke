@@ -36,8 +36,8 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
         TextView title = findViewById(R.id.list_content).findViewById(R.id.labelTextView);
         title.setText(R.string.exerciseBut);
 
