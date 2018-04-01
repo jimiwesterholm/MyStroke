@@ -5,7 +5,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
 
         <include
@@ -37,6 +38,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/basic_button"
             android:onClick="confirmButtonOnClick"
@@ -48,14 +50,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/buttonCancel"
-            app:layout_constraintTop_toTopOf="@+id/buttonCancel"
-            android:layout_marginLeft="16dp" />
+            app:layout_constraintTop_toTopOf="@+id/buttonCancel" />
 
         <Button
             android:id="@+id/buttonCancel"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/basic_button"
             android:gravity="center_vertical|center_horizontal"
@@ -68,8 +70,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonConfirmChanges"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/buttonPassword"
-            android:layout_marginLeft="16dp" />
+            app:layout_constraintStart_toEndOf="@+id/buttonPassword" />
 
         <TextView
             android:id="@+id/profileTitleText"

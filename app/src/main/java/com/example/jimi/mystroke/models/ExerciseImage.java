@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 
+import com.example.jimi.mystroke.Globals;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -153,5 +155,9 @@ public class ExerciseImage implements DatabaseObject {
 
         jsonObject.put("data", image);
         return jsonObject;
+    }
+
+    public static String urlFromID(String id) {
+        return Globals.getInstance().getFileDispUrl().concat(id).concat(Globals.getInstance().getImageFileType());
     }
 }

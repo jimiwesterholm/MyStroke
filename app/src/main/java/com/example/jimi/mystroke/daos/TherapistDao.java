@@ -26,4 +26,7 @@ public interface TherapistDao {
 
     @Query("SELECT * FROM therapist WHERE id =:tId AND toDelete =:toDelete LIMIT 1")
     Therapist loadById(String tId, boolean toDelete);
+
+    @Query("SELECT * FROM therapist WHERE  user_iduser=:id AND toDelete =:toDelete LIMIT 1")
+    Therapist loadByUserId(String id, boolean toDelete);
 }

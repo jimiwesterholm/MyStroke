@@ -47,6 +47,14 @@ public class SyncDatabaseTask implements Runnable {
             frtEx.call();
         }
         Globals.getInstance().setLatestUpdate(System.currentTimeMillis());
+
+        //Set globals
+        Globals globals = Globals.getInstance();
+        if(globals.isLoggedAsPatient()==1 && globals.getPatientOb() == null) {
+            globals.setPatientOb(AppDatabase.getDatabase(context).patientDao().loadByUserId(user.getId(), false));
+        } else if (globals.isLoggedAsPatient()==0 && globals.getTherapistOb() == null) {
+            globals.setTherapistOb(AppDatabase.getDatabase(context).therapistDao().loadByUserId(user.getId(), false));
+        }
     }
 
     public void setContext(Context context) {

@@ -91,6 +91,10 @@
         <activity
             android:name=".activities.FeedbackLeftActivity"
             android:label="@string/title_activity_feedback_left"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ExerciseClickedOptionsActivity"
+            android:label="@string/title_activity_exercise_clicked_options"
             android:theme="@style/AppTheme"></activity>
     </application>
 

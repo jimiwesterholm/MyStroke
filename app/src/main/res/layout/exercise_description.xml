@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data class="DescriptionExerciseBinding">
+
+    <data>
+        <variable name="descriptionLabelText" type="java.lang.String" />
         <variable name="descriptionText" type="java.lang.String" />
         <variable name="patientInstruction" type="java.lang.String" />
     </data>
@@ -22,7 +24,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="4dp"
             android:paddingStart="8dp"
-            android:text="@{descriptionText}"
+            android:text="@{descriptionLabelText}"
             android:textAppearance="@style/TextAppearance.AppCompat"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,8 +32,10 @@
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"
+            android:text="@{descriptionText}"
+            android:textSize="18sp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/exerciseDivider"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +47,7 @@
             android:id="@+id/exerciseDivider"
             android:layout_width="0dp"
             android:layout_height="8dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/patientInstructionTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -55,9 +59,11 @@
         <TextView
             android:id="@+id/patientInstructionTextView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@android:color/holo_blue_dark"
-            android:visibility="gone"
+            android:textSize="18sp"
+            android:text="@{patientInstruction}"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

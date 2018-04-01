@@ -23,7 +23,7 @@ import com.example.jimi.mystroke.tasks.GetHelpPagesByParentIds;
 import java.util.List;
 
 public class HelpActivity extends AppCompatActivity implements AsyncResponse, AdapterView.OnItemClickListener {
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
     private HelpPage page;
     private List<HelpPage> children;
     private ListLinkAdapter<HelpPage> adapter;

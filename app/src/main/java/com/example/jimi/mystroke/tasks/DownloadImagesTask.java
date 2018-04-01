@@ -27,6 +27,7 @@ import static android.content.ContentValues.TAG;
 
 /**
  * Created by jimi on 17/03/2018.
+ * TODO is this needed?
  */
 
 public class DownloadImagesTask extends AsyncTask<String, Void, List<Bitmap>> {

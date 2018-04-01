@@ -10,6 +10,9 @@ import android.view.View;
 
 import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
+import com.example.jimi.mystroke.tasks.LoadTherapistObject;
+
+import java.util.concurrent.Executors;
 
 public class PatientOrTherapistActivity extends AppCompatActivity {
 
@@ -24,6 +27,9 @@ public class PatientOrTherapistActivity extends AppCompatActivity {
     public void onPatientClick(View view) {
         Intent intent = new Intent(getApplicationContext(), PatientHomeActivity.class);
         Globals.getInstance().setLoggedAsPatient(1);
+        if(Globals.getInstance().getPatientOb()==null) {
+            //TODO async class to sort (callable?)
+        }
         startActivity(intent);
     }
 
@@ -31,6 +37,9 @@ public class PatientOrTherapistActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), TherapistHomeActivity.class);
         //Intent intent = new Intent(getApplicationContext(), AddInfoPageActivity.class);
         Globals.getInstance().setLoggedAsPatient(0);
+        if(Globals.getInstance().getTherapistOb()==null) {
+            Executors.newSingleThreadExecutor().submit(new LoadTherapistObject(getApplicationContext(), Globals.getInstance().getUser().getId()));
+        }
         startActivity(intent);
     }
 

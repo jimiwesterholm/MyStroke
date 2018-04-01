@@ -20,7 +20,7 @@ import com.example.jimi.mystroke.models.User;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 public class ProfileActivity extends AppCompatActivity {
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
     private EditText[] editFields = new EditText[3];
     private String[] savedValues = new String[3];
     private Button editButton;

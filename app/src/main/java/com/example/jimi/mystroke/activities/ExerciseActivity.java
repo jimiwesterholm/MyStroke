@@ -54,9 +54,9 @@ public class ExerciseActivity extends AppCompatActivity implements AsyncResponse
                 imageButtonOnClick();
             }
         });
-
+/*
         toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);*/
     }
 
     private void imageButtonOnClick() {
@@ -101,11 +101,12 @@ public class ExerciseActivity extends AppCompatActivity implements AsyncResponse
                 break;
             case GetExerciseByIdTask.var:
                 exercise = (Exercise) objects[0];
+                binding.setDescriptionLabelText(exercise.getName());
                 binding.setDescriptionText(exercise.getDescription());
                 View videoView = findViewById(R.id.content).findViewById(R.id.videoImageButton);
                 if(exercise.getVideo() != null) {
                     ImageView imageView = videoView.findViewById(R.id.imageView);
-                    Glide.with(this).load(Exercise.youTubeFromVidId(exercise.getVideo())).into(imageView);
+                    Glide.with(this).load(Exercise.thumbnailFromVidId(exercise.getVideo())).into(imageView);
                 } else {
                     videoView.setVisibility(View.GONE);
                 }

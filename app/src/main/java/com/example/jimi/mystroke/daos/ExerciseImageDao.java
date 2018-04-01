@@ -34,4 +34,7 @@ public interface ExerciseImageDao {
 
      @Update
     void update(ExerciseImage exerciseImage);
+
+     @Query("SELECT * FROM exercise_image WHERE id =:eId AND toDelete =:toDelete")
+    List<ExerciseImage> loadAllByExerciseId(String eId, boolean toDelete);
 }

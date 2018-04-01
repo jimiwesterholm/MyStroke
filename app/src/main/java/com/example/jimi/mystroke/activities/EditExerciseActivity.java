@@ -1,9 +1,8 @@
 package com.example.jimi.mystroke.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -21,8 +20,8 @@ import com.example.jimi.mystroke.models.Assessment;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.models.ExerciseSection;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
+import com.example.jimi.mystroke.tasks.GetExerciseByIdTask;
 import com.example.jimi.mystroke.tasks.GetSectionsTask;
-import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +30,9 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
     //TODO just copy add exercise, except fill in values and update don't add
     private AutoCompleteTextView sectionEditText;
     private Spinner assessmentSpinner;
-    private Button addButton;
-    private Button mediaButton;
-    private List<ExerciseSection> sectionList;
+    private Exercise exercise;
     private List<Assessment> assessmentList;
-    private ArrayAdapter<ExerciseSection> sectionArrayAdapter;
+    private ArrayAdapter<String> sectionArrayAdapter;
     private ArrayAdapter<Assessment> assessmentArrayAdapter;
     private EditText title;
     private EditText description;
@@ -51,9 +48,15 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
         View view = findViewById(R.id.include_edit_add);
         View sectionView = view.findViewById(R.id.section_text);
         sectionEditText = sectionView.findViewById(R.id.editValueText);
-        TextView sectionLabel = sectionView.findViewById(R.id.spinnerLabel);
+        TextView sectionLabel = sectionView.findViewById(R.id.labelView);
         sectionLabel.setText(R.string.section);
 
+        String eid = getIntent().getStringExtra("EXTRA_EXERCISE_ID");
+        if(eid != null) {
+            new GetExerciseByIdTask(AppDatabase.getDatabase(getApplicationContext()), this, eid).execute();
+        } else {
+            startActivity(new Intent(getApplicationContext(), TherapistHomeActivity.class));
+        }
         new GetSectionsTask(getApplicationContext(), this, null).execute();
 
         View assessmentView = view.findViewById(R.id.assessment_spinner);
@@ -65,10 +68,10 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
         title = view.findViewById(R.id.titleInclude).findViewById(R.id.editValueText);
         description = view.findViewById(R.id.descriptionEditText);
 
-        addButton = findViewById(R.id.add_button);
-        mediaButton = findViewById(R.id.media_button);
-
-        //TODO Initialise values from intent
+        Button addButton = findViewById(R.id.add_button);
+        Button mediaButton = findViewById(R.id.media_button);
+        addButton.setText(R.string.update);
+        mediaButton.setText(R.string.edit_media);
     }
 
     private void itemsToAdapter(AutoCompleteTextView textView, ArrayAdapter adapter) {
@@ -91,21 +94,22 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
         if (!verifyInput().isEmpty()) return;
         Intent intent = null;
 
-        //TODO test to make  sure this chooses the expected item
-        ExerciseSection exerciseSection = (ExerciseSection) sectionArrayAdapter.getItem(sectionEditText.getListSelection());
+        String exerciseSection = sectionEditText.getText().toString();
         Assessment assessment = (Assessment) assessmentSpinner.getSelectedItem();
+        exercise.setSection(exerciseSection);
+        //exercise.setAid(assessment.getId());
+        exercise.setDescription(description.getText().toString());
+        exercise.setName(title.getText().toString());
         //Exercise exercise = new Exercise(description.getText().toString(), exerciseSection.toString(), title.getText().toString(), assessment.getId());
 
         //TODO: remove, fix weird dropdown menu location, use actual values
-        Exercise exercise = new Exercise(description.getText().toString(), exerciseSection.toString(), title.getText().toString(), "70dab8d0-262f-11e8-b467-0ed5f89f718b", null);
         switch (view.getId()) {
             case (R.id.media_button):
-                exercise.setToDelete(true);
                 intent = new Intent(getApplicationContext(), AddExerciseMediaActivity.class);
                 intent.putExtra("EXTRA_EXERCISE_ID", exercise.getId());
-                break;
             case (R.id.add_button):
-                new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
+                //TODO change recordsToApp-- to upsert everything?
+                //new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
         }
         if (intent != null) startActivity(intent);
     }
@@ -114,11 +118,20 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
     public void respond(int var, Object... objects) {
         switch (var) {
             case GetSectionsTask.var:
-                sectionList = (List<ExerciseSection>) objects[0];
+                List<ExerciseSection> sectionList = (List<ExerciseSection>) objects[0];
                 sectionList.remove(sectionList.size()-1);
-                sectionArrayAdapter = new ArrayAdapter<ExerciseSection>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, sectionList.toArray(new ExerciseSection[0]));
+                String[] sections = new String[sectionList.size()];
+                for (int i = 0; i < sectionList.size(); i++) {
+                    sections[i] = sectionList.get(i).getName();
+                }
+                sectionArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, sections);
                 itemsToAdapter(sectionEditText, sectionArrayAdapter);
                 break;
+            case GetExerciseByIdTask.var:
+                exercise = (Exercise) objects[0];
+                sectionEditText.setText(exercise.getSection());
+                title.setText(exercise.getName());
+                description.setText(exercise.getDescription());
         }
     }
 }

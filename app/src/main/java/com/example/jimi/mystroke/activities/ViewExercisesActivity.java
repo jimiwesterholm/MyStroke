@@ -1,5 +1,6 @@
 package com.example.jimi.mystroke.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,17 +25,20 @@ import java.util.List;
 
 public class ViewExercisesActivity extends AppCompatActivity implements AsyncResponse {
     private Toolbar toolbar;
+    private ListView listView;
+    private Exercise selected;
 
     //TODO: Convert from arrayadapter/listview to recyclerview?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_view_list);
+        super.onCreate(savedInstanceState);
+        listView = findViewById(R.id.list);
         if(Globals.getInstance().isLoggedAsPatient() == 1) {
             new GetExercisesBySectionAndPatientTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION"), Globals.getInstance().getPatientOb().getId()).execute();
         } else {
             new GetExercisesBySectionTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION")).execute();
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_list);
 
         /*toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
@@ -56,19 +60,54 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
         listView.setOnItemClickListener(mMessageClickedHandler);*/
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == Activity.RESULT_OK) {
+                    String actionCode = data.getStringExtra("EXTRA_ACTION");
+                    switch (actionCode) {
+                        case ("edit"):
+                            Intent intent = new Intent(this, EditExerciseActivity.class);
+                            intent.putExtra("EXTRA_EXERCISE_ID", selected.getId());
+                            startActivity(intent);
+                            break;
+                        case("view"):
+                            viewExercise();
+                            break;
+                        default:
+                            //Error message
+                            break;
+                    }
+                } else {
+                    //Smth
+                }
+                break;
+        }
+    }
+
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id)
         {
-            Exercise selected = (Exercise) parent.getAdapter().getItem(position);
-            Intent intent = new Intent(getBaseContext(), ExerciseActivity.class);
-            intent.putExtra("EXTRA_EXERCISE_ID", selected.getId());
-            startActivity(intent);
+            selected = (Exercise) parent.getAdapter().getItem(position);
+            if (Globals.getInstance().isLoggedAsPatient() != 1 && Globals.getInstance().getTherapistOb().getPosition().equals("admin")) {
+                Intent intent = new Intent(ViewExercisesActivity.this, ExerciseClickedOptionsActivity.class);
+                startActivityForResult(intent, 1);
+            } else {
+                viewExercise();
+            }
         }
     };
 
+    private void viewExercise() {
+        Intent intent = new Intent(this, ExerciseActivity.class);
+        intent.putExtra("EXTRA_EXERCISE_ID", selected.getId());
+        startActivity(intent);
+    }
+
     private void itemsToListView(List<Exercise> items, AdapterView.OnItemClickListener listener) {
         ListLinkAdapter<Exercise> adapter = new ListLinkAdapter<Exercise>(this, items);
-        ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(mMessageClickedHandler);
     }

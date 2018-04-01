@@ -8,8 +8,6 @@
     <data>
         <import type="android.view.View" />
         <variable name="onClick" type="android.view.View.OnClickListener"/>
-        <variable name="buttonText" type="String" />
-        <variable name="successMessage" type="String" />
     </data>
 
 <android.support.design.widget.CoordinatorLayout
@@ -30,7 +28,7 @@
 
      </android.support.design.widget.AppBarLayout>-->
 
-     <include layout="@layout/content_feedback_left"
+     <include layout="@layout/content_feedback_submitted"
          bind:onClick="@{onClick}"/>
 
  </android.support.design.widget.CoordinatorLayout>

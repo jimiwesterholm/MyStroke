@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Imagery;
@@ -30,7 +31,8 @@ public class ViewImageriesActivity extends AppCompatActivity implements AsyncRes
 
         /*toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
-
+        TextView title = findViewById(R.id.list_content).findViewById(R.id.labelTextView);
+        title.setText(R.string.imageryBut);
         //TODO: Check for alerts, indicate where
     }
 

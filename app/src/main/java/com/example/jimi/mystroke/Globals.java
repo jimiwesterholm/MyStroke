@@ -12,11 +12,13 @@ public class Globals {
     private static final Globals ourInstance = new Globals();
     private User user;
     private Patient patientOb;
+    private Therapist therapistOb;
     private int isLoggedAsPatient;
     private long latestUpdate;
     private final String ngrok = "http://5767e355.ngrok.io";
     private final String dbUrl = ngrok.concat("/api.php/");
     private final String fileDispUrl = ngrok.concat("/FileDispenser/");
+    private final String imageFileType = ".png";
     private final String addImageFD = "addImage.php";
     private final String loadImageFD = "addImage.php";
     private final String[] classNames = {
@@ -40,7 +42,7 @@ public class Globals {
     };
     private final String[] mediaClassNames = {"exercise_image"};
 
-    //TODO remove NEXT A-TASK INT: 24
+    //TODO remove NEXT A-TASK INT: 25
 
     public static Globals getInstance() {
         return ourInstance;
@@ -103,5 +105,17 @@ public class Globals {
 
     public String[] getMediaClassNames() {
         return mediaClassNames;
+    }
+
+    public Therapist getTherapistOb() {
+        return therapistOb;
+    }
+
+    public void setTherapistOb(Therapist therapistOb) {
+        this.therapistOb = therapistOb;
+    }
+
+    public String getImageFileType() {
+        return imageFileType;
     }
 }

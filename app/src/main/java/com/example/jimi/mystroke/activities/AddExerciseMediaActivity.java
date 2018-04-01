@@ -6,9 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -20,17 +24,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.jimi.mystroke.AppDatabase;
+import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.ImageAdapter;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.models.ExerciseImage;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetExerciseByIdTask;
+import com.example.jimi.mystroke.tasks.GetExerciseImagesTask;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 import com.example.jimi.mystroke.tasks.UploadImagesTask;
 import com.example.jimi.mystroke.tasks.UpsertExerciseTask;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -67,6 +82,8 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
     private ImageAdapter adapter;
     private List<Bitmap> list;
     private List<ExerciseImage> exerciseImageList;
+    private Bitmap bitMap;
+    private String uri;
     private List<String> uriList;
     private EditText youTubeText;
     private TextView youTubeInstruction;
@@ -96,7 +113,7 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
         itemsToGridView(list);
 
         youTubeText = findViewById(R.id.youTubeText);
-        ((Button)findViewById(R.id.youTubeButton)).setOnClickListener(new Button.OnClickListener() {
+        findViewById(R.id.youTubeButton).setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String vidAddress = youTubeText.getText().toString();
@@ -129,7 +146,7 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
     }
 
     protected void onYouTubeClick(String vidAddress) {
-        if(true) {  //TODO validation
+        if(true) {  //TODO validate address
             String vidId = null;
             if(vidAddress.length() == 11) {
                 vidId = vidAddress;
@@ -176,6 +193,10 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
         return;
     }
 
+    private void getImagesFromServer() {
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -190,14 +211,15 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
                             Intent intent = new Intent(getApplicationContext(), ImageConfirmActivity.class);
                             intent.putExtra("EXTRA_URI", img);
                             //intent.putExtra("EXTRA_LIST_POS", -1);
-                            list.add(0, image);
-                            uriList.add(0, img);
+                            //list.add(0, image);
+                            bitMap = image;
+                            //uriList.add(0, img);
+                            uri = img;
                             startActivityForResult(intent, 2);
                         } else {
                             //TODO error message
                         }
                     } catch (Exception e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                         return;
                     }
@@ -217,6 +239,8 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
                             exerciseImageList.get(pos).setAltText(alt);
                         }
                     } else {
+                        list.add(bitMap);
+                        uriList.add(uri);
                         exerciseImageList.add(new ExerciseImage(eId, alt, 0, list.get(0)));
                     }
                 } else if (resultCode == Activity.RESULT_CANCELED) {
@@ -228,16 +252,13 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
                 adapter.notifyDataSetChanged();
                 break;
         }
-        //TODO FOR BLUE COLOUR: https://stackoverflow.com/questions/920306/sending-data-back-to-the-main-activity-in-android !?!!!! SHIT YES
-
-
     }
 
     @Override
     public void respond(int var, Object... objects) {
         switch (var) {
             case UploadImagesTask.var:
-                if((Boolean) objects[0]) {
+                if ((Boolean) objects[0]) {
                     new RecordsToAppDatabaseTask(getString(R.string.exercise_image), AppDatabase.getDatabase(getApplicationContext())).execute(exerciseImageList);
                     //TODO success activity
                 } else {
@@ -246,10 +267,17 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
                 break;
             case GetExerciseByIdTask.var:
                 exercise = (Exercise) objects[0];
-                if(exercise.getVideo() != null) {
+                if (exercise.getVideo() != null) {
                     onYouTubeClick(exercise.getVideo());
                 }
+                new GetExerciseImagesTask(AppDatabase.getDatabase(getApplicationContext()), exercise.getId(), this).execute();
                 break;
+            case GetExerciseImagesTask.var:
+                List<ExerciseImage> exerciseImages = (List<ExerciseImage>) objects[0];
+                Globals globals = Globals.getInstance();
+                for (int i = 0; i < exerciseImages.size(); i++) {
+
+                }
         }
     }
 
@@ -265,4 +293,34 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
             startActivityForResult(intent, 2);
         }
     }
+
+  /*  private class loadImages extends AsyncTask<ExerciseImage, Void, Void> {
+        private Context context;
+        private AsyncResponse response = AddExerciseMediaActivity.this;
+
+        public loadImages(AppDatabase appDatabase, Context context, AsyncResponse response) {
+            this.context = context;
+            this.response = response;
+        }
+
+        @Override
+        protected Void doInBackground(ExerciseImage[] exerciseImages)  {
+            for (int i = 0; i < exerciseImages.length; i++) {
+                HttpURLConnection con = null;
+                try {
+                    URL url = new URL(ExerciseImage.urlFromID(exerciseImages[i].getId()));
+                    con = (HttpURLConnection) url.openConnection();
+                    con.setDoInput(true);
+                    con.connect();
+                    InputStream inputStream = con.getInputStream();
+                    list.set(i, BitmapFactory.decodeStream(inputStream));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                } finally {
+                    if(con != null) con.disconnect();
+                }
+            }
+        }
+    }
+*/
 }

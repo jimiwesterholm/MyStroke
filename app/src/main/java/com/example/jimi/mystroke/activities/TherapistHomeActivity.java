@@ -25,9 +25,16 @@ public class TherapistHomeActivity extends AppCompatActivity {
     public void buttonPress(View view) {
         Intent intent;
         switch (view.getId()) {
+            /*
+            TODO read up on the links below, change all intents etc. to match
+            https://stackoverflow.com/questions/10347184/difference-and-when-to-use-getapplication-getapplicationcontext-getbasecon
+            https://qph.ec.quoracdn.net/main-qimg-2fed965d5a2ce6a67bfe24e0042a345d      THIS IS SIMPLE + GOOD, FOLLOW!
+            https://www.quora.com/What-is-the-difference-between-getBaseContext-getContext-and-this
+            https://stackoverflow.com/questions/10641144/difference-between-getcontext-getapplicationcontext-getbasecontext-and/15175006
+             */
             case (R.id.buttonExercises):
-                intent = new Intent(getApplicationContext(), AddExerciseActivity.class);    //TODO change, add actual path to this
-                //intent = new Intent(getApplicationContext(), ViewExerciseSectionsActivity.class);
+                //intent = new Intent(getApplicationContext(), AddExerciseActivity.class);    //TODO change, add actual path to this
+                intent = new Intent(getApplicationContext(), ViewExerciseSectionsActivity.class);
                 break;
             case (R.id.buttonChat):
                 intent = new Intent(getApplicationContext(), ChatActivity.class);

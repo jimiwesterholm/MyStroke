@@ -10,6 +10,7 @@
         <variable name="videoButtonOnClick" type="android.view.View.OnClickListener"/>
         <variable name="imageButtonOnClick" type="android.view.View.OnClickListener"/>
         <variable name="descriptionText" type="String" />
+        <variable name="descriptionLabelText" type="java.lang.String" />
         <variable name="patientInstruction" type="java.lang.String" />
     </data>
 
@@ -29,6 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             bind:descriptionText="@{descriptionText}"
+            bind:descriptionLabelText="@{descriptionLabelText}"
             bind:imageButtonOnClick="@{imageButtonOnClick}"
             bind:patientInstruction="@{patientInstruction}"
             bind:videoButtonOnClick="@{videoButtonOnClick}" />

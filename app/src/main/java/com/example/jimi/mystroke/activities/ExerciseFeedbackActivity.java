@@ -19,7 +19,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.Instant;
 
-public class ExerciseFeedbackActivity extends AppCompatActivity {
+public class ExerciseFeedbackActivity extends AppCompatActivity implements View.OnClickListener {
     RadioGroup radioGroup;
     private String eID;
 
@@ -31,13 +31,14 @@ public class ExerciseFeedbackActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         radioGroup = findViewById(R.id.feedbackRadio);
 
+        findViewById(R.id.submitFeedbackbutton).setOnClickListener(this);
         eID = getIntent().getStringExtra("EXTRA_EXERCISE_ID");
         if(eID == null) {
             startActivity(new Intent(getApplicationContext(), PatientHomeActivity.class));
         }
     }
 
-    protected void submitOnClick(View view) {
+    public void onClick(View view) {
         switch(radioGroup.getCheckedRadioButtonId()) {
             case R.id.feedbackRadioBtn1:
                 submit(1);
@@ -62,6 +63,8 @@ public class ExerciseFeedbackActivity extends AppCompatActivity {
     private void submit(int f) {
         PatientAssessesExercise feedback = new PatientAssessesExercise(Globals.getInstance().getPatientOb().getId(), eID, f);
         new RecordsToAppDatabaseTask(getString(R.string.patient_assesses_exercise), AppDatabase.getDatabase(getApplicationContext())).execute(feedback);
+        startActivity(new Intent(getApplicationContext(), FeedbackLeftActivity.class));
+        //TODO move to get result? change records to appdatabase to give result?
     }
 
 }

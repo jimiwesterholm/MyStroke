@@ -161,4 +161,8 @@ public class Exercise implements DatabaseObject {
     public static String youTubeFromVidId(String id) {
         return "https://www.youtube.com/watch?v=" + id;
     }
+
+    public static String thumbnailFromVidId(String id) {
+        return "http://img.youtube.com/vi/"+id+"/mqdefault.jpg";
+    }
 }

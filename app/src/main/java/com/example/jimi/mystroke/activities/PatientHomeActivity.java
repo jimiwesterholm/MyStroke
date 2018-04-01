@@ -96,4 +96,7 @@ public class PatientHomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_def, menu);
         return true;
     }
+
+    //TODO: when returning from certan locations (maybe redirect instead?) https://stackoverflow.com/questions/20623659/disable-back-button-in-android
+
 }

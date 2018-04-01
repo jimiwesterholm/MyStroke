@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             cancel = true;
         }
 
-        // Check for a valid email address.
+        // Check for a valid username.  TODO change username to email
         if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
@@ -141,7 +141,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            focusView.requestFocus();
+            //focusView.requestFocus();
+            //TODO remove below + uncomment above when done evaluating etc.
+            mAuthTask = new UserLoginTask("root", "root", getApplicationContext());
+            mAuthTask.execute((Void) null);
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
@@ -271,26 +274,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             AppDatabase aDb = AppDatabase.getDatabase(context);
             UserDao userDao = aDb.userDao();
             User user = userDao.findByUsername(mUser, false);
-            //TODO: check that works when username wrong
-
+            Globals globals = Globals.getInstance();
             //TODO: add salt
             if (user == null || !mPassword.equals(user.getPassword())) {
                 return false;
             }
-            Globals.getInstance().setUser(user);
+            globals.setUser(user);
 
 
             Intent intent = null;
             if (user.getTherapist() == 1 && user.getPatient() == 1) {
-                //TODO therapist as well
-                Globals.getInstance().setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
+                globals.setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
                 intent = new Intent(context, PatientOrTherapistActivity.class);
+                //intent = new Intent(context, PatientHomeActivity.class);
             } else if (user.getPatient() == 1) {
-                Globals.getInstance().setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
+                globals.setPatientOb(aDb.patientDao().loadByUserId(user.getId(), false));
                 intent = new Intent(context, PatientHomeActivity.class);
                 Globals.getInstance().setLoggedAsPatient(1);
             } else if (user.getTherapist() == 1) {
                 intent = new Intent(context, TherapistHomeActivity.class);
+                globals.setTherapistOb(aDb.therapistDao().loadByUserId(user.getId(), false));
+                //intent = new Intent(context, PatientHomeActivity.class);
                 Globals.getInstance().setLoggedAsPatient(0);
             }
 

@@ -148,4 +148,10 @@
     <string name="feedback_easy">Very easy</string>
     <string name="title_activity_feedback_left">FeedbackLeftActivity</string>
     <string name="feedback_successful">Your feedback has been saved!</string>
+    <string name="update">Update</string>
+    <string name="edit_media">Edit media</string>
+    <string name="title_activity_exercise_clicked_options">ExerciseClickedOptionsActivity</string>
+    <string name="view_exercise">View Exercise</string>
+    <string name="edit_exercise">Edit Exercise</string>
+    <string name="view">View</string>
 </resources>

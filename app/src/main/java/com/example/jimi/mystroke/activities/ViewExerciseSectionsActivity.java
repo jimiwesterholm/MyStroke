@@ -1,6 +1,8 @@
 package com.example.jimi.mystroke.activities;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,14 +31,26 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     //TODO: Convert from arrayadapter/listview to recyclerview?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*Patient patient = Globals.getInstance().getPatientOb();
-        if(patient != null) {
-            new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
-        } else {
-            new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
-        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
+        Globals globals = Globals.getInstance();
+        if(globals.isLoggedAsPatient() == 1) {
+            Patient patient = Globals.getInstance().getPatientOb();
+            if (patient != null) {
+                new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
+            } else {
+                new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
+            }
+        } else {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
