@@ -15,26 +15,41 @@ import java.util.List;
  * Created by jimi on 14/12/2017.
  */
 @Dao
-public interface ExerciseImageDao {
+public abstract class ExerciseImageDao {
     //TODO: Add patient id requirements for queries
     @Query("SELECT * FROM exercise_image WHERE toDelete =:toDelete")
-    List<ExerciseImage> getAll(boolean toDelete);
+    public abstract List<ExerciseImage> getAll(boolean toDelete);
 
     @Query("SELECT * FROM exercise_image WHERE id IN (:ids) AND toDelete =:toDelete")
-    List<ExerciseImage> loadAllByIds(String[] ids, boolean toDelete);
+    public abstract List<ExerciseImage> loadAllByIds(String[] ids, boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(ExerciseImage... exerciseImages);
+    public abstract void insertAll(ExerciseImage... exerciseImages);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    public abstract long insert(ExerciseImage exerciseImage);
 
     @Delete
-    void delete(ExerciseImage exerciseImage);
+    public abstract void delete(ExerciseImage exerciseImage);
 
     @Query("SELECT * FROM exercise_image WHERE created > :created AND toDelete =:toDelete")
-    List<ExerciseImage> loadChanged(long created, boolean toDelete);
+    public abstract List<ExerciseImage> loadChanged(long created, boolean toDelete);
 
      @Update
-    void update(ExerciseImage exerciseImage);
+     public abstract void update(ExerciseImage exerciseImage);
 
      @Query("SELECT * FROM exercise_image WHERE id =:eId AND toDelete =:toDelete")
-    List<ExerciseImage> loadAllByExerciseId(String eId, boolean toDelete);
+     public abstract List<ExerciseImage> loadAllByExerciseId(String eId, boolean toDelete);
+
+    public void upsert(ExerciseImage exerciseImage) {
+        if(insert(exerciseImage) == -1) {
+            update(exerciseImage);
+        }
+    }
+
+    public void upsertAll(ExerciseImage... exerciseImages) {
+        for (ExerciseImage exerciseImage : exerciseImages) {
+            upsert(exerciseImage);
+        }
+    }
 }

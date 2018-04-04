@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -63,8 +62,8 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
         title = view.findViewById(R.id.titleInclude).findViewById(R.id.editValueText);
         description = view.findViewById(R.id.descriptionEditText);
 
-        addButton = findViewById(R.id.add_button);
-        mediaButton = findViewById(R.id.media_button);
+        addButton = findViewById(R.id.cancel_button);
+        mediaButton = findViewById(R.id.finish_button);
     }
 
     private void itemsToAdapter(AutoCompleteTextView textView, ArrayAdapter adapter) {
@@ -91,21 +90,19 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
         String id = UUID.randomUUID().toString();
         String desc = description.getText().toString();
         String sect = sectionEditText.getText().toString();
-        String tit = title.getText().toString();
-        String ass = "70dab8d0-262f-11e8-b467-0ed5f89f718b";    //TODO get actual value
+        String name = title.getText().toString();
+        String assessmentId = "70dab8d0-262f-11e8-b467-0ed5f89f718b";    //TODO get actual value
 
         //TODO: fix weird dropdown menu location (? - slightly futurier past Jimi)
         switch (view.getId()) {
-            case (R.id.media_button):
-                intent = new Intent(getApplicationContext(), AddExerciseMediaActivity.class);
-                intent.putExtra("EXTRA_DECRIPTION", desc);
-                intent.putExtra("EXTRA_SECTION", sect);
-                intent.putExtra("EXTRA_TITLE", tit);
-                intent.putExtra("EXTRA_ASSESSMENT_ID", ass);
-                break;
-            case (R.id.add_button):
-                Exercise exercise = new Exercise(id, description.getText().toString(), sectionEditText.getText().toString(), title.getText().toString(), "70dab8d0-262f-11e8-b467-0ed5f89f718b");
+            case (R.id.finish_button):
+                Exercise exercise = new Exercise(id, description.getText().toString(), sectionEditText.getText().toString(), title.getText().toString(), assessmentId, null);
                 new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
+                intent = new Intent(getApplicationContext(), AddMediaOrFinishedActivity.class);
+                intent.putExtra("EXTRA_EXERCISE_ID", id);
+                break;
+            case (R.id.cancel_button):
+                finish();
         }
         if (intent != null) startActivity(intent);
     }

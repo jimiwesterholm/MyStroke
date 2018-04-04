@@ -69,4 +69,10 @@ public abstract class ExerciseDao {
             update(exercise);
         }
     }
+
+    public void upsertAll(Exercise... exercises) {
+        for (Exercise exercise : exercises) {
+            upsert(exercise);
+        }
+    }
 }

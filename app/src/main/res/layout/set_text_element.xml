@@ -37,6 +37,7 @@
         android:ems="10"
         android:hint="@string/click_to_write"
         android:inputType="textPersonName"
+        android:freezesText="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelView"
         app:layout_constraintTop_toTopOf="parent" />

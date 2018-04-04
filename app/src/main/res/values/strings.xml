@@ -154,4 +154,15 @@
     <string name="view_exercise">View Exercise</string>
     <string name="edit_exercise">Edit Exercise</string>
     <string name="view">View</string>
+    <string name="media_submitted">Exercise updated!</string>
+    <string name="title_activity_add_media_or_finished">AddMediaOrFinishedActivity</string>
+    <string name="exercise_uploaded">Exercise uploaded! Add pictures or a video?</string>
+    <string name="title_activity_register_therapist_enter_code">RegisterTherapistEnterCodeActivity
+    </string>
+    <string name="to_register_as_therapist">To register as a therapist, enter the code provided to you.</string>
+    <string name="enter_code">Enter Code</string>
+    <string name="title_activity_register_therapist">RegisterTherapistActivity</string>
+    <string name="register">Register</string>
+    <string name="physio_email_hint">Please use your NHS email</string>
+    <string name="password">Password</string>
 </resources>

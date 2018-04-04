@@ -42,7 +42,7 @@ public class DownloadImagesTask extends AsyncTask<String, Void, List<Bitmap>> {
 
     @Override
     protected List<Bitmap> doInBackground(String... ids) {
-        HttpURLConnection con = null;
+        /*HttpURLConnection con = null;
         List<Bitmap> bitmaps = new ArrayList<Bitmap>();
         try {
             String urlString = Globals.getInstance().getFileDispUrl().concat(Globals.getInstance().getLoadImageFD());
@@ -75,7 +75,8 @@ public class DownloadImagesTask extends AsyncTask<String, Void, List<Bitmap>> {
             return bitmaps;
         } else {
             return null;
-        }
+        }*/
+        return null;
     }
 
     @Override

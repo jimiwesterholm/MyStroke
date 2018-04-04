@@ -70,11 +70,11 @@ public class RecordsToAppDatabaseTask extends AsyncTask<Object, Integer, Boolean
         switch (className) {
             case "user":
                 UserDao userDao = aDb.userDao();
-                userDao.insertAll(Arrays.copyOf(objects, objects.length, User[].class));
+                userDao.upsertAll(Arrays.copyOf(objects, objects.length, User[].class));
                 break;
             case "exercise":
                 ExerciseDao exerciseDao = aDb.exerciseDao();
-                exerciseDao.insertAll(Arrays.copyOf(objects, objects.length, Exercise[].class));
+                exerciseDao.upsertAll(Arrays.copyOf(objects, objects.length, Exercise[].class));
                 break;
             case "exercise_image":
                 ExerciseImageDao exerciseImageDao = aDb.exerciseImageDao();

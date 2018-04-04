@@ -41,12 +41,11 @@ public class UploadImagesTask extends AsyncTask<ExerciseImage, Void, Boolean> {
             String urlString = Globals.getInstance().getFileDispUrl().concat(Globals.getInstance().getAddImageFD());
             URL url = new URL(urlString);
             con = (HttpURLConnection) url.openConnection();
-            //con.connect();
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestMethod("POST");
             con.setDoOutput(true);
-
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(con.getOutputStream());
+            con.connect();
             for(ExerciseImage image : exerciseImages) {
                 JSONObject jsonObject = image.toJSONWithBitmap();
                 outputStreamWriter.write(jsonObject.toString());

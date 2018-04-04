@@ -30,12 +30,12 @@ public class GetSectionsTask extends AsyncTask<Void, Void, List<ExerciseSection>
 
     @Override
     protected List<ExerciseSection> doInBackground(Void...foo) {
-        List<String> list = aDb.patientListExerciseDao().getPatientExercises(patientId, false);
-        ExerciseDao exerciseDao = aDb.exerciseDao();
-        List<String> sectionNames = exerciseDao.getSectionsOfIds(list.toArray(new String[0]), false);
-
         List<ExerciseSection> sections = new ArrayList<ExerciseSection>();
+        ExerciseDao exerciseDao = aDb.exerciseDao();
         if(patientId != null) {
+            List<String> list = aDb.patientListExerciseDao().getPatientExercises(patientId, false);
+            List<String> sectionNames = exerciseDao.getSectionsOfIds(list.toArray(new String[0]), false);
+
             //Get alerts
             List<PatientListExercise> newExercises = aDb.patientListExerciseDao().loadByViewedAndPatientId(patientId, false, false);
             String[] ids = new String[newExercises.size()];
@@ -47,6 +47,7 @@ public class GetSectionsTask extends AsyncTask<Void, Void, List<ExerciseSection>
                 sections.add(new ExerciseSection(a, sectionNames.get(i)));
             }
         } else {
+            List<String> sectionNames = exerciseDao.getSections(false);
             for (String sectionName : sectionNames) {
                 sections.add(new ExerciseSection(0, sectionName));
             }

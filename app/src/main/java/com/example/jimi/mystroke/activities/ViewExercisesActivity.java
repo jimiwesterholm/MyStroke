@@ -2,6 +2,7 @@ package com.example.jimi.mystroke.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,17 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
         if(Globals.getInstance().isLoggedAsPatient() == 1) {
             new GetExercisesBySectionAndPatientTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION"), Globals.getInstance().getPatientOb().getId()).execute();
         } else {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
+            if(Globals.getInstance().getTherapistOb().getPosition()=="admin") {
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fabOnClick();
+                    }
+                });
+            } else {
+                fab.setVisibility(View.GONE);
+            }
             new GetExercisesBySectionTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION")).execute();
         }
 
@@ -99,6 +111,10 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
             }
         }
     };
+
+    private void fabOnClick() {
+        startActivity(new Intent(this, AddExerciseActivity.class));
+    }
 
     private void viewExercise() {
         Intent intent = new Intent(this, ExerciseActivity.class);

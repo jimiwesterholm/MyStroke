@@ -9,6 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.example.jimi.mystroke.models.Exercise;
+import com.example.jimi.mystroke.models.ExerciseImage;
+
 import java.util.List;
 
 /**
@@ -17,9 +21,9 @@ import java.util.List;
 
 public class ImageAdapter extends BaseAdapter {
     private Context context;
-    private List<Bitmap> images;
+    private List<ExerciseImage> images;
 
-    public ImageAdapter(Context context, List<Bitmap> images) {
+    public ImageAdapter(Context context, List<ExerciseImage> images) {
         this.context = context;
         this.images = images;
     }
@@ -43,7 +47,6 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ImageView imageView;
         if (view == null) {
-            // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
             imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -51,7 +54,18 @@ public class ImageAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) view;
         }
-        imageView.setImageBitmap(images.get(i));
+        Bitmap bitmap = images.get(i).getBitmap();
+        if (bitmap == null) {
+            Glide
+                    .with(context)
+                    .load(images.get(i).getAddress())
+                    .into(imageView);
+        } else {
+            Glide
+                    .with(context)
+                    .load(bitmap)
+                    .into(imageView);
+        }
         return imageView;
     }
 }

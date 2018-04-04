@@ -23,6 +23,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -42,6 +48,8 @@ import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 import com.example.jimi.mystroke.tasks.UploadImagesTask;
 import com.example.jimi.mystroke.tasks.UpsertExerciseTask;
 
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -49,6 +57,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static com.android.volley.Request.Method.GET;
+import static com.android.volley.Request.Method.POST;
 
 /** TODO - check links, make work - will need some server side nonsense as well
  * VIDEO:
@@ -80,15 +91,11 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
     private String eId;
     private GridView gridView;
     private ImageAdapter adapter;
-    private List<Bitmap> list;
     private List<ExerciseImage> exerciseImageList;
-    private Bitmap bitMap;
-    private String uri;
-    private List<String> uriList;
+    private ExerciseImage exerciseImage;
     private EditText youTubeText;
     private TextView youTubeInstruction;
     private ImageView thumbnailView;
-    private String vidId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,20 +104,19 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         exerciseImageList = new ArrayList<ExerciseImage>();
-        uriList = new ArrayList<String>();
-        list = new ArrayList<Bitmap>();
 
         eId = getIntent().getStringExtra("EXTRA_EXERCISE_ID");
         if(eId != null) {
             new GetExerciseByIdTask(AppDatabase.getDatabase(getApplicationContext()), this, eId).execute();
         } else {
-            eId = UUID.randomUUID().toString();
-            exercise = new Exercise(eId, getIntent().getStringExtra("EXTRA_DECRIPTION"), getIntent().getStringExtra("EXTRA_SECTION"), getIntent().getStringExtra("EXTRA_TITLE"), getIntent().getStringExtra("EXTRA_ASSESSMENT_ID"));
+            finish(); //TODO error msg? - doubt this'll ever happen tho
         }
 
         gridView = findViewById(R.id.imageGridView);
-        list.add(BitmapFactory.decodeResource(getApplicationContext().getResources(), android.R.drawable.ic_input_add));
-        itemsToGridView(list);
+        ExerciseImage exerciseImage = new ExerciseImage(null, null, -1, null);
+        exerciseImage.setBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), android.R.drawable.ic_input_add));
+        exerciseImageList.add(exerciseImage);
+        itemsToGridView(exerciseImageList);
 
         youTubeText = findViewById(R.id.youTubeText);
         findViewById(R.id.youTubeButton).setOnClickListener(new Button.OnClickListener() {
@@ -127,10 +133,9 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
 
     protected void onFinishClick(View view) {
         //Validate presence of stuff?
+        new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
         upload();
-        if(getIntent().getStringExtra("EXTRA_TITLE") == null) {
-            new UpsertExerciseTask(AppDatabase.getDatabase(getApplicationContext()), eId).execute(exercise);
-        }
+        startActivity(new Intent(this, MediaSubmittedActivity.class));
     }
 
     //This method is from https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent - by Roger Garzon Nieto
@@ -142,6 +147,38 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
             this.startActivity(appIntent);
         } catch (ActivityNotFoundException ex) {
             this.startActivity(webIntent);
+        }
+    }
+
+    private void upload() {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Globals.getInstance().getFileDispUrl().concat(Globals.getInstance().getAddImageFD());
+
+        List<ExerciseImage> images = exerciseImageList;
+        //Remove the add button
+        images.remove(images.size()-1);
+        for (ExerciseImage exerciseImage : images) {
+            if (exerciseImage.getBitmap() == null) {
+                continue;
+            }
+            try {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                        (POST, url, exerciseImage.toJSONWithBitmap(), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                            }
+                        });
+
+                // Add the request to the RequestQueue.
+                queue.add(jsonObjectRequest);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -174,12 +211,7 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
         }
     }
 
-    private void upload() {
-        new UploadImagesTask(getApplicationContext(), this).execute(exerciseImageList.toArray(new ExerciseImage[0]));
-        //TODO indicate loading happening
-    }
-
-    private void itemsToGridView(List<Bitmap> items) {
+    private void itemsToGridView(List<ExerciseImage> items) {
         adapter = new ImageAdapter(this, items);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(this);
@@ -193,10 +225,6 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
         return;
     }
 
-    private void getImagesFromServer() {
-
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -208,16 +236,13 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
                         String img = selectedImage.toString();
                         Bitmap image = BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage));
                         if (image != null) {
+                            exerciseImage = new ExerciseImage(eId, null, exerciseImageList.size() - 1, img);
+                            exerciseImage.setBitmap(image);
                             Intent intent = new Intent(getApplicationContext(), ImageConfirmActivity.class);
                             intent.putExtra("EXTRA_URI", img);
-                            //intent.putExtra("EXTRA_LIST_POS", -1);
-                            //list.add(0, image);
-                            bitMap = image;
-                            //uriList.add(0, img);
-                            uri = img;
                             startActivityForResult(intent, 2);
                         } else {
-                            //TODO error message
+                            //TODO error msg
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -233,20 +258,17 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
                     int pos = data.getIntExtra("EXTRA_LIST_POS", -1);
                     if(pos >= 0) {
                         if(data.getBooleanExtra("EXTRA_TO_DELETE", false)) {
-                            list.remove(pos);
-                            uriList.remove(pos);
+                            exerciseImageList.remove(pos);
                         } else {
                             exerciseImageList.get(pos).setAltText(alt);
                         }
                     } else {
-                        list.add(bitMap);
-                        uriList.add(uri);
-                        exerciseImageList.add(new ExerciseImage(eId, alt, 0, list.get(0)));
+                        exerciseImage.setAltText(alt);
+                        exerciseImageList.add(exerciseImageList.size() - 1, exerciseImage);
                     }
                 } else if (resultCode == Activity.RESULT_CANCELED) {
                     if (data.getIntExtra("EXTRA_LIST_POS", -1) == -1) {
-                        list.remove(0);
-                        uriList.remove(0);
+                        exerciseImage = null;
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -275,8 +297,15 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
             case GetExerciseImagesTask.var:
                 List<ExerciseImage> exerciseImages = (List<ExerciseImage>) objects[0];
                 Globals globals = Globals.getInstance();
-                for (int i = 0; i < exerciseImages.size(); i++) {
-
+                if(exerciseImages.size() > 0) {
+                    exerciseImageList = new ArrayList<ExerciseImage>(exerciseImages.size());
+                    ExerciseImage addButton = new ExerciseImage(null, null, -1, null);
+                    addButton.setBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), android.R.drawable.ic_input_add));
+                    exerciseImageList.add(exerciseImageList.size() - 1, addButton);
+                    for (int i = 0; i < exerciseImages.size(); i++) {
+                        ExerciseImage newImage = exerciseImages.get(i);
+                        exerciseImageList.add(newImage.getPosition(), newImage);
+                    }
                 }
         }
     }
@@ -287,40 +316,11 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
             findImage();
         } else {
             Intent intent = new Intent(getApplicationContext(), ImageConfirmActivity.class);
-            intent.putExtra("EXTRA_URI", uriList.get(i));
+            intent.putExtra("EXTRA_URI", exerciseImageList.get(i).getAddress());
             intent.putExtra("EXTRA_ALT_TEXT", exerciseImageList.get(i).getAltText());
             intent.putExtra("EXTRA_LIST_POS", i);
             startActivityForResult(intent, 2);
         }
     }
 
-  /*  private class loadImages extends AsyncTask<ExerciseImage, Void, Void> {
-        private Context context;
-        private AsyncResponse response = AddExerciseMediaActivity.this;
-
-        public loadImages(AppDatabase appDatabase, Context context, AsyncResponse response) {
-            this.context = context;
-            this.response = response;
-        }
-
-        @Override
-        protected Void doInBackground(ExerciseImage[] exerciseImages)  {
-            for (int i = 0; i < exerciseImages.length; i++) {
-                HttpURLConnection con = null;
-                try {
-                    URL url = new URL(ExerciseImage.urlFromID(exerciseImages[i].getId()));
-                    con = (HttpURLConnection) url.openConnection();
-                    con.setDoInput(true);
-                    con.connect();
-                    InputStream inputStream = con.getInputStream();
-                    list.set(i, BitmapFactory.decodeStream(inputStream));
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                } finally {
-                    if(con != null) con.disconnect();
-                }
-            }
-        }
-    }
-*/
 }

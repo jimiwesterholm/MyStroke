@@ -95,6 +95,18 @@
         <activity
             android:name=".activities.ExerciseClickedOptionsActivity"
             android:label="@string/title_activity_exercise_clicked_options"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.AddMediaOrFinishedActivity"
+            android:label="@string/title_activity_add_media_or_finished"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.RegisterTherapistEnterCodeActivity"
+            android:label="@string/title_activity_register_therapist_enter_code"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.RegisterTherapistActivity"
+            android:label="@string/title_activity_register_therapist"
             android:theme="@style/AppTheme"></activity>
     </application>
 

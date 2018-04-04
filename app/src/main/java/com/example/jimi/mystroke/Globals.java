@@ -15,12 +15,11 @@ public class Globals {
     private Therapist therapistOb;
     private int isLoggedAsPatient;
     private long latestUpdate;
-    private final String ngrok = "http://5767e355.ngrok.io";
+    private final String ngrok = "http://2b4edf59.ngrok.io";
     private final String dbUrl = ngrok.concat("/api.php/");
     private final String fileDispUrl = ngrok.concat("/FileDispenser/");
     private final String imageFileType = ".png";
     private final String addImageFD = "addImage.php";
-    private final String loadImageFD = "addImage.php";
     private final String[] classNames = {
             "user",
             "therapist",
@@ -57,10 +56,6 @@ public class Globals {
 
     public Patient getPatientOb() {
         return patientOb;
-    }
-
-    public String getLoadImageFD() {
-        return loadImageFD;
     }
 
     public String getFileDispUrl() {

@@ -1,7 +1,6 @@
 package com.example.jimi.mystroke.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +21,7 @@ import com.example.jimi.mystroke.models.ExerciseSection;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetExerciseByIdTask;
 import com.example.jimi.mystroke.tasks.GetSectionsTask;
+import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +67,6 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
 
         title = view.findViewById(R.id.titleInclude).findViewById(R.id.editValueText);
         description = view.findViewById(R.id.descriptionEditText);
-
-        Button addButton = findViewById(R.id.add_button);
-        Button mediaButton = findViewById(R.id.media_button);
-        addButton.setText(R.string.update);
-        mediaButton.setText(R.string.edit_media);
     }
 
     private void itemsToAdapter(AutoCompleteTextView textView, ArrayAdapter adapter) {
@@ -97,19 +92,17 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
         String exerciseSection = sectionEditText.getText().toString();
         Assessment assessment = (Assessment) assessmentSpinner.getSelectedItem();
         exercise.setSection(exerciseSection);
-        //exercise.setAid(assessment.getId());
+        //exercise.setAid(assessment.getId());  TODO uncomment
         exercise.setDescription(description.getText().toString());
         exercise.setName(title.getText().toString());
-        //Exercise exercise = new Exercise(description.getText().toString(), exerciseSection.toString(), title.getText().toString(), assessment.getId());
 
-        //TODO: remove, fix weird dropdown menu location, use actual values
         switch (view.getId()) {
-            case (R.id.media_button):
-                intent = new Intent(getApplicationContext(), AddExerciseMediaActivity.class);
+            case (R.id.finish_button):
+                new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
+                intent = new Intent(getApplicationContext(), AddMediaOrFinishedActivity.class);
                 intent.putExtra("EXTRA_EXERCISE_ID", exercise.getId());
-            case (R.id.add_button):
-                //TODO change recordsToApp-- to upsert everything?
-                //new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
+            case (R.id.cancel_button):
+                finish();
         }
         if (intent != null) startActivity(intent);
     }

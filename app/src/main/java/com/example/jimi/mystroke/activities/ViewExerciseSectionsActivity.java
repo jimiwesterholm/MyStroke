@@ -19,6 +19,7 @@ import com.example.jimi.mystroke.ListLinkAdapter;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.ExerciseSection;
 import com.example.jimi.mystroke.models.Patient;
+import com.example.jimi.mystroke.models.Therapist;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.GetPatientByUserIdTask;
 import com.example.jimi.mystroke.tasks.GetSectionsTask;
@@ -35,21 +36,30 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
         setContentView(R.layout.activity_view_list);
         Globals globals = Globals.getInstance();
         if(globals.isLoggedAsPatient() == 1) {
-            Patient patient = Globals.getInstance().getPatientOb();
+            Patient patient = globals.getPatientOb();
             if (patient != null) {
                 new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
             } else {
-                new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
+                new GetPatientByUserIdTask(this, globals.getUser().getId(), getApplicationContext()).execute();
             }
         } else {
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+            Therapist therapist = globals.getTherapistOb();
+            if(therapist != null) {
+                new GetSectionsTask(this, this, null).execute();
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
+                if(therapist.getPosition() == "admin") {
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            fabOnClick();
+                        }
+                    });
+                } else {
+                    fab.setVisibility(View.GONE);
                 }
-            });
+            } else {
+                //TODO find therapist
+            }
         }
 
         toolbar = findViewById(R.id.toolbar);
@@ -61,13 +71,13 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() {/*
         Patient patient = Globals.getInstance().getPatientOb();
         if(patient != null) {
             new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
         } else {
             new GetPatientByUserIdTask(this, Globals.getInstance().getUser().getId(), getApplicationContext()).execute();
-        }
+        }*/
         super.onResume();
 
         //TODO: Convert to use recyclerview instead of listview
@@ -87,6 +97,10 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
             startActivity(intent);
         }
     };
+
+    private void fabOnClick() {
+        startActivity(new Intent(this, AddExerciseActivity.class));
+    }
 
     private void itemsToListView(List<ExerciseSection> items, AdapterView.OnItemClickListener listener) {
         ListLinkAdapter<ExerciseSection> adapter = new ListLinkAdapter<ExerciseSection>(this, items);

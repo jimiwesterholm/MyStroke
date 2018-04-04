@@ -51,6 +51,9 @@ public class ExerciseImage implements DatabaseObject {
     @ColumnInfo
     private long created;
 
+    @Ignore
+    private String address;
+
     private boolean toDelete;
 
     @Ignore
@@ -70,6 +73,7 @@ public class ExerciseImage implements DatabaseObject {
         this.eid = eid;
         this.altText = altText;
         this.position = position;
+        this.address = ExerciseImage.urlFromID(id);
         created = System.currentTimeMillis();
         toDelete = false;
     }
@@ -80,21 +84,34 @@ public class ExerciseImage implements DatabaseObject {
         this.eid = eid;
         this.altText = altText;
         this.position = position;
+        this.address = ExerciseImage.urlFromID(id);
         created = System.currentTimeMillis();
         toDelete = false;
     }
 
     @Ignore
-    public ExerciseImage(String eid, String altText, int position, Bitmap bitmap) {
+    public ExerciseImage(String eid, String altText, int position, String address) {
         this.id = UUID.randomUUID().toString();
         this.eid = eid;
         this.altText = altText;
         this.position = position;
-        this.bitmap = bitmap;
+        this.address = address;
         created = System.currentTimeMillis();
         toDelete = false;
     }
 
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
     public long getCreated() {
         return created;
     }
