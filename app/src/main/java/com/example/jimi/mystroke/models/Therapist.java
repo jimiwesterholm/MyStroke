@@ -47,6 +47,9 @@ public class Therapist implements DatabaseObject {
 
     private boolean toDelete;
 
+    @Ignore
+    private User user;
+
     public boolean isToDelete() {
         return toDelete;
     }
@@ -104,6 +107,12 @@ public class Therapist implements DatabaseObject {
     public void setActive(int active) {
         this.active = active;
     }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public JSONObject toJSON() throws JSONException {
@@ -113,5 +122,14 @@ public class Therapist implements DatabaseObject {
         jsonObject.put("user_iduser", userID);
         jsonObject.put("active", active);
         return jsonObject;
+    }
+
+    @Override
+    public String toString() {
+        if(user != null) {
+            return user.getFirstName() + " " + user.getLastName();
+        } else {
+            return "Name not found";
+        }
     }
 }

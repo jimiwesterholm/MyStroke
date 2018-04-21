@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_add_exercise">
 
     <Button
-        android:id="@+id/cancel_button"
+        android:id="@+id/add_exercise_button"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cancel_button" />
+        app:layout_constraintStart_toEndOf="@+id/add_exercise_button" />
 
     <include
         android:id="@+id/include_edit_add"

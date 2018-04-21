@@ -33,24 +33,28 @@ public class TherapistHomeActivity extends AppCompatActivity {
             https://stackoverflow.com/questions/10641144/difference-between-getcontext-getapplicationcontext-getbasecontext-and/15175006
              */
             case (R.id.buttonExercises):
-                //intent = new Intent(getApplicationContext(), AddExerciseActivity.class);    //TODO change, add actual path to this
-                intent = new Intent(getApplicationContext(), ViewExerciseSectionsActivity.class);
+                //intent = new Intent(this, AddExerciseActivity.class);    //TODO change, add actual path to this
+                intent = new Intent(this, ViewExerciseSectionsActivity.class);
                 break;
             case (R.id.buttonChat):
-                intent = new Intent(getApplicationContext(), ChatActivity.class);
+                intent = new Intent(this, ChatActivity.class);
                 break;
             case (R.id.buttonPatient):
-                intent = new Intent(getApplicationContext(), ViewPatientsActivity.class);
+                intent = new Intent(this, ViewPatientsActivity.class);
                 break;
             case (R.id.buttonAssessment):
-                intent = new Intent(getApplicationContext(), AssessmentActivity.class);
+                intent = new Intent(this, AssessmentActivity.class);
                 break;
             case (R.id.buttonProfile):
-                intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent = new Intent(this, ProfileActivity.class);
+                //intent = new Intent(this, ViewTherapistsActivity.class);
                 break;
             case (R.id.buttonHelp):
-                //intent = new Intent(getApplicationContext(), HelpActivity.class);
-                intent = new Intent(getApplicationContext(), AddInfoPageActivity.class);
+                //intent = new Intent(this, HelpActivity.class);
+                intent = new Intent(this, AddInfoPageActivity.class);
+                break;
+            case (R.id.buttonTherapists):
+                intent = new Intent(this, ViewTherapistsActivity.class);
                 break;
             default:
                 return;

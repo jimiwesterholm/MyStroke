@@ -39,7 +39,7 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
             new GetExercisesBySectionAndPatientTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION"), Globals.getInstance().getPatientOb().getId()).execute();
         } else {
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
-            if(Globals.getInstance().getTherapistOb().getPosition()=="admin") {
+            if(Globals.getInstance().getTherapistOb().getPosition().equals("admin")) {
                 fab.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

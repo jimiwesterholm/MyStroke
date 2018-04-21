@@ -35,7 +35,7 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     private PatientListImagery imagery;
     private boolean imageryOn;
     private Button switchButton;
-    private List<PatientListImagery> patientImageries;
+    //private List<PatientListImagery> patientImageries;
     private List<PatientListExercise> patientExercises;
     private ArrayAdapter<PatientListExercise> exerciseArrayAdapter;
     private ArrayAdapter<PatientListImagery> imageryArrayAdapter;
@@ -84,10 +84,10 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
     @Override
     public void respond(int var, Object... objects) {
         switch(var) {
-            case GetPatientListImageriesTask.var:
+            /*case GetPatientListImageriesTask.var:
                 patientImageries = (List<PatientListImagery>) objects[0];
                 imageryArrayAdapter = new ArrayAdapter<PatientListImagery>(this, R.layout.support_simple_spinner_dropdown_item, patientImageries.toArray(new PatientListImagery[0]));
-                break;
+                break;*/
             case GetPatientListExercisesTask.var:
                 patientExercises = (List<PatientListExercise>) objects[0];
                 //title.setText(R.string.exercise_list);
@@ -96,7 +96,7 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
         }
     }
 
-    public void onChangeListButtonClick(View view) {
+    /*public void onChangeListButtonClick(View view) {
         Button button = (Button) view;
         if(!imageryOn) {
             title.setText(R.string.imagery_list);
@@ -111,16 +111,16 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
             label.setText(R.string.exerciseBut);
             imageryOn = false;
         }
-    }
+    }*/
 
     public void onAddListItemButtonClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), AddToListActivity.class);
+        Intent intent = new Intent(this, AddToListActivity.class);
         intent.putExtra("EXTRA_PATIENT_ID", pId);
         startActivity(intent);
     }
 
     public void onDeleteListItemButtonClick(View view) {
-        if(imageryOn) {
+        /*if(imageryOn) {
             if(imagery == null) {
                 //TODO error message
                 return;
@@ -128,7 +128,7 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
             new DeletePatientListImageriesTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(imagery);
             imageryArrayAdapter.remove(imagery);
             imagery = null;
-        } else {
+        } else {*/
             if(exercise == null) {
                 //TODO error message
                 return;
@@ -136,7 +136,6 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
             new DeletePatientListExercisesTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
             exerciseArrayAdapter.remove(exercise);
             exercise = null;
-        }
+        //}
     }
-
 }

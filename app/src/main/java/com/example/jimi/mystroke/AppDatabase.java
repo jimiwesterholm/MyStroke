@@ -37,6 +37,7 @@ import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.models.PatientAssessesExercise;
 import com.example.jimi.mystroke.models.PatientListExercise;
 import com.example.jimi.mystroke.models.PatientListImagery;
+import com.example.jimi.mystroke.models.RegisterCode;
 import com.example.jimi.mystroke.models.Therapist;
 import com.example.jimi.mystroke.models.TherapistAssessesExercise;
 import com.example.jimi.mystroke.models.User;
@@ -62,9 +63,10 @@ import java.sql.Time;
         PatientAssessesExercise.class,
         TherapistAssessesExercise.class,
         ExerciseImage.class,
-        HelpPage.class
+        HelpPage.class,
+        RegisterCode.class
 },
-        version = 21)
+        version = 22)
 @TypeConverters(PersistenceTypeConverters.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase APPDB;

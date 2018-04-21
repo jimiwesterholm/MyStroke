@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.jimi.mystroke.activities.PatientActivity"
-    tools:showIn="@layout/activity_view_patient">
+    tools:context=".activities.TherapistActivity"
+    tools:showIn="@layout/activity_therapist">
 
     <include
         android:id="@+id/include"
-        layout="@layout/patient_information"
+        layout="@layout/therapist_information"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -23,55 +23,38 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/assessmentButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/basic_button"
-        android:text="@string/assessBut"
-        android:textColor="@color/white"
-        android:onClick="onClick"
-        app:layout_constraintBottom_toTopOf="@+id/listButton"
-        app:layout_constraintEnd_toStartOf="@+id/deleteTherapistButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/deleteTherapistButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/basic_button"
-        android:text="@string/chatBut"
-        android:textColor="@color/white"
         android:onClick="onClick"
+        android:text="@string/delete"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/assessmentButton"
-        app:layout_constraintTop_toTopOf="@+id/assessmentButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/listButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/basic_button"
-        android:text="@string/exercise_list"
-        android:textColor="@color/white"
         android:onClick="onClick"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/patient_list"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/deleteTherapistButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

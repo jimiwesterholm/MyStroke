@@ -172,7 +172,7 @@ public class User implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("iduser", id);
+        //jsonObject.put("iduser", id);
         jsonObject.put("username", username);
         jsonObject.put("password", password);
         jsonObject.put("salt", salt);

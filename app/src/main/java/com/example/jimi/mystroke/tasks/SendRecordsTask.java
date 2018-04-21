@@ -65,32 +65,36 @@ public class SendRecordsTask implements Callable {
         String fullText = "";
         try {
             String urlString = Globals.getInstance().getDbUrl().concat(className).concat("/");
-            urlString = urlString.concat(records.get(0).getId());;
-            for (int i = 1; i < records.size(); i++) {
-                urlString = urlString.concat(",");
-                urlString = urlString.concat(records.get(i).getId());
-                String urlStringT = urlString.concat(",").concat(records.get(i).getId());
-            }
+            urlString = urlString.concat(records.get(0).getId());/*
+            if(records.size > 1) {
+                for (int i = 1; i < records.size(); i++) {      TODO the above works, this should as well? not tested tho
+                    urlString = urlString.concat(",");
+                    urlString = urlString.concat(records.get(i).getId());
+                    String urlStringT = urlString.concat(",").concat(records.get(i).getId());
+                }
+            }*/
 
             URL url = new URL(urlString);
             con = (HttpURLConnection) url.openConnection();
 
             //Two lines below directly from https://stackoverflow.com/questions/5379247/filenotfoundexception-while-getting-the-inputstream-object-from-httpurlconnectio/23857860
-            con.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
-            con.setRequestProperty("Accept","*/*");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestMethod("POST");
+            //con.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+            //con.setRequestProperty("Accept","*/*");
+            //con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestMethod("PUT");   //TODO works for update, not create - for that use POST, then check if successful
             con.setDoOutput(true);
 
             DataOutputStream outputStreamWriter = new DataOutputStream(con.getOutputStream());
-            outputStreamWriter.writeBytes(recordsToString(records));
+            //outputStreamWriter.writeBytes(recordsToString(records));
+            String aaa = records.get(0).toJSON().toString();
+            outputStreamWriter.writeBytes(aaa);
             outputStreamWriter.flush();
             outputStreamWriter.close();
 
             //con.connect();
             // Get server input
-            InputStream er = con.getErrorStream();
-            int code = con.getResponseCode();
+            //InputStream er = con.getErrorStream();
+            //int code = con.getResponseCode();
             InputStream is = con.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);

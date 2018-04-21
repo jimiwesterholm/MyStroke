@@ -13,6 +13,7 @@ import com.example.jimi.mystroke.R;
 
 public class RegisterTherapistEnterCodeActivity extends AppCompatActivity {
     private EditText codeEditText;
+    private boolean isPatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +22,23 @@ public class RegisterTherapistEnterCodeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         codeEditText = findViewById(R.id.enterCodeEditText);
+        isPatient = getIntent().getBooleanExtra("EXTRA_IS_PATIENT", false);
+        if(isPatient) {
+            codeEditText.setText(R.string.to_register_as_patient);
+        }
     }
 
     protected  void onEnterCodeButtonClick(View view) {
         String code = codeEditText.getText().toString();
         if(validate(code)) {
-            Intent intent = new Intent(this, RegisterTherapistActivity.class);
+            Intent intent;
+            if(isPatient) {
+                intent = new Intent(this, RegisterPatientActivity.class);
+            } else {
+                intent = new Intent(this, RegisterTherapistActivity.class);
+            }
             intent.putExtra("EXTRA_CODE", code);
+            startActivity(intent);
         } else {
             //TODO error msg
         }

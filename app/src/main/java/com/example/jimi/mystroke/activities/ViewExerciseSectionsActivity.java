@@ -47,7 +47,7 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
             if(therapist != null) {
                 new GetSectionsTask(this, this, null).execute();
                 FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
-                if(therapist.getPosition() == "admin") {
+                if(therapist.getPosition().equals("admin")) {
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

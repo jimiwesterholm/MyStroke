@@ -24,6 +24,7 @@ import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity implements AsyncResponse {
@@ -40,6 +41,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
 
         if (Globals.getInstance().isLoggedAsPatient() == 1) {
             Patient patient = Globals.getInstance().getPatientOb();
+            pId = patient.getId();
             if(patient != null) {
                 new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), patient.getId(), this).execute();
             } else {
@@ -58,6 +60,18 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
 
         messageButton = findViewById(R.id.sendMessageButton);
         messageText = findViewById(R.id.messageText);
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(messageText.getText().toString().length() != 0) {
+                    addComment();
+                } else {
+                    //TODO error message
+                }
+            }
+        });
+        messages = new ArrayList<Comment>(0);
+        itemsToListView(messages, mMessageClickedHandler);
     }
 
     @Override
@@ -76,13 +90,9 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         super.onResume();
     }
 
-    public void sendButtonOnClick(View view) {
-        addComment();
-    }
-
     private void addComment() {
         //TODO get actual values for patient id etc
-        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), Globals.getInstance().getPatientOb().getId(), null, Globals.getInstance().isLoggedAsPatient());
+        Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), pId, null, Globals.getInstance().isLoggedAsPatient());
         new RecordsToAppDatabaseTask("comment", AppDatabase.getDatabase(getApplicationContext())).execute(comment);
         messages.add(comment);
         messageText.getText().clear();

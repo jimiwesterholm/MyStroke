@@ -15,7 +15,7 @@ public class Globals {
     private Therapist therapistOb;
     private int isLoggedAsPatient;
     private long latestUpdate;
-    private final String ngrok = "http://2b4edf59.ngrok.io";
+    private final String ngrok = "http://cc0d2d6a.ngrok.io";
     private final String dbUrl = ngrok.concat("/api.php/");
     private final String fileDispUrl = ngrok.concat("/FileDispenser/");
     private final String imageFileType = ".png";
@@ -41,7 +41,7 @@ public class Globals {
     };
     private final String[] mediaClassNames = {"exercise_image"};
 
-    //TODO remove NEXT A-TASK INT: 25
+    //TODO remove NEXT A-TASK INT: 28
 
     public static Globals getInstance() {
         return ourInstance;

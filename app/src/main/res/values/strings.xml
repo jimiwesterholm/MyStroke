@@ -160,9 +160,23 @@
     <string name="title_activity_register_therapist_enter_code">RegisterTherapistEnterCodeActivity
     </string>
     <string name="to_register_as_therapist">To register as a therapist, enter the code provided to you.</string>
+    <string name="to_register_as_patient">To register as a patient, enter the code provided by a physio.</string>
     <string name="enter_code">Enter Code</string>
     <string name="title_activity_register_therapist">RegisterTherapistActivity</string>
     <string name="register">Register</string>
     <string name="physio_email_hint">Please use your NHS email</string>
     <string name="password">Password</string>
+    <string name="title_activity_view_therapists">ViewTherapistsActivity</string>
+    <string name="title_activity_therapist">TherapistActivity</string>
+    <string name="patient_list">Patient List</string>
+    <string name="not_admin">This user does not have administrator rights.</string>
+    <string name="is_admin">This user is an administrator.</string>
+    <string name="title_activity_therapist_list">TherapistListActivity</string>
+    <string name="patients">Patients</string>
+    <string name="title_activity_add_imagery">AddImageryActivity</string>
+    <string name="title_activity_generate_register_code">GenerateRegisterCodeActivity</string>
+    <string name="generate_code">Generate Code</string>
+    <string name="code_instruction_text">Tap button to generate a code. It will be active for 24 hours</string>
+    <string name="code_radio_instruction">Account type?</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
 </resources>

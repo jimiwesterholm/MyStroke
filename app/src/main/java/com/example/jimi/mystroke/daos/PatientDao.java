@@ -29,4 +29,7 @@ public interface PatientDao {
 
     @Query("SELECT * FROM patient WHERE user_iduser =:uId AND toDelete =:toDelete")
     Patient loadByUserId(String uId, boolean toDelete);
+
+    @Query("SELECT * FROM patient WHERE therapist_idtherapist =:tId AND toDelete =:toDelete")
+    List<Patient> loadAllByTherapistId(String tId, boolean toDelete);
 }

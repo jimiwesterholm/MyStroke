@@ -35,7 +35,7 @@ public class SyncDatabaseTask implements Runnable {
 
         for (String className : classNames) {
             List<? extends DatabaseObject> databaseObjects = new GetChangedRecords(context).getChanged(className);
-            if(databaseObjects != null) {
+            if(databaseObjects.size() != 0) {
                 SendRecordsTask sendRecordsTask = new SendRecordsTask(context, className, databaseObjects);
                 sendRecordsTask.call();
             }

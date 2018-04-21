@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -101,7 +100,7 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
                 new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
                 intent = new Intent(getApplicationContext(), AddMediaOrFinishedActivity.class);
                 intent.putExtra("EXTRA_EXERCISE_ID", exercise.getId());
-            case (R.id.cancel_button):
+            case (R.id.add_exercise_button):
                 finish();
         }
         if (intent != null) startActivity(intent);

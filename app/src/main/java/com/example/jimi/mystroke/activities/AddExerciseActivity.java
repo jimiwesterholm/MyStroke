@@ -62,7 +62,7 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
         title = view.findViewById(R.id.titleInclude).findViewById(R.id.editValueText);
         description = view.findViewById(R.id.descriptionEditText);
 
-        addButton = findViewById(R.id.cancel_button);
+        addButton = findViewById(R.id.add_exercise_button);
         mediaButton = findViewById(R.id.finish_button);
     }
 
@@ -101,7 +101,7 @@ public class AddExerciseActivity extends AppCompatActivity implements AsyncRespo
                 intent = new Intent(getApplicationContext(), AddMediaOrFinishedActivity.class);
                 intent.putExtra("EXTRA_EXERCISE_ID", id);
                 break;
-            case (R.id.cancel_button):
+            case (R.id.add_exercise_button):
                 finish();
         }
         if (intent != null) startActivity(intent);
