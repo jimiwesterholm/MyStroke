@@ -5,11 +5,9 @@
 
     <item android:id="@+id/action_back"
         android:title="@string/home"
-        android:textColor="@color/white"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_log_out"
         android:title="@string/log_out"
-        android:textColor="@color/white"
         app:showAsAction="ifRoom" />
 </menu>
