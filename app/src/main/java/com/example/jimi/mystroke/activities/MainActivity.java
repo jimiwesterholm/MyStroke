@@ -8,10 +8,12 @@ import android.util.Log;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import android.widget.TextView;
 
 import com.example.jimi.mystroke.AppDatabase;
+import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.tasks.FetchRecordsTask;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.tasks.SyncDatabaseTask;
@@ -37,14 +39,22 @@ public class MainActivity extends AppCompatActivity {
         Future<String> future = Executors.newSingleThreadExecutor().submit(frtUser);
         String temp = null;
 
+        FetchRecordsTask frtRC = new FetchRecordsTask();
+        frtRC.setClassName("register_code");
+        frtRC.setContext(context);
+        Executors.newSingleThreadExecutor().submit(frtRC);
+
         TextView text = findViewById(R.id.text);
         try {
             text.setText(getString(R.string.loading));
+            long timeout = System.currentTimeMillis() + 10000;
             do {
                 temp = future.get();
-            } while (!future.isDone());
+            } while (!future.isDone() || System.currentTimeMillis() >= timeout);
+            Globals.getInstance().setLatestUpdate(System.currentTimeMillis());
             //Go to log in once details recovered
             Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage());

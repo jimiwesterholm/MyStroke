@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".activities.ExerciseClickedOptionsActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <include layout="@layout/content_exercise_clicked_options" />
 
 </android.support.design.widget.CoordinatorLayout>

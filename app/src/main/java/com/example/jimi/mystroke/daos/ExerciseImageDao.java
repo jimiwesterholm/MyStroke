@@ -20,6 +20,9 @@ public abstract class ExerciseImageDao {
     @Query("SELECT * FROM exercise_image WHERE toDelete =:toDelete")
     public abstract List<ExerciseImage> getAll(boolean toDelete);
 
+    @Query("SELECT * FROM exercise_image WHERE toDelete =:toDelete")
+    public abstract List<ExerciseImage> loadByToDelete(boolean toDelete);
+
     @Query("SELECT * FROM exercise_image WHERE id IN (:ids) AND toDelete =:toDelete")
     public abstract List<ExerciseImage> loadAllByIds(String[] ids, boolean toDelete);
 

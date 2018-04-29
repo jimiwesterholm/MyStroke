@@ -20,6 +20,7 @@ public class AssessmentResultInt implements DatabaseObject {
     private String id;
     private String assessmentItemId;
     private String therapistAssessmentId;
+    private String pId;
     private int value;
     private long created;
     private boolean toDelete;
@@ -49,6 +50,12 @@ public class AssessmentResultInt implements DatabaseObject {
     public void setAssessmentItemId(String assessmentItemId) {
         this.assessmentItemId = assessmentItemId;
     }
+    public String getpId() {
+        return pId;
+    }
+    public void setpId(String pId) {
+        this.pId = pId;
+    }
     public String getTherapistAssessmentId() {
         return therapistAssessmentId;
     }
@@ -73,6 +80,15 @@ public class AssessmentResultInt implements DatabaseObject {
 
     @Override
     public JSONObject toJSON() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("id_assessment_result_int", id);
+        jsonObject.put("idtherapist_assesses_exercise", therapistAssessmentId);
+        jsonObject.put("value", value);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id_assessment_result_int", id);
         jsonObject.put("idtherapist_assesses_exercise", therapistAssessmentId);

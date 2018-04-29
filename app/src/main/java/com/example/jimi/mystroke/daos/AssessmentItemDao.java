@@ -10,9 +10,6 @@ import com.example.jimi.mystroke.models.AssessmentItem;
 
 import java.util.List;
 
-/**
- * Created by jimi on 24/03/2018.
- */
 @Dao
 public interface AssessmentItemDao {
     @Query("SELECT * FROM assessment_item WHERE toDelete =:toDelete")
@@ -23,6 +20,9 @@ public interface AssessmentItemDao {
 
     @Query("SELECT * FROM assessment_item  WHERE created > (:created) AND toDelete =:toDelete")
     List<AssessmentItem> loadChanged(long created, boolean toDelete);
+
+    @Query("SELECT * FROM assessment_item WHERE toDelete =:toDelete")
+    public abstract List<AssessmentItem> loadByToDelete(boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(AssessmentItem... assessmentItems);

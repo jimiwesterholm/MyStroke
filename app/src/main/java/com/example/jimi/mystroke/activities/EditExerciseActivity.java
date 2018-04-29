@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.jimi.mystroke.AppDatabase;
+import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Assessment;
 import com.example.jimi.mystroke.models.Exercise;
@@ -97,7 +99,7 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
 
         switch (view.getId()) {
             case (R.id.finish_button):
-                new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
+                new RecordsToAppDatabaseTask(getString(R.string.exercise), getApplicationContext()).execute(exercise);
                 intent = new Intent(getApplicationContext(), AddMediaOrFinishedActivity.class);
                 intent.putExtra("EXTRA_EXERCISE_ID", exercise.getId());
             case (R.id.add_exercise_button):
@@ -105,6 +107,33 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
         }
         if (intent != null) startActivity(intent);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent;
+                if(Globals.getInstance().isLoggedAsPatient() == 1) {
+                    intent = new Intent(this, PatientHomeActivity.class);
+                } else {
+                    intent = new Intent(this, TherapistHomeActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            case R.id.action_log_out:
+                Globals.getInstance().setUser(null);
+                Globals.getInstance().setPatientOb(null);
+                Globals.getInstance().setTherapistOb(null);
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public void respond(int var, Object... objects) {

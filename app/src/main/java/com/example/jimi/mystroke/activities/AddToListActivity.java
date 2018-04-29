@@ -1,9 +1,11 @@
 package com.example.jimi.mystroke.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.jimi.mystroke.AppDatabase;
+import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.models.ExerciseSection;
@@ -69,6 +72,33 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
         spinner.setOnItemSelectedListener(this);
         spinner.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent;
+                if(Globals.getInstance().isLoggedAsPatient() == 1) {
+                    intent = new Intent(this, PatientHomeActivity.class);
+                } else {
+                    intent = new Intent(this, TherapistHomeActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            case R.id.action_log_out:
+                Globals.getInstance().setUser(null);
+                Globals.getInstance().setPatientOb(null);
+                Globals.getInstance().setTherapistOb(null);
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,11 +223,11 @@ public class AddToListActivity extends AppCompatActivity implements AsyncRespons
         Patient patient = (Patient) patientSpinner.getSelectedItem();
         if(sectionSpinner.getSelectedItem().equals(getString(R.string.imageryBut))) {
             Imagery imagery = (Imagery) itemSpinner.getSelectedItem();
-            new RecordsToAppDatabaseTask(getString(R.string.patient_list_imagery), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListImagery(patient.getId(), imagery.getId()));
+            new RecordsToAppDatabaseTask(getString(R.string.patient_list_imagery), getApplicationContext()).execute(new PatientListImagery(patient.getId(), imagery.getId()));
         } else {
             Exercise exercise = (Exercise) itemSpinner.getSelectedItem();
             EditText message = findViewById(R.id.guideText);
-            new RecordsToAppDatabaseTask(getString(R.string.patient_list_exercise), AppDatabase.getDatabase(getApplicationContext())).execute(new PatientListExercise(patient.getId(), exercise.getId(), message.getText().toString()));
+            new RecordsToAppDatabaseTask(getString(R.string.patient_list_exercise), getApplicationContext()).execute(new PatientListExercise(patient.getId(), exercise.getId(), message.getText().toString()));
         }
         patientSpinner.setEnabled(true);
         sectionSpinner.setVisibility(View.GONE);

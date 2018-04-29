@@ -8,10 +8,6 @@ import com.example.jimi.mystroke.models.PatientListExercise;
 
 import java.util.List;
 
-/**
- * Created by jimi on 19/02/2018.
- */
-
 public class GetPatientListExercisesTask extends AsyncTask<Void, Void, List<PatientListExercise>> {
     private AsyncResponse asyncResponse;
     private String pID;

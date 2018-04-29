@@ -11,9 +11,6 @@ import com.example.jimi.mystroke.models.DatabaseObject;
 
 import java.util.List;
 
-/**
- * Created by jimi on 14/12/2017.
- */
 @Dao
 public interface AssessmentDao {
     @Query("SELECT * FROM assessment WHERE toDelete =:toDelete")
@@ -24,6 +21,9 @@ public interface AssessmentDao {
 
     @Query("SELECT * FROM assessment WHERE created > (:created) AND toDelete =:toDelete")
     List<Assessment> loadChanged(long created, boolean toDelete);
+
+    @Query("SELECT * FROM assessment WHERE toDelete =:toDelete")
+    public abstract List<Assessment> loadByToDelete(boolean toDelete);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Assessment... assessments);

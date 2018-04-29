@@ -50,7 +50,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/basic_button"
         android:onClick="buttonPress"
-        android:text="@string/chatBut"
+        android:text="@string/new_register_code"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

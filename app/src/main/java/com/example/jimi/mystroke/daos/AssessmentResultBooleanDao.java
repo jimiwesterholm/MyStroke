@@ -24,6 +24,9 @@ public interface AssessmentResultBooleanDao {
     @Query("SELECT * FROM assessment_result_boolean WHERE created > (:created) AND toDelete =:toDelete")
     List<AssessmentResultBoolean> loadChanged(long created, boolean toDelete);
 
+    @Query("SELECT * FROM assessment_result_boolean WHERE toDelete =:toDelete")
+    public abstract List<AssessmentResultBoolean> loadByToDelete(boolean toDelete);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(AssessmentResultBoolean... assessmentResultBooleans);
 

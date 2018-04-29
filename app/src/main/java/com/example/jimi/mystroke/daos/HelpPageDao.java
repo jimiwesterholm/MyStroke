@@ -18,6 +18,9 @@ public interface HelpPageDao {
     @Query("SELECT * FROM help_page WHERE toDelete =:toDelete")
     List<HelpPage> getAll(boolean toDelete);
 
+    @Query("SELECT * FROM help_page WHERE toDelete =:toDelete")
+    public abstract List<HelpPage> loadByToDelete(boolean toDelete);
+
     @Query("SELECT * FROM help_page WHERE id IN (:ids) AND toDelete =:toDelete")
     List<HelpPage> loadAllByIds(String[] ids, boolean toDelete);
 

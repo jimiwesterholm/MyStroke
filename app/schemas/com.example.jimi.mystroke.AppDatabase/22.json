@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 22,
-    "identityHash": "d4ca1257a30635dbfccb6cb45d122984",
+    "identityHash": "db95ea95c124988af7c87859a2a64abc",
     "entities": [
       {
         "tableName": "User",
@@ -272,7 +272,7 @@
       },
       {
         "tableName": "Exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `verboseDescription` TEXT, `section` TEXT, `assessment_idassessment` TEXT, `name` TEXT, `video` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`assessment_idassessment`) REFERENCES `Assessment`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `verboseDescription` TEXT, `section` TEXT, `assessment_idassessment` TEXT, `name` TEXT, `video` TEXT, `created` INTEGER NOT NULL, `toDelete` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -347,19 +347,7 @@
             "createSql": "CREATE  INDEX `index_Exercise_assessment_idassessment` ON `${TABLE_NAME}` (`assessment_idassessment`)"
           }
         ],
-        "foreignKeys": [
-          {
-            "table": "Assessment",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "assessment_idassessment"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "Assessment",
@@ -1472,7 +1460,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"d4ca1257a30635dbfccb6cb45d122984\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"db95ea95c124988af7c87859a2a64abc\")"
     ]
   }
 }

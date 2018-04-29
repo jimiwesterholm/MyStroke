@@ -1,12 +1,16 @@
 package com.example.jimi.mystroke.models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Entity(indices = {@Index(value = "id", unique = true)})
-public class RegisterCode {
+public class RegisterCode implements DatabaseObject{
     @PrimaryKey
     @NonNull
     private String id;
@@ -17,7 +21,17 @@ public class RegisterCode {
     private boolean toDelete;
     private String creatorId;
 
-    public RegisterCode(String id, int access, String creatorId) {
+    public RegisterCode(@NonNull String id, int access, long expires, String creatorId) {
+        this.id = id;
+        this.access = access;
+        this.expires = expires;
+        this.created = System.currentTimeMillis();
+        this.toDelete = false;
+        this.creatorId = creatorId;
+    }
+
+    @Ignore
+    public RegisterCode(@NonNull String id, int access, String creatorId) {
         this.id = id;
         this.access = access;
         this.creatorId = creatorId;
@@ -72,5 +86,25 @@ public class RegisterCode {
 
     public void setAccess(int access) {
         this.access = access;
+    }
+
+    @Override
+    public JSONObject toJSON() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("idregister_code", id);
+        jsonObject.put("access", access);
+        jsonObject.put("expires", expires);
+        jsonObject.put("therapist_id", creatorId);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("idregister_code", id);
+        jsonObject.put("access", access);
+        jsonObject.put("expires", expires);
+        jsonObject.put("therapist_id", creatorId);
+        return jsonObject;
     }
 }

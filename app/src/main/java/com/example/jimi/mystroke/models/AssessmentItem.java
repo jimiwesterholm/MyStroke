@@ -74,6 +74,16 @@ public class AssessmentItem implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("id_assessment_item", id);
+        jsonObject.put("strategy_id", assessmentId);
+        jsonObject.put("description", description);
+        jsonObject.put("data_type", dataType);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("id_assessment_item", id);
         jsonObject.put("strategy_id", assessmentId);
         jsonObject.put("description", description);

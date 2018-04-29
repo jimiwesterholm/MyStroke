@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jimi.mystroke.AppDatabase;
+import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.SearchWatcher;
 import com.example.jimi.mystroke.models.PatientListExercise;
@@ -46,8 +48,9 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
         setContentView(R.layout.activity_patient_list);
         pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
         list = findViewById(R.id.list);
+        View view = findViewById(R.id.searchable_list);
         new GetPatientListExercisesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
-        new GetPatientListImageriesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
+        //new GetPatientListImageriesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,6 +60,32 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
         label.setText(R.string.exercise_list_label);
         title.setText(R.string.exercise_list);
         imageryOn = false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent;
+                if(Globals.getInstance().isLoggedAsPatient() == 1) {
+                    intent = new Intent(this, PatientHomeActivity.class);
+                } else {
+                    intent = new Intent(this, TherapistHomeActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            case R.id.action_log_out:
+                Globals.getInstance().setUser(null);
+                Globals.getInstance().setPatientOb(null);
+                Globals.getInstance().setTherapistOb(null);
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void itemsToListView(ArrayAdapter adapter, AdapterView.OnItemClickListener listener) {

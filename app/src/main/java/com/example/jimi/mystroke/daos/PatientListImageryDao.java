@@ -20,6 +20,9 @@ public interface PatientListImageryDao {
     @Query("SELECT * FROM patient_list_imagery WHERE toDelete =:toDelete")
     List<PatientListImagery> getAll(boolean toDelete);
 
+    @Query("SELECT * FROM patient_list_imagery WHERE toDelete =:toDelete")
+    public abstract List<PatientListImagery> loadByToDelete(boolean toDelete);
+
     @Query("SELECT * FROM patient_list_imagery WHERE id IN (:patientListImageryIds) AND toDelete =:toDelete")
     List<PatientListImagery> loadAllByIds(String[] patientListImageryIds, boolean toDelete);
 

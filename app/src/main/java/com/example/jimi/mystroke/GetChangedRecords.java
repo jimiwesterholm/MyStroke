@@ -1,4 +1,4 @@
-package com.example.jimi.mystroke.tasks;
+package com.example.jimi.mystroke;
 
 import android.content.Context;
 
@@ -20,20 +20,15 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
-/**
- * Created by jimi on 04/02/2018.
- */
-
 public class GetChangedRecords {
     private Context context;
-    GetChangedRecords(Context context) {
+    public GetChangedRecords(Context context) {
         this.context = context;
     }
 
     public List<? extends DatabaseObject> getChanged(String className) {
         long latestUpdate = Globals.getInstance().getLatestUpdate();
         switch (className) {
-            //TODO MAKE WORK, also add all the tables
             case "user":
                 return AppDatabase.getDatabase(context).userDao().loadChanged(latestUpdate, false);
             case "exercise":
@@ -54,6 +49,24 @@ public class GetChangedRecords {
                 return AppDatabase.getDatabase(context).patientListExerciseDao().loadChanged(latestUpdate, false);
             case "patient_list_imagery":
                 return AppDatabase.getDatabase(context).patientListImageryDao().loadChanged(latestUpdate, false);
+            case "exercise_image":
+                return AppDatabase.getDatabase(context).exerciseImageDao().loadChanged(latestUpdate, false);
+            case "therapist_assesses_exercise":
+                return AppDatabase.getDatabase(context).therapistAssessesExerciseDao().loadChanged(latestUpdate, false);
+            case "help_page":
+                return AppDatabase.getDatabase(context).helpPageDao().loadChanged(latestUpdate, false);
+            case "assessment_item":
+                return AppDatabase.getDatabase(context).assessmentItemDao().loadChanged(latestUpdate, false);
+            case "assessment_result_double":
+                return AppDatabase.getDatabase(context).assessmentResultDoubleDao().loadChanged(latestUpdate, false);
+            case "assessment_result_int":
+                return AppDatabase.getDatabase(context).assessmentResultIntDao().loadChanged(latestUpdate, false);
+            case "assessment_result_string":
+                return AppDatabase.getDatabase(context).assessmentResultStringDao().loadChanged(latestUpdate, false);
+            case "assessment_result_boolean":
+                return AppDatabase.getDatabase(context).assessmentResultBooleanDao().loadChanged(latestUpdate, false);
+            case "register_code":
+                return AppDatabase.getDatabase(context).registerCodeDao().loadChanged(latestUpdate, false);
         }
         return null;
     }

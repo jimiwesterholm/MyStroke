@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.jimi.mystroke.activities.AddToListActivity">
-
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <Spinner
         android:id="@+id/choosePatientSpinner"
         android:layout_width="0dp"

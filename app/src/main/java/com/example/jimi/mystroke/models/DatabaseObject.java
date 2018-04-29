@@ -11,4 +11,5 @@ public interface DatabaseObject {
     String getId();
     void setId(String id);
     JSONObject toJSON() throws JSONException;
+    JSONObject toJSONWithId() throws JSONException;
 }

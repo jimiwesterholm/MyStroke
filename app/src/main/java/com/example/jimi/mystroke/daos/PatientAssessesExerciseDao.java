@@ -19,6 +19,9 @@ public interface PatientAssessesExerciseDao {
     @Query("SELECT * FROM patient_assesses_exercise WHERE toDelete =:toDelete")
     List<PatientAssessesExercise> getAll(boolean toDelete);
 
+    @Query("SELECT * FROM patient_assesses_exercise WHERE toDelete =:toDelete")
+    public abstract List<PatientAssessesExercise> loadByToDelete(boolean toDelete);
+
     @Query("SELECT * FROM patient_assesses_exercise WHERE id IN (:patientAssessesExerciseIds) AND toDelete =:toDelete")
     List<PatientAssessesExercise> loadAllByIds(String[] patientAssessesExerciseIds, boolean toDelete);
 

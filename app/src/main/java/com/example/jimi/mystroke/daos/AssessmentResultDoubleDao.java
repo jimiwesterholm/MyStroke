@@ -24,6 +24,9 @@ public interface AssessmentResultDoubleDao {
     @Query("SELECT * FROM assessment_result_double  WHERE created > (:created) AND toDelete =:toDelete")
     List<AssessmentResultDouble> loadChanged(long created, boolean toDelete);
 
+    @Query("SELECT * FROM assessment_result_double WHERE toDelete =:toDelete")
+    public abstract List<AssessmentResultDouble> loadByToDelete(boolean toDelete);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(AssessmentResultDouble... assessmentResultDoubles);
 

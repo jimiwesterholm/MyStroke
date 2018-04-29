@@ -3,6 +3,7 @@ package com.example.jimi.mystroke.daos; /**
  */
 import android.arch.persistence.room.*;
 
+import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.models.User;
 
 import java.util.List;
@@ -56,4 +57,7 @@ public abstract class UserDao {
             if (ignored[i] == -1) update(users[i]);
         }
     }
+
+    @Query("SELECT * FROM user WHERE toDelete =:toDelete")
+    public abstract List<User> loadByToDelete(boolean toDelete);
 }

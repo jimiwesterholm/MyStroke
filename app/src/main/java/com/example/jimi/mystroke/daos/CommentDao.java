@@ -24,6 +24,9 @@ public interface CommentDao {
     @Query("SELECT * FROM comment WHERE id IN (:commentIds) AND toDelete =:toDelete")
     List<Comment> loadAllByIds(String[] commentIds, boolean toDelete);
 
+    @Query("SELECT * FROM comment WHERE toDelete =:toDelete")
+    public abstract List<Comment> loadByToDelete(boolean toDelete);
+
     @Insert
     void insertAll(Comment... comments);
 

@@ -19,6 +19,9 @@ public abstract class ExerciseDao {
     @Query("SELECT * FROM exercise WHERE toDelete =:toDelete")
     public abstract List<Exercise> getAll(boolean toDelete);
 
+    @Query("SELECT * FROM exercise WHERE toDelete =:toDelete")
+    public abstract List<Exercise> loadByToDelete(boolean toDelete);
+
     @Query("SELECT DISTINCT section FROM exercise WHERE toDelete =:toDelete")
     public abstract List<String> getSections(boolean toDelete);
 

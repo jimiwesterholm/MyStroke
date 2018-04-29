@@ -17,14 +17,14 @@ import java.util.UUID;
 /**
  * Created by jimi on 13/12/2017.
  */
-@Entity(foreignKeys = {
+@Entity(/*foreignKeys = {   Not implemented
                 @ForeignKey(
                         entity = Assessment.class,
                         parentColumns = "id",
                         childColumns = "assessment_idassessment",
                         onDelete = ForeignKey.NO_ACTION
                 )
-        },
+        },*/
         indices = {
                 @Index(
                         value = "id",
@@ -141,6 +141,17 @@ public class Exercise implements DatabaseObject {
 
     @Override
     public JSONObject toJSON() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("idexercise", id);
+        jsonObject.put("verbose_description", description);
+        jsonObject.put("section", section);
+        jsonObject.put("name", name);
+        jsonObject.put("assessment_idassessment", aid);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("idexercise", id);
         jsonObject.put("verbose_description", description);

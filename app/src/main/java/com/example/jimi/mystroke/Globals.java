@@ -9,13 +9,15 @@ import com.example.jimi.mystroke.models.User;
  */
 
 public class Globals {
+    //TODO remove NEXT A-TASK INT: 29
+    private final String[] mediaClassNames = {"exercise_image"};
     private static final Globals ourInstance = new Globals();
     private User user;
     private Patient patientOb;
     private Therapist therapistOb;
     private int isLoggedAsPatient;
     private long latestUpdate;
-    private final String ngrok = "http://cc0d2d6a.ngrok.io";
+    private final String ngrok = "http://6a750090.ngrok.io";
     private final String dbUrl = ngrok.concat("/api.php/");
     private final String fileDispUrl = ngrok.concat("/FileDispenser/");
     private final String imageFileType = ".png";
@@ -27,6 +29,7 @@ public class Globals {
             "help_page",
             "assessment",
             "exercise",
+            "exercise_image",
             "imagery",
             "patient_assesses_exercise",
             "therapist_assesses_exercise",
@@ -37,11 +40,10 @@ public class Globals {
             "assessment_result_double",
             "assessment_result_int",
             "assessment_result_string",
-            "assessment_result_boolean"
+            "assessment_result_boolean",
+            "register_code"
     };
-    private final String[] mediaClassNames = {"exercise_image"};
 
-    //TODO remove NEXT A-TASK INT: 28
 
     public static Globals getInstance() {
         return ourInstance;

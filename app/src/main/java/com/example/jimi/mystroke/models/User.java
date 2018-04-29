@@ -1,4 +1,5 @@
-package com.example.jimi.mystroke.models; /**
+package com.example.jimi.mystroke.models;
+/*
  * Created by jimi on 25/11/2017.
  */
 import android.arch.persistence.room.*;
@@ -173,6 +174,21 @@ public class User implements DatabaseObject {
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         //jsonObject.put("iduser", id);
+        jsonObject.put("username", username);
+        jsonObject.put("password", password);
+        jsonObject.put("salt", salt);
+        jsonObject.put("patient", patient);
+        jsonObject.put("therapist", therapist);
+        jsonObject.put("email", email);
+        jsonObject.put("firstName", firstName);
+        jsonObject.put("lastName", lastName);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException { //TODO do this for everything else
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("iduser", id);
         jsonObject.put("username", username);
         jsonObject.put("password", password);
         jsonObject.put("salt", salt);

@@ -13,11 +13,15 @@
         <variable name="descriptionLabelText" type="java.lang.String" />
         <variable name="patientInstruction" type="java.lang.String" />
     </data>
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.jimi.mystroke.activities.ExerciseActivity">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <include
             android:id="@+id/content"
@@ -28,9 +32,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            bind:descriptionText="@{descriptionText}"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             bind:descriptionLabelText="@{descriptionLabelText}"
+            bind:descriptionText="@{descriptionText}"
             bind:imageButtonOnClick="@{imageButtonOnClick}"
             bind:patientInstruction="@{patientInstruction}"
             bind:videoButtonOnClick="@{videoButtonOnClick}" />

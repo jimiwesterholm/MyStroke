@@ -77,7 +77,7 @@
     <string name="therapist_assesses_exercise">therapist_assesses_exercise</string>
     <string name="patient_list_exercise">patient_list_exercise</string>
     <string name="patient_list_imagery">patient_list_imagery</string>
-    <string name="therapist">therapist</string>
+    <string name="therapist">Therapist</string>
     <string name="user">user</string>
     <string name="help_page">help_page</string>
 
@@ -161,6 +161,7 @@
     </string>
     <string name="to_register_as_therapist">To register as a therapist, enter the code provided to you.</string>
     <string name="to_register_as_patient">To register as a patient, enter the code provided by a physio.</string>
+    <string name="to_register_as_user">To register, enter the code provided by a physiotherapist.</string>
     <string name="enter_code">Enter Code</string>
     <string name="title_activity_register_therapist">RegisterTherapistActivity</string>
     <string name="register">Register</string>
@@ -179,4 +180,13 @@
     <string name="code_instruction_text">Tap button to generate a code. It will be active for 24 hours</string>
     <string name="code_radio_instruction">Account type?</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="register_code">Register code</string>
+    <string name="home">Home</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="new_register_code">New Register Code</string>
+    <string name="play_video">Play Video</string>
+    <string name="exercise_deleted">Exercise deleted</string>
+    <string name="therapists">Therapists</string>
+    <string name="title_activity_exercise_images">ExerciseImagesActivity</string>
 </resources>

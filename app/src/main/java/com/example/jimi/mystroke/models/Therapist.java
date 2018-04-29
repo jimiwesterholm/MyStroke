@@ -117,6 +117,16 @@ public class Therapist implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("idtherapist", id);
+        jsonObject.put("position", position);
+        jsonObject.put("user_iduser", userID);
+        jsonObject.put("active", active);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("idtherapist", id);
         jsonObject.put("position", position);
         jsonObject.put("user_iduser", userID);

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/list_view_round_light_blue">
+
+        <TextView
+            android:id="@+id/labelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_label_basic"
+            android:gravity="start"
+            android:paddingEnd="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="4dp"
+            android:paddingStart="8dp"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <include
+            android:id="@+id/setFirstName"
+            layout="@layout/set_text_element"
+            app:labelText="@{@string/name_first}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tapToWriteText" />
+
+        <include
+            android:id="@+id/setSecondName"
+            layout="@layout/set_text_element"
+            app:labelText="@{@string/name_second}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/setFirstName"
+            app:layout_constraintStart_toStartOf="@+id/setFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/setFirstName" />
+
+        <include
+            android:id="@+id/setEmail"
+            layout="@layout/set_text_element"
+            app:labelText="@{@string/email}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/setSecondName"
+            app:layout_constraintStart_toStartOf="@+id/setSecondName"
+            app:layout_constraintTop_toBottomOf="@+id/setSecondName" />
+
+        <TextView
+            android:id="@+id/tapToWriteText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/tap_to_edit"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/setFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/labelTextView"
+            android:layout_marginLeft="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

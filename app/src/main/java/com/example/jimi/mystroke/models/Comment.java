@@ -149,6 +149,19 @@ public class Comment implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("idcomment", id);
+        jsonObject.put("date", date);
+        jsonObject.put("time", time);
+        jsonObject.put("text", text);
+        jsonObject.put("patient_idpatient", patientId);
+        jsonObject.put("exercise_idexercise", exerciseId);
+        jsonObject.put("sent_by_patient", sentByPatient);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("idcomment", id);
         jsonObject.put("date", date);
         jsonObject.put("time", time);

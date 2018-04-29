@@ -38,6 +38,11 @@ public class ExerciseClickedOptionsActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK, intent);
                 finish();
                 break;
+            case (R.id.deleteButton):
+                intent.putExtra("EXTRA_ACTION", "delete");
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+                break;
         }
     }
 

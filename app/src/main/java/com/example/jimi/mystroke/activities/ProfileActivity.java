@@ -1,5 +1,6 @@
 package com.example.jimi.mystroke.activities;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,8 +33,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DataBindingUtil.setContentView(this, R.layout.activity_profile);
-        /*toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Globals globals = Globals.getInstance();
         View view = findViewById(R.id.content_profile);
@@ -52,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         editFields[1].setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         editFields[1].addTextChangedListener(new ChangeWatcher());
 
-        editFields[2] = view.findViewById(R.id.setEmail).findViewById(R.id.editValueText);
+        editFields[2] = view.findViewById(R.id.setUsername).findViewById(R.id.editValueText);
         editFields[2].setText(Globals.getInstance().getUser().getEmail());
         editFields[2].setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
         editFields[2].addTextChangedListener(new ChangeWatcher());
@@ -92,7 +94,7 @@ public class ProfileActivity extends AppCompatActivity {
         user.setEmail(savedValues[2]);
         Globals.getInstance().setUser(user);
 
-        RecordsToAppDatabaseTask recordsToAppDatabaseTask = new RecordsToAppDatabaseTask("user", AppDatabase.getDatabase(getApplicationContext()));
+        RecordsToAppDatabaseTask recordsToAppDatabaseTask = new RecordsToAppDatabaseTask("user", getApplicationContext());
         recordsToAppDatabaseTask.execute(user);
 
         cancelButtonOnClick(editButton);
@@ -114,6 +116,33 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent;
+                if(Globals.getInstance().isLoggedAsPatient() == 1) {
+                    intent = new Intent(this, PatientHomeActivity.class);
+                } else {
+                    intent = new Intent(this, TherapistHomeActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            case R.id.action_log_out:
+                Globals.getInstance().setUser(null);
+                Globals.getInstance().setPatientOb(null);
+                Globals.getInstance().setTherapistOb(null);
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private class ChangeWatcher implements TextWatcher {
 

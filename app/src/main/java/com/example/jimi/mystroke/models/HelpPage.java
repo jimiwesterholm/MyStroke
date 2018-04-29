@@ -88,6 +88,16 @@ public class HelpPage implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("idhelp_link_page", id);
+        jsonObject.put("body", body);
+        jsonObject.put("title", title);
+        jsonObject.put("id_parent", parentId);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("idhelp_link_page", id);
         jsonObject.put("body", body);
         jsonObject.put("title", title);

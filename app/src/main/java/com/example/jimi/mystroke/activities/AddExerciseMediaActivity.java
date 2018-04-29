@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -46,45 +47,14 @@ import com.example.jimi.mystroke.tasks.GetExerciseByIdTask;
 import com.example.jimi.mystroke.tasks.GetExerciseImagesTask;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
 import com.example.jimi.mystroke.tasks.UploadImagesTask;
-import com.example.jimi.mystroke.tasks.UpsertExerciseTask;
 
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
 
-/** TODO - check links, make work - will need some server side nonsense as well
- * VIDEO:
- *  https://www.simplifiedcoding.net/android-upload-video-to-server-using-php/
- *  https://stackoverflow.com/questions/10991515/how-to-play-an-mp4-video-from-server-in-android
- *  https://developer.android.com/guide/topics/media/media-formats.html
- *  https://code.tutsplus.com/tutorials/streaming-video-in-android-apps--cms-19888
- *
- *  remember to check that file types can be played back (webm? good for android 4.0+
- *
- *
- *  THUMBNAILS (for YT)    https://stackoverflow.com/questions/7324759/how-to-display-thumbnail-of-youtube-videos-in-android
- *  IMAGE:
- *  saving:
- *  https://stackoverflow.com/questions/7593737/how-to-display-bitmap-from-internal-storage
- *  https://stackoverflow.com/questions/17674634/saving-and-reading-bitmaps-images-from-internal-memory-in-android/35827955
- *
- *  loading:
- *
- *  AUDIO(move eventually):
- *
- *
- * save state:
- * https://stackoverflow.com/questions/151777/saving-android-activity-state-using-save-instance-state
- **/
 
 public class AddExerciseMediaActivity extends AppCompatActivity implements AsyncResponse, GridView.OnItemClickListener {
     private Exercise exercise;
@@ -133,7 +103,7 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
 
     protected void onFinishClick(View view) {
         //Validate presence of stuff?
-        new RecordsToAppDatabaseTask(getString(R.string.exercise), AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
+        new RecordsToAppDatabaseTask(getString(R.string.exercise), getApplicationContext()).execute(exercise);
         upload();
         startActivity(new Intent(this, MediaSubmittedActivity.class));
     }
@@ -277,11 +247,38 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent;
+                if(Globals.getInstance().isLoggedAsPatient() == 1) {
+                    intent = new Intent(this, PatientHomeActivity.class);
+                } else {
+                    intent = new Intent(this, TherapistHomeActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            case R.id.action_log_out:
+                Globals.getInstance().setUser(null);
+                Globals.getInstance().setPatientOb(null);
+                Globals.getInstance().setTherapistOb(null);
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    @Override
     public void respond(int var, Object... objects) {
         switch (var) {
             case UploadImagesTask.var:
                 if ((Boolean) objects[0]) {
-                    new RecordsToAppDatabaseTask(getString(R.string.exercise_image), AppDatabase.getDatabase(getApplicationContext())).execute(exerciseImageList);
+                    new RecordsToAppDatabaseTask(getString(R.string.exercise_image), getApplicationContext()).execute(exerciseImageList);
                     //TODO success activity
                 } else {
                     //TODO smth went wrong msg

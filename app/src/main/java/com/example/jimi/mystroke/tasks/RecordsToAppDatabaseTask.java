@@ -21,6 +21,7 @@ import com.example.jimi.mystroke.daos.PatientAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.PatientDao;
 import com.example.jimi.mystroke.daos.PatientListExerciseDao;
 import com.example.jimi.mystroke.daos.PatientListImageryDao;
+import com.example.jimi.mystroke.daos.RegisterCodeDao;
 import com.example.jimi.mystroke.daos.TherapistAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.TherapistDao;
 import com.example.jimi.mystroke.daos.UserDao;
@@ -39,6 +40,7 @@ import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.models.PatientAssessesExercise;
 import com.example.jimi.mystroke.models.PatientListExercise;
 import com.example.jimi.mystroke.models.PatientListImagery;
+import com.example.jimi.mystroke.models.RegisterCode;
 import com.example.jimi.mystroke.models.Therapist;
 import com.example.jimi.mystroke.models.TherapistAssessesExercise;
 import com.example.jimi.mystroke.models.User;
@@ -51,7 +53,8 @@ import java.util.Arrays;
 
 public class RecordsToAppDatabaseTask extends AsyncTask<Object, Integer, Boolean> {
     private String className;
-    private AppDatabase aDb ;
+    private AppDatabase aDb;
+    private Context context;
 
     public String getClassName() {
         return className;
@@ -60,9 +63,10 @@ public class RecordsToAppDatabaseTask extends AsyncTask<Object, Integer, Boolean
         this.className = className;
     }
 
-    public RecordsToAppDatabaseTask(String className, AppDatabase aDb) {
+    public RecordsToAppDatabaseTask(String className, Context context) {
         this.className = className;
-        this.aDb = aDb;
+        this.aDb = AppDatabase.getDatabase(context);
+        this.context = context;
     }
 
     @Override
@@ -140,11 +144,14 @@ public class RecordsToAppDatabaseTask extends AsyncTask<Object, Integer, Boolean
                 AssessmentResultBooleanDao assessmentResultBooleanDao = aDb.assessmentResultBooleanDao();
                 assessmentResultBooleanDao.insertAll(Arrays.copyOf(objects, objects.length, AssessmentResultBoolean[].class));
                 break;
-
+            case "register_code":
+                RegisterCodeDao registerCodeDao = aDb.registerCodeDao();
+                registerCodeDao.insertAll(Arrays.copyOf(objects, objects.length, RegisterCode[].class));
+                break;
                 default:
                     Log.e("ERROR", "Class name not found!");
         }
-
+        new SyncDatabaseTask(context).run();
         return true;
     }
 }

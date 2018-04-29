@@ -71,6 +71,14 @@ public class Imagery implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("idimagery", id);
+        jsonObject.put("name", name);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("idimagery", id);
         jsonObject.put("name", name);
         return jsonObject;

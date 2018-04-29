@@ -151,6 +151,16 @@ public class ExerciseImage implements DatabaseObject {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("id_exercise_image", id);
+        jsonObject.put("exercise_idexercise", eid);
+        jsonObject.put("position", position);
+        jsonObject.put("alt_text", altText);
+        return jsonObject;
+    }
+
+    @Override
+    public JSONObject toJSONWithId() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("id_exercise_image", id);
         jsonObject.put("exercise_idexercise", eid);
         jsonObject.put("position", position);

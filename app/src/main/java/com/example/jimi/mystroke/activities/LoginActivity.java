@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A login screen that offers login via email/password.
@@ -97,6 +98,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 */
         mLoginFormView = findViewById(R.id.scroll_login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    /*
+    Don't allow back button
+     */
+    @Override
+    public void onBackPressed() {
+    }
+
+    public void onRegisterClick(View view) {
+        startActivity(new Intent(this, RegisterTherapistEnterCodeActivity.class));
     }
 
     /**
@@ -299,9 +311,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             if (intent != null) {
-                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                /*ExecutorService executorService = Executors.newSingleThreadExecutor();
                 SyncDatabaseTask syncDatabaseTask = new SyncDatabaseTask(getApplicationContext());
-                executorService.submit(syncDatabaseTask);
+                executorService.submit(syncDatabaseTask);*/
+                //TODO check that this works?
+                Executors.newScheduledThreadPool(5).scheduleAtFixedRate(new SyncDatabaseTask(getApplicationContext()),5, 60, TimeUnit.SECONDS);
                 startActivity(intent);
                 return true;
             } else {

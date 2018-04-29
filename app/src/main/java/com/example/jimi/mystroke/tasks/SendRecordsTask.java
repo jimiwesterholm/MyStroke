@@ -30,6 +30,7 @@ public class SendRecordsTask implements Callable {
     private Context context;
     private String className;
     private List<? extends DatabaseObject> records;
+    private String[] methods = {"PUT", "POST"};
 
     public SendRecordsTask(Context context, String className, List<? extends DatabaseObject> records) {
         this.context = context;
@@ -63,57 +64,63 @@ public class SendRecordsTask implements Callable {
             android.os.Debug.waitForDebugger();
         HttpURLConnection con = null;
         String fullText = "";
-        try {
-            String urlString = Globals.getInstance().getDbUrl().concat(className).concat("/");
-            urlString = urlString.concat(records.get(0).getId());/*
-            if(records.size > 1) {
-                for (int i = 1; i < records.size(); i++) {      TODO the above works, this should as well? not tested tho
-                    urlString = urlString.concat(",");
-                    urlString = urlString.concat(records.get(i).getId());
-                    String urlStringT = urlString.concat(",").concat(records.get(i).getId());
+        for (String method : methods) {
+            try {
+                String jsonString;
+                String urlString = Globals.getInstance().getDbUrl().concat(className);
+                if(method.equals("PUT")) {
+                    urlString = urlString.concat("/").concat(records.get(0).getId());
+                    jsonString =  records.get(0).toJSON().toString();
+                } else {
+                    jsonString = records.get(0).toJSONWithId().toString();
                 }
-            }*/
+                /*if(records.size() > 1) {  Multiple objects at a time
+                    for (int i = 1; i < records.size(); i++) {
+                        urlString = urlString.concat(",");
+                        urlString = urlString.concat(records.get(i).getId());
+                        //String urlStringT = urlString.concat(",").concat(records.get(i).getId());
+                    }
+                }*/
 
-            URL url = new URL(urlString);
-            con = (HttpURLConnection) url.openConnection();
+                URL url = new URL(urlString);
+                con = (HttpURLConnection) url.openConnection();
 
-            //Two lines below directly from https://stackoverflow.com/questions/5379247/filenotfoundexception-while-getting-the-inputstream-object-from-httpurlconnectio/23857860
-            //con.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
-            //con.setRequestProperty("Accept","*/*");
-            //con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestMethod("PUT");   //TODO works for update, not create - for that use POST, then check if successful
-            con.setDoOutput(true);
+                //Two lines below directly from https://stackoverflow.com/questions/5379247/filenotfoundexception-while-getting-the-inputstream-object-from-httpurlconnectio/23857860
+                //con.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+                //con.setRequestProperty("Accept","*/*");
+                //con.setRequestProperty("Content-Type", "application/json");
+                con.setRequestMethod(method);
+                con.setDoOutput(true);
 
-            DataOutputStream outputStreamWriter = new DataOutputStream(con.getOutputStream());
-            //outputStreamWriter.writeBytes(recordsToString(records));
-            String aaa = records.get(0).toJSON().toString();
-            outputStreamWriter.writeBytes(aaa);
-            outputStreamWriter.flush();
-            outputStreamWriter.close();
+                DataOutputStream outputStreamWriter = new DataOutputStream(con.getOutputStream());
+                outputStreamWriter.writeBytes(jsonString);
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
 
-            //con.connect();
-            // Get server input
-            //InputStream er = con.getErrorStream();
-            //int code = con.getResponseCode();
-            InputStream is = con.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String line =  br.readLine();
-            Log.i(TAG, line);
-            while (line != null) {
-                fullText += line + "\n";
-                line = br.readLine();
+                //con.connect();
+                // Get server input
+                //InputStream er = con.getErrorStream();
+                //int code = con.getResponseCode();
+                InputStream is = con.getInputStream();
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(isr);
+                String line = br.readLine();
+                Log.i(TAG, line);
+                while (line != null) {
+                    fullText += line + "\n";
+                    line = br.readLine();
+                }
+                br.close();
+            } catch (Exception exception) {
+                Log.e(TAG, exception.getMessage());
+            } finally {
+                //Log.i(TAG, fullText);
+                if (con != null) {
+                    con.disconnect();
+                }
             }
-            br.close();
-        } catch (Exception exception) {
-            Log.e(TAG, exception.getMessage());
-        } finally {
-            //Log.i(TAG, fullText);
-            if (con != null) {
-                con.disconnect();
-            }
+            fullText = "";
         }
-        fullText = "";
         return null;
     }
 

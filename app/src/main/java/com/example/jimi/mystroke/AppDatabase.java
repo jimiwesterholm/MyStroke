@@ -19,6 +19,7 @@ import com.example.jimi.mystroke.daos.PatientAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.PatientDao;
 import com.example.jimi.mystroke.daos.PatientListExerciseDao;
 import com.example.jimi.mystroke.daos.PatientListImageryDao;
+import com.example.jimi.mystroke.daos.RegisterCodeDao;
 import com.example.jimi.mystroke.daos.TherapistAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.TherapistDao;
 import com.example.jimi.mystroke.daos.UserDao;
@@ -66,7 +67,7 @@ import java.sql.Time;
         HelpPage.class,
         RegisterCode.class
 },
-        version = 22)
+        version = 23)
 @TypeConverters(PersistenceTypeConverters.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase APPDB;
@@ -89,6 +90,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract AssessmentResultDoubleDao assessmentResultDoubleDao();
     public abstract AssessmentResultBooleanDao assessmentResultBooleanDao();
     public abstract HelpPageDao helpPageDao();
+    public abstract RegisterCodeDao registerCodeDao();
 
     public static AppDatabase getDatabase(Context context) {
         if (APPDB == null) {

@@ -1,9 +1,11 @@
 package com.example.jimi.mystroke.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -51,10 +53,10 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
             pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
             if(pId != null) new GetCommentsTask(AppDatabase.getDatabase(getApplicationContext()), pId, this).execute();
         }
-/*
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-*/
+
         TextView title = findViewById(R.id.titleText);
         title.setText(R.string.title_activity_chat);
 
@@ -93,7 +95,7 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
     private void addComment() {
         //TODO get actual values for patient id etc
         Comment comment = new Comment(new Date(System.currentTimeMillis()), new Time(30), messageText.getText().toString(), pId, null, Globals.getInstance().isLoggedAsPatient());
-        new RecordsToAppDatabaseTask("comment", AppDatabase.getDatabase(getApplicationContext())).execute(comment);
+        new RecordsToAppDatabaseTask("comment", getApplicationContext()).execute(comment);
         messages.add(comment);
         messageText.getText().clear();
         adapter.notifyDataSetChanged();
@@ -112,6 +114,33 @@ public class ChatActivity extends AppCompatActivity implements AsyncResponse {
         listView.setAdapter(adapter);
         //listView.setOnItemClickListener(listener);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent;
+                if(Globals.getInstance().isLoggedAsPatient() == 1) {
+                    intent = new Intent(this, PatientHomeActivity.class);
+                } else {
+                    intent = new Intent(this, TherapistHomeActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            case R.id.action_log_out:
+                Globals.getInstance().setUser(null);
+                Globals.getInstance().setPatientOb(null);
+                Globals.getInstance().setTherapistOb(null);
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

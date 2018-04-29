@@ -127,7 +127,11 @@
         <activity
             android:name=".activities.GenerateRegisterCodeActivity"
             android:label="@string/title_activity_generate_register_code"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

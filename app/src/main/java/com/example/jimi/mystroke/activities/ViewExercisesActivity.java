@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.Globals;
@@ -19,6 +21,7 @@ import com.example.jimi.mystroke.ListLinkAdapter;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.models.Exercise;
 import com.example.jimi.mystroke.tasks.AsyncResponse;
+import com.example.jimi.mystroke.tasks.DeleteExercisesTask;
 import com.example.jimi.mystroke.tasks.GetExercisesBySectionAndPatientTask;
 import com.example.jimi.mystroke.tasks.GetExercisesBySectionTask;
 
@@ -52,8 +55,8 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
             new GetExercisesBySectionTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION")).execute();
         }
 
-        /*toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         TextView title = findViewById(R.id.list_content).findViewById(R.id.labelTextView);
         title.setText(R.string.exerciseBut);
 
@@ -88,6 +91,9 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
                         case("view"):
                             viewExercise();
                             break;
+                        case("delete"):
+                            deleteExercise();
+                            break;
                         default:
                             //Error message
                             break;
@@ -97,6 +103,10 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
                 }
                 break;
         }
+    }
+
+    private void deleteExercise() {
+        new DeleteExercisesTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(selected);
     }
 
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
@@ -111,6 +121,33 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
             }
         }
     };
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent;
+                if(Globals.getInstance().isLoggedAsPatient() == 1) {
+                    intent = new Intent(this, PatientHomeActivity.class);
+                } else {
+                    intent = new Intent(this, TherapistHomeActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            case R.id.action_log_out:
+                Globals.getInstance().setUser(null);
+                Globals.getInstance().setPatientOb(null);
+                Globals.getInstance().setTherapistOb(null);
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private void fabOnClick() {
         startActivity(new Intent(this, AddExerciseActivity.class));
@@ -139,8 +176,14 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
         switch (var) {
             case GetExercisesBySectionAndPatientTask.var:
             case GetExercisesBySectionTask.var:
-                itemsToListView((List<Exercise>) objects[0], mMessageClickedHandler);
+                List<Exercise> exerciseList = (List<Exercise>) objects[0];
+                if (exerciseList.size() != 0) {
+                    itemsToListView(exerciseList, mMessageClickedHandler);
+                }
                 break;
+            case DeleteExercisesTask.var:
+                Toast delToast = Toast.makeText(this, R.string.exercise_deleted, Toast.LENGTH_SHORT);
+                delToast.show();
         }
     }
 }

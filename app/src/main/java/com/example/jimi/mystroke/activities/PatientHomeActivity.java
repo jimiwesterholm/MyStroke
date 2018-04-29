@@ -11,13 +11,8 @@ import android.view.View;
 import com.example.jimi.mystroke.R;
 import com.example.jimi.mystroke.databinding.ContentPatientMainBinding;
 
-/**
- * Created by jimi on 12/12/2017.
- */
-
 public class PatientHomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +56,6 @@ public class PatientHomeActivity extends AppCompatActivity {
                 exClick(v);
             }
         });
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     public void exClick(View view) {
@@ -97,6 +89,10 @@ public class PatientHomeActivity extends AppCompatActivity {
         return true;
     }
 
-    //TODO: when returning from certan locations (maybe redirect instead?) https://stackoverflow.com/questions/20623659/disable-back-button-in-android
-
+    /*
+    Don't allow back button TODO uncomment
+     */
+    /*@Override
+    public void onBackPressed() {
+    }*/
 }

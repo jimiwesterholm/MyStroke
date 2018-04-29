@@ -22,6 +22,13 @@ public class TherapistHomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    /*
+    Don't allow back button TODO uncomment
+     */
+    /*@Override
+    public void onBackPressed() {
+    }*/
+
     public void buttonPress(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -37,7 +44,7 @@ public class TherapistHomeActivity extends AppCompatActivity {
                 intent = new Intent(this, ViewExerciseSectionsActivity.class);
                 break;
             case (R.id.buttonChat):
-                intent = new Intent(this, ChatActivity.class);
+                intent = new Intent(this, GenerateRegisterCodeActivity.class);
                 break;
             case (R.id.buttonPatient):
                 intent = new Intent(this, ViewPatientsActivity.class);

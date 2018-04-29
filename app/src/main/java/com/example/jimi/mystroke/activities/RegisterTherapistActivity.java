@@ -1,5 +1,6 @@
 package com.example.jimi.mystroke.activities;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,16 +20,20 @@ import android.widget.TextView;
 import com.example.jimi.mystroke.AppDatabase;
 import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
+import com.example.jimi.mystroke.models.RegisterCode;
 import com.example.jimi.mystroke.models.Therapist;
 import com.example.jimi.mystroke.models.User;
+import com.example.jimi.mystroke.tasks.AsyncResponse;
 import com.example.jimi.mystroke.tasks.RecordsToAppDatabaseTask;
+import com.example.jimi.mystroke.tasks.FindRegisterCodeTask;
 
 import java.util.UUID;
 
-public class RegisterTherapistActivity extends AppCompatActivity {
+public class RegisterTherapistActivity extends AppCompatActivity implements AsyncResponse {
     private EditText[] editFields = new EditText[5];
     private Button editButton;
     private Button confirmButton;
+    private RegisterCode code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,7 @@ public class RegisterTherapistActivity extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.activity_register_therapist);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        new FindRegisterCodeTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getStringExtra("EXTRA_CODE")).execute();
 
         confirmButton = findViewById(R.id.buttonConfirm);
         View view = findViewById(R.id.editProfileForm);
@@ -67,8 +74,8 @@ public class RegisterTherapistActivity extends AppCompatActivity {
             String uuid = UUID.randomUUID().toString();
             String uuidT = UUID.randomUUID().toString();
             String pass = saltPass(editFields[3].getText().toString());
-            new RecordsToAppDatabaseTask("user", AppDatabase.getDatabase(getApplicationContext())).execute(new User(uuid, editFields[2].getText().toString(), pass, salt, 0, 1, editFields[2].getText().toString(), editFields[0].getText().toString(), editFields[1].getText().toString()));
-            new RecordsToAppDatabaseTask("therapist", AppDatabase.getDatabase(getApplicationContext())).execute(new Therapist(uuidT, uuid, "therapist", 1));
+            new RecordsToAppDatabaseTask("user", getApplicationContext()).execute(new User(uuid, editFields[2].getText().toString(), pass, salt, 0, 1, editFields[2].getText().toString(), editFields[0].getText().toString(), editFields[1].getText().toString()));
+            new RecordsToAppDatabaseTask("therapist", getApplicationContext()).execute(new Therapist(uuidT, uuid, "therapist", 1));
         }
     }
 
@@ -100,6 +107,14 @@ public class RegisterTherapistActivity extends AppCompatActivity {
         return null;
     }
 
+    @Override
+    public void respond(int var, Object... objects) {
+        switch (var) {
+            case FindRegisterCodeTask.var:
+                code = (RegisterCode) objects[0];
+        }
+    }
+
     private class CustomWatcher implements TextWatcher {
 
         @Override
@@ -119,4 +134,31 @@ public class RegisterTherapistActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent;
+                if(Globals.getInstance().isLoggedAsPatient() == 1) {
+                    intent = new Intent(this, PatientHomeActivity.class);
+                } else {
+                    intent = new Intent(this, TherapistHomeActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            case R.id.action_log_out:
+                Globals.getInstance().setUser(null);
+                Globals.getInstance().setPatientOb(null);
+                Globals.getInstance().setTherapistOb(null);
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

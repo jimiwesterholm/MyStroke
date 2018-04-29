@@ -12,6 +12,9 @@ public interface TherapistDao {
     @Query("SELECT * FROM therapist WHERE toDelete =:toDelete")
     List<Therapist> getAll(boolean toDelete);
 
+    @Query("SELECT * FROM therapist WHERE toDelete =:toDelete")
+    public abstract List<Therapist> loadByToDelete(boolean toDelete);
+
     @Query("SELECT * FROM therapist WHERE id IN (:therapistIds) AND toDelete =:toDelete")
     List<Therapist> loadAllByIds(String[] therapistIds, boolean toDelete);
 

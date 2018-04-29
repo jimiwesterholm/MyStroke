@@ -16,6 +16,9 @@ public abstract class RegisterCodeDao {
     @Query("SELECT * FROM registerCode WHERE toDelete =:toDelete")
     public abstract List<RegisterCode> getAll(boolean toDelete);
 
+    @Query("SELECT * FROM registerCode WHERE toDelete =:toDelete")
+    public abstract List<RegisterCode> loadByToDelete(boolean toDelete);
+
     @Query("SELECT * FROM registerCode WHERE id IN (:registerCodeIds) AND toDelete =:toDelete")
     public abstract List<RegisterCode> loadAllByIds(String[] registerCodeIds, boolean toDelete);
 

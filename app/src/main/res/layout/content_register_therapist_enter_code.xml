@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_register_therapist_enter_code">
 
     <include
-        android:id="@+id/registerTherapistForm"
+        android:id="@+id/registerCodeForm"
         layout="@layout/register_therapist_form"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

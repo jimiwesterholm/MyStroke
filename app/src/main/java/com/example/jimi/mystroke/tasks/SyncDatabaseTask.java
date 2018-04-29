@@ -3,16 +3,13 @@ package com.example.jimi.mystroke.tasks;
 import android.content.Context;
 
 import com.example.jimi.mystroke.AppDatabase;
+import com.example.jimi.mystroke.GetChangedRecords;
+import com.example.jimi.mystroke.GetToBeDeleted;
 import com.example.jimi.mystroke.models.DatabaseObject;
 import com.example.jimi.mystroke.Globals;
-import com.example.jimi.mystroke.models.ExerciseImage;
 import com.example.jimi.mystroke.models.User;
 
 import java.util.List;
-
-/**
- * Created by jimi on 25/12/2017.
- */
 
 public class SyncDatabaseTask implements Runnable {
     private Context context;
@@ -21,7 +18,6 @@ public class SyncDatabaseTask implements Runnable {
         this.context = context;
     }
 
-    //TODO make run intermittently!!!
     @Override
     public void run() {
         String[] mediaClassNames = Globals.getInstance().getMediaClassNames();
@@ -29,15 +25,23 @@ public class SyncDatabaseTask implements Runnable {
         User loggedInUser = Globals.getInstance().getUser();
         User user = findUser(loggedInUser.getUsername());
         if(user == null || !user.getPassword().equals(loggedInUser.getPassword()) || !user.getSalt().equals(loggedInUser.getSalt())) {
-            //TODO: Add security measures - esp. server side authentication
             return;
         }
 
         for (String className : classNames) {
             List<? extends DatabaseObject> databaseObjects = new GetChangedRecords(context).getChanged(className);
-            if(databaseObjects.size() != 0) {
-                SendRecordsTask sendRecordsTask = new SendRecordsTask(context, className, databaseObjects);
-                sendRecordsTask.call();
+            List<? extends DatabaseObject> databaseObjectsToDelete = new GetToBeDeleted(context).getToBeDeleted(className);
+            if(databaseObjects != null) {
+                if(databaseObjects.size() > 0) {
+                    SendRecordsTask sendRecordsTask = new SendRecordsTask(context, className, databaseObjects);
+                    sendRecordsTask.call();
+                }
+            }
+            if(databaseObjectsToDelete != null) {
+                if (databaseObjectsToDelete.size() > 0) {
+                    DeleteRecordsTask deleteRecordsTask = new DeleteRecordsTask(context, className, databaseObjectsToDelete);
+                    deleteRecordsTask.call();
+                }
             }
 
             //TODO: get changes, upload

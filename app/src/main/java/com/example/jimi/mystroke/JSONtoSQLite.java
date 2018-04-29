@@ -17,6 +17,7 @@ import com.example.jimi.mystroke.daos.PatientAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.PatientDao;
 import com.example.jimi.mystroke.daos.PatientListExerciseDao;
 import com.example.jimi.mystroke.daos.PatientListImageryDao;
+import com.example.jimi.mystroke.daos.RegisterCodeDao;
 import com.example.jimi.mystroke.daos.TherapistAssessesExerciseDao;
 import com.example.jimi.mystroke.daos.TherapistDao;
 import com.example.jimi.mystroke.daos.UserDao;
@@ -35,6 +36,7 @@ import com.example.jimi.mystroke.models.Patient;
 import com.example.jimi.mystroke.models.PatientAssessesExercise;
 import com.example.jimi.mystroke.models.PatientListExercise;
 import com.example.jimi.mystroke.models.PatientListImagery;
+import com.example.jimi.mystroke.models.RegisterCode;
 import com.example.jimi.mystroke.models.Therapist;
 import com.example.jimi.mystroke.models.TherapistAssessesExercise;
 import com.example.jimi.mystroke.models.User;
@@ -47,6 +49,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -138,6 +141,9 @@ public class JSONtoSQLite {
                 case "assessment_result_boolean":
                     results.add((T) new AssessmentResultBoolean((String) record[0], (String) record[1], (String) record[2], (boolean) record[3]));
                     break;
+                case "register_code":
+                    results.add((T) new RegisterCode((String) record[0], (int) record[1], (long) record[2], (String) record[3]));
+                    break;
             }
         }
 
@@ -216,6 +222,10 @@ public class JSONtoSQLite {
             case "assessment_result_boolean":
                 AssessmentResultBooleanDao assessmentResultBooleanDao = aDb.assessmentResultBooleanDao();
                 assessmentResultBooleanDao.insertAll(results.toArray(new AssessmentResultBoolean[records.length()]));
+                break;
+            case "register_code":
+                RegisterCodeDao registerCodeDao = aDb.registerCodeDao();
+                registerCodeDao.insertAll(results.toArray(new RegisterCode[records.length()]));
                 break;
         }
 
