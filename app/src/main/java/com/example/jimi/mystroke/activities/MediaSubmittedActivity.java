@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import com.example.jimi.mystroke.Globals;
 import com.example.jimi.mystroke.R;
-import com.example.jimi.mystroke.databinding.ActivityFeedbackLeftBinding;
 import com.example.jimi.mystroke.databinding.ActivityMediaSubmittedBinding;
 
 public class MediaSubmittedActivity extends AppCompatActivity implements Button.OnClickListener {

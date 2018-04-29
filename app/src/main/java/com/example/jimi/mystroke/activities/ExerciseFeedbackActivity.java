@@ -1,6 +1,7 @@
 package com.example.jimi.mystroke.activities;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,7 +28,7 @@ public class ExerciseFeedbackActivity extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_feedback);
+        DataBindingUtil.setContentView(this, R.layout.activity_exercise_feedback);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         radioGroup = findViewById(R.id.feedbackRadio);
