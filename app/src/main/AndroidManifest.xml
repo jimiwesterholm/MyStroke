@@ -77,10 +77,6 @@
             android:label="@string/title_activity_edit_exercise"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.RegisterPatientActivity"
-            android:label="@string/title_activity_register_patient"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".activities.ExerciseFeedbackActivity"
             android:label="@string/title_activity_exercise_feedback"
             android:theme="@style/AppTheme" />
@@ -105,10 +101,6 @@
             android:label="@string/title_activity_register_therapist_enter_code"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.RegisterTherapistActivity"
-            android:label="@string/title_activity_register_therapist"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".activities.ViewTherapistsActivity"
             android:label="@string/title_activity_view_therapists"
             android:theme="@style/AppTheme" />
@@ -127,10 +119,6 @@
         <activity
             android:name=".activities.GenerateRegisterCodeActivity"
             android:label="@string/title_activity_generate_register_code"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activities.ChangePasswordActivity"
-            android:label="@string/title_activity_change_password"
             android:theme="@style/AppTheme" />
     </application>
 

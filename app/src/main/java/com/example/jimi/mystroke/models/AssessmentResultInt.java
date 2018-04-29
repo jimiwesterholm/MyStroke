@@ -50,10 +50,10 @@ public class AssessmentResultInt implements DatabaseObject {
     public void setAssessmentItemId(String assessmentItemId) {
         this.assessmentItemId = assessmentItemId;
     }
-    public String getpId() {
+    public String getPId() {
         return pId;
     }
-    public void setpId(String pId) {
+    public void setPId(String pId) {
         this.pId = pId;
     }
     public String getTherapistAssessmentId() {

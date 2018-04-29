@@ -41,10 +41,10 @@ public class AssessmentResultString implements DatabaseObject {
     public boolean isToDelete() {
         return toDelete;
     }
-    public String getpId() {
+    public String getPId() {
         return pId;
     }
-    public void setpId(String pId) {
+    public void setPId(String pId) {
         this.pId = pId;
     }
     public void setToDelete(boolean toDelete) {

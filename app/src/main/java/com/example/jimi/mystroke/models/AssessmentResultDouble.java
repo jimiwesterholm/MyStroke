@@ -44,10 +44,10 @@ public class AssessmentResultDouble implements DatabaseObject {
     public void setToDelete(boolean toDelete) {
         this.toDelete = toDelete;
     }
-    public String getpId() {
+    public String getPId() {
         return pId;
     }
-    public void setpId(String pId) {
+    public void setPId(String pId) {
         this.pId = pId;
     }
     public String getAssessmentItemId() {
