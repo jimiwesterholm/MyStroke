@@ -54,7 +54,7 @@
     <string name="delete">Delete</string>
     <string name="submit">Submit</string>
     <string name="finish">Finish</string>
-    <string name="home_screen">Home Screen</string>
+    <string name="home_screen">Home</string>
     <string name="title_activity_chat">Chat</string>
     <string name="message_edit_text_hint">Click to write</string>
     <string name="choose_patient">Choose a patient</string>
