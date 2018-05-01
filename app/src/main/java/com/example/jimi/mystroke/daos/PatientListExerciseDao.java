@@ -32,7 +32,7 @@ public interface PatientListExerciseDao {
     @Query("SELECT * FROM patient_list_exercise WHERE pID =:pID AND eID =:eID AND toDelete =:toDelete")
     List<PatientListExercise> loadAllByPatientAndExerciseIDs(String pID, String eID, boolean toDelete);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(PatientListExercise... patientListExercises);
 
     @Delete

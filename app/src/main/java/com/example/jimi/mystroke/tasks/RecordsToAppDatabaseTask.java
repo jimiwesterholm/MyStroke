@@ -82,7 +82,7 @@ public class RecordsToAppDatabaseTask extends AsyncTask<Object, Integer, Boolean
                 break;
             case "exercise_image":
                 ExerciseImageDao exerciseImageDao = aDb.exerciseImageDao();
-                exerciseImageDao.insertAll(Arrays.copyOf(objects, objects.length, ExerciseImage[].class));
+                exerciseImageDao.upsertAll(Arrays.copyOf(objects, objects.length, ExerciseImage[].class));
                 break;
             case "assessment":
                 AssessmentDao assessmentDao = aDb.assessmentDao();

@@ -48,7 +48,6 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
         setContentView(R.layout.activity_patient_list);
         pId = getIntent().getStringExtra("EXTRA_PATIENT_ID");
         list = findViewById(R.id.list);
-        View view = findViewById(R.id.searchable_list);
         new GetPatientListExercisesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
         //new GetPatientListImageriesTask(this, pId, AppDatabase.getDatabase(getApplicationContext())).execute();
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -165,6 +164,7 @@ public class PatientListActivity extends AppCompatActivity implements AsyncRespo
             new DeletePatientListExercisesTask(this, AppDatabase.getDatabase(getApplicationContext())).execute(exercise);
             exerciseArrayAdapter.remove(exercise);
             exercise = null;
+            exerciseArrayAdapter.notifyDataSetChanged();
         //}
     }
 }

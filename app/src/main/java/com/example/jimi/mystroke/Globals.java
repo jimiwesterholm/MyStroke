@@ -9,7 +9,7 @@ import com.example.jimi.mystroke.models.User;
  */
 
 public class Globals {
-    //TODO remove NEXT A-TASK INT: 29
+    //TODO remove NEXT A-TASK INT: 30
     private final String[] mediaClassNames = {"exercise_image"};
     private static final Globals ourInstance = new Globals();
     private User user;

@@ -103,7 +103,11 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
 
     protected void onFinishClick(View view) {
         //Validate presence of stuff?
+        for (ExerciseImage image :exerciseImageList) {
+            if(image.getBitmap() != null) new RecordsToAppDatabaseTask(getString(R.string.exercise_image), getApplicationContext()).execute(image);
+        }
         new RecordsToAppDatabaseTask(getString(R.string.exercise), getApplicationContext()).execute(exercise);
+
         upload();
         startActivity(new Intent(this, MediaSubmittedActivity.class));
     }
@@ -122,7 +126,7 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
 
     private void upload() {
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = Globals.getInstance().getFileDispUrl().concat(Globals.getInstance().getAddImageFD());
 
         List<ExerciseImage> images = exerciseImageList;
@@ -146,6 +150,7 @@ public class AddExerciseMediaActivity extends AppCompatActivity implements Async
 
                 // Add the request to the RequestQueue.
                 queue.add(jsonObjectRequest);
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

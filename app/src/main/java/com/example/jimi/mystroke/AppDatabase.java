@@ -67,7 +67,7 @@ import java.sql.Time;
         HelpPage.class,
         RegisterCode.class
 },
-        version = 23)
+        version = 24)
 @TypeConverters(PersistenceTypeConverters.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase APPDB;

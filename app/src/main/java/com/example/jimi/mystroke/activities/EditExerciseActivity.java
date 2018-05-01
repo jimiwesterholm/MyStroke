@@ -87,7 +87,7 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
     }
 
     protected void addExerciseOnClick(View view) {
-        if (!verifyInput().isEmpty()) return;
+        //if (!verifyInput().isEmpty()) return;
         Intent intent = null;
 
         String exerciseSection = sectionEditText.getText().toString();

@@ -9,9 +9,6 @@ import com.example.jimi.mystroke.models.Imagery;
 
 import java.util.List;
 
-/**
- * Created by jimi on 02/02/2018.
- */
 
 public class GetExercisesTask extends AsyncTask<Void, Void, List<Exercise>>{
     AppDatabase appDatabase;

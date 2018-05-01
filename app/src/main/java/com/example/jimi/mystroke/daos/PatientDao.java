@@ -21,7 +21,7 @@ public interface PatientDao {
     @Query("SELECT * FROM patient WHERE id =:patientId AND toDelete =:toDelete")
     Patient loadById(String patientId, boolean toDelete);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(Patient... patients);
 
     @Delete

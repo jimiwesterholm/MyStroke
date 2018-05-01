@@ -78,4 +78,7 @@ public abstract class ExerciseDao {
             upsert(exercise);
         }
     }
+
+    @Query("SELECT * FROM exercise WHERE id NOT IN (:ids) AND toDelete =:toDelete")
+    public abstract List<Exercise> getAllExcept(String[] ids, boolean toDelete);
 }
