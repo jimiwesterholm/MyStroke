@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -68,6 +69,12 @@ public class EditExerciseActivity extends AppCompatActivity implements AsyncResp
 
         title = view.findViewById(R.id.titleInclude).findViewById(R.id.editValueText);
         description = view.findViewById(R.id.descriptionEditText);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_def, menu);
+        return true;
     }
 
     private void itemsToAdapter(AutoCompleteTextView textView, ArrayAdapter adapter) {

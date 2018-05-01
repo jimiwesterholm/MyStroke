@@ -19,6 +19,8 @@ public class PatientHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_patient_main);
         ContentPatientMainBinding binding = DataBindingUtil.setContentView(this, R.layout.content_patient_main);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         //Set onclick listeners
         binding.setExClick(new View.OnClickListener() {
             @Override

@@ -31,8 +31,8 @@ public class ViewPatientsActivity extends AppCompatActivity implements AsyncResp
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextView title = findViewById(R.id.list_content).findViewById(R.id.labelTextView);
-        title.setText(R.string.patientTitle);
+        TextView title = findViewById(R.id.labelTextView);
+        title.setText(R.string.patients);
 
         //TODO: Check for alerts, indicate where
     }

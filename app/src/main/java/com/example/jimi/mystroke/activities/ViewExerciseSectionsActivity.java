@@ -36,8 +36,10 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
         Globals globals = Globals.getInstance();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         if(globals.isLoggedAsPatient() == 1) {
             Patient patient = globals.getPatientOb();
+            fab.setVisibility(View.GONE);
             if (patient != null) {
                 new GetSectionsTask(getApplicationContext(), this, patient.getId()).execute();
             } else {
@@ -47,7 +49,6 @@ public class ViewExerciseSectionsActivity extends AppCompatActivity implements A
             Therapist therapist = globals.getTherapistOb();
             if(therapist != null) {
                 new GetSectionsTask(this, this, null).execute();
-                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
                 if(therapist.getPosition().equals("admin")) {
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override

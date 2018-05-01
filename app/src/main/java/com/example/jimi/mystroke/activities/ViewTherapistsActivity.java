@@ -29,13 +29,12 @@ public class ViewTherapistsActivity extends AppCompatActivity implements AsyncRe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_therapists);
+        setContentView(R.layout.activity_therapist_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         new GetTherapistsWithUsersTask(this, getApplicationContext()).execute();
-        View view = findViewById(R.id.list_content);
-        TextView title = view.findViewById(R.id.labelTextView);
-        title.setText(R.string.patientTitle);
+        TextView title = findViewById(R.id.labelTextView);
+        title.setText(R.string.therapists);
     }
 
     @Override

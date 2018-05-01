@@ -38,17 +38,10 @@ public class TherapistListActivity extends AppCompatActivity implements AsyncRes
         }
         new GetPatientsByTherapistTask(getApplicationContext(), this, tId);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-        TextView title = findViewById(R.id.list_content).findViewById(R.id.labelTextView);
-        title.setText(getString(R.string.therapists));
+
+        TextView title = findViewById(R.id.labelTextView);
+        title.setText(R.string.patients);
     }
 
     @Override

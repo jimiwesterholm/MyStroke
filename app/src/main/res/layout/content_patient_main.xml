@@ -16,6 +16,10 @@
         android:layout_height="match_parent">
 
         <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <include
             android:id="@+id/buttonExercise"
             layout="@layout/button_basic"
             android:layout_width="0dp"
@@ -28,7 +32,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:textVar="@{@string/exerciseBut}"
             bind:buttonOnClick="@{exClick}" />
 
@@ -117,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.35" />
+            app:layout_constraintGuide_percent="0.43" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

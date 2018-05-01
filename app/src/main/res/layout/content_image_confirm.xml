@@ -28,7 +28,8 @@
         android:text="@string/confirm"
         app:layout_constraintEnd_toEndOf="@+id/img_alt_text_form"
         app:layout_constraintStart_toEndOf="@+id/delete_image_button"
-        app:layout_constraintTop_toTopOf="@+id/cancel_image_button" />
+        app:layout_constraintTop_toTopOf="@+id/cancel_image_button"
+        android:layout_marginLeft="8dp" />
 
     <Button
         android:id="@+id/cancel_image_button"
@@ -40,7 +41,8 @@
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/delete_image_button"
-        app:layout_constraintStart_toStartOf="@+id/img_alt_text_form" />
+        app:layout_constraintStart_toStartOf="@+id/img_alt_text_form"
+        android:layout_marginRight="8dp" />
 
     <TextView
         android:id="@+id/alt_text_label"
@@ -51,7 +53,8 @@
         android:text="@string/alternative_text"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/img_alt_text_form"
-        app:layout_constraintStart_toStartOf="@+id/img_alt_text_form" />
+        app:layout_constraintStart_toStartOf="@+id/img_alt_text_form"
+        android:layout_marginLeft="4dp" />
 
     <EditText
         android:id="@+id/img_alt_text_form"

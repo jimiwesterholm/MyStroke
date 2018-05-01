@@ -55,9 +55,9 @@ public class ExerciseActivity extends AppCompatActivity implements AsyncResponse
                 imageButtonOnClick();
             }
         });
-/*
+
         toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
+        setSupportActionBar(toolbar);
     }
 
     private void imageButtonOnClick() {

@@ -38,10 +38,11 @@ public class ViewExercisesActivity extends AppCompatActivity implements AsyncRes
         setContentView(R.layout.activity_view_list);
         super.onCreate(savedInstanceState);
         listView = findViewById(R.id.list);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         if(Globals.getInstance().isLoggedAsPatient() == 1) {
+            fab.setVisibility(View.GONE);
             new GetExercisesBySectionAndPatientTask(AppDatabase.getDatabase(getApplicationContext()), this, getIntent().getExtras().getString("EXTRA_SECTION"), Globals.getInstance().getPatientOb().getId()).execute();
         } else {
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
             if(Globals.getInstance().getTherapistOb().getPosition().equals("admin")) {
                 fab.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -115,7 +115,8 @@
         android:text="@string/feedback_not_easy"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/feedbackRadio"
-        app:layout_constraintStart_toStartOf="@+id/feedbackRadio" />
+        app:layout_constraintStart_toStartOf="@+id/feedbackRadio"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/easyLabelText"
@@ -126,6 +127,7 @@
         android:text="@string/feedback_easy"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/feedbackRadio"
-        app:layout_constraintEnd_toEndOf="@+id/feedbackRadio" />
+        app:layout_constraintEnd_toEndOf="@+id/feedbackRadio"
+        android:layout_marginLeft="8dp" />
 
 </android.support.constraint.ConstraintLayout>

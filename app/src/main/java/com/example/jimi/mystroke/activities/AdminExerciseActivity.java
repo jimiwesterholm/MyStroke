@@ -3,6 +3,7 @@ package com.example.jimi.mystroke.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,6 +53,12 @@ public class AdminExerciseActivity extends AppCompatActivity implements AsyncRes
         label.setText(R.string.exercise_list_label);
         title.setText(R.string.exercise_list);
         imageryOn = false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_def, menu);
+        return true;
     }
 
     private void itemsToListView(ArrayAdapter adapter, AdapterView.OnItemClickListener listener) {
