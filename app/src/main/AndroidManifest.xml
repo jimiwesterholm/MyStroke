@@ -120,6 +120,14 @@
             android:name=".activities.GenerateRegisterCodeActivity"
             android:label="@string/title_activity_generate_register_code"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.RegisterPatientActivity"
+            android:label="@string/title_activity_register_patient"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.RegisterTherapistActivity"
+            android:label="@string/title_activity_register_therapist"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

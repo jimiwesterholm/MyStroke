@@ -17,7 +17,7 @@ public class Globals {
     private Therapist therapistOb;
     private int isLoggedAsPatient;
     private long latestUpdate;
-    private final String ngrok = "http://5e438188.ngrok.io";
+    private final String ngrok = "https://zeno.computing.dundee.ac.uk/2017-projects/jimi/"; //changed to computing server address
     private final String dbUrl = ngrok.concat("/api.php/");
     private final String fileDispUrl = ngrok.concat("/FileDispenser/");
     private final String imageFileType = ".png";
